@@ -52,14 +52,12 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
   // Close menu on outside click (backdrop)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (widgetRef.current && !widgetRef.current.contains(event.target as Node)) {
+      if (menuOpen && widgetRef.current && !widgetRef.current.contains(event.target as Node)) {
         setMenuOpen(false)
       }
     }
     if (menuOpen) {
       document.addEventListener('mousedown', handleClickOutside)
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside)
     }
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [menuOpen, setMenuOpen])
@@ -109,37 +107,42 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
         className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
           menuOpen ? 'opacity-100' : 'opacity-0'
         }`}
-        onClick={() => setMenuOpen(false)}
+        onClick={(e) => {
+          e.preventDefault()
+          setMenuOpen(false)
+        }}
       ></div>
 
       {/* Menu Panel */}
       <div
         ref={widgetRef}
-        className={`absolute top-[60px] h-[calc(100vh-60px)] w-full max-w-sm bg-brand-charcoal border border-[#787878] rounded-l-lg shadow-lg transform transition-transform duration-300 ease-out
+        className={`absolute top-[60px] w-80 max-w-[calc(100vw-32px)] bg-brand-charcoal border border-[#787878] rounded-lg shadow-lg transform transition-transform duration-300 ease-out
         ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}
         style={{
-          right: 'calc(50vw - 592px + 24px)', // Align to hamburger icon's right edge
+          right: '16px', // Fixed positioning from right edge
+          height: 'fit-content', // Auto-height to content
+          maxHeight: 'calc(100vh - 80px)', // Prevent overflow
         }}
       >
-        <div className="p-6 md:p-12 flex flex-col h-full">
+        <div className="p-6 flex flex-col">
           {/* Top Section: On this page */}
           <div className="flex items-center justify-between mb-6">
             <h3 className="font-text font-medium text-xs text-brand-vanilla uppercase">On this page</h3>
           </div>
 
           {/* Navigation Links */}
-          <nav className="flex flex-col gap-3 mb-12">
+          <nav className="flex flex-col gap-3 mb-6">
             {navItems.map((item) => (
               <div key={item.id}>
                 <button
                   onClick={() => toggleSection(item.id)}
-                  className={`flex items-center gap-2 py-2 group w-full text-left ${
+                  className={`flex items-center gap-3 py-2 group w-full text-left ${
                     currentPath === item.id ? 'text-brand-aperol' : 'text-brand-vanilla hover:text-brand-aperol'
                   } transition-colors`}
                 >
-                  <div className="flex items-center justify-center w-6 h-6">
+                  <div className="flex items-center justify-center w-4 h-4">
                     <svg
-                      className={`w-4 h-4 ${currentPath === item.id ? 'text-brand-aperol' : 'text-brand-vanilla'}`}
+                      className={`w-3 h-3 ${currentPath === item.id ? 'text-brand-aperol' : 'text-brand-vanilla'}`}
                       viewBox="0 0 16 16"
                       fill="none"
                       stroke="currentColor"
@@ -148,18 +151,18 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                       <circle cx="8" cy="8" r="6" />
                     </svg>
                   </div>
-                  <span className="font-display font-medium text-2xl tracking-[-1px] flex-1">
+                  <span className="font-display font-medium text-lg tracking-[-0.5px] flex-1">
                     {item.number} {item.label}
                   </span>
                   <div className="flex-1 border-b border-dotted border-[#787878] mx-2"></div>
                   {openSections[item.id] ? (
-                    <ChevronDown className="w-6 h-6 text-brand-vanilla transition-transform duration-300" />
+                    <ChevronDown className="w-4 h-4 text-brand-vanilla transition-transform duration-300" />
                   ) : (
-                    <ChevronRight className="w-6 h-6 text-brand-vanilla transition-transform duration-300" />
+                    <ChevronRight className="w-4 h-4 text-brand-vanilla transition-transform duration-300" />
                   )}
                 </button>
                 {openSections[item.id] && item.subItems && (
-                  <div className="pl-8 flex flex-col gap-2 py-2 animate-fade-in">
+                  <div className="pl-6 flex flex-col gap-1 py-1 animate-fade-in">
                     {item.subItems.map((subItem) => (
                       <a
                         key={subItem.id}
@@ -169,8 +172,8 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                           currentPath === subItem.id ? 'text-brand-aperol' : 'text-brand-vanilla hover:text-brand-aperol'
                         } transition-colors`}
                       >
-                        <ChevronRight className="w-4 h-4 text-brand-vanilla" />
-                        <span className="font-text text-lg flex-1">{subItem.label}</span>
+                        <ChevronRight className="w-3 h-3 text-brand-vanilla" />
+                        <span className="font-text text-sm flex-1">{subItem.label}</span>
                         <div className="flex-1 border-b border-dotted border-[#787878] mx-2"></div>
                       </a>
                     ))}
@@ -181,25 +184,25 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
           </nav>
 
           {/* Quick Links */}
-          <div className="mt-auto space-y-3">
+          <div className="space-y-3">
             <h3 className="font-text font-normal text-xs text-brand-vanilla uppercase">Quick Links</h3>
             <div className="flex flex-col gap-2">
               <a
                 href="https://www.figma.com/design/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-brand-vanilla text-brand-charcoal rounded-full px-4 py-3 font-text font-medium text-base flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-brand-vanilla transition-colors"
+                className="w-full bg-brand-vanilla text-brand-charcoal rounded-full px-3 py-2 font-text font-medium text-sm flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-brand-vanilla transition-colors"
               >
-                <Figma className="w-4 h-4" />
+                <Figma className="w-3 h-3" />
                 Figma
               </a>
               <a
                 href="https://github.com/opensesh/OS_Brand-Design-System"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-brand-vanilla text-brand-charcoal rounded-full px-4 py-3 font-text font-medium text-base flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-brand-vanilla transition-colors"
+                className="w-full bg-brand-vanilla text-brand-charcoal rounded-full px-3 py-2 font-text font-medium text-sm flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-brand-vanilla transition-colors"
               >
-                <Github className="w-4 h-4" />
+                <Github className="w-3 h-3" />
                 Git Repo
               </a>
             </div>
@@ -207,10 +210,10 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
               href="https://www.figma.com/design/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS?node-id=20094-16807&t=w51tqPrTUlDRqfak-1"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full border border-brand-vanilla text-brand-vanilla rounded-full px-4 py-3 font-text font-medium text-base flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-brand-charcoal transition-colors"
+              className="w-full border border-brand-vanilla text-brand-vanilla rounded-full px-3 py-2 font-text font-medium text-sm flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-brand-charcoal transition-colors"
             >
               Guidelines
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="w-3 h-3" />
             </a>
           </div>
         </div>
