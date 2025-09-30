@@ -1,0 +1,238 @@
+/**
+ * Typography Scale - Neue Haas Grotesk Design System
+ * Based on Figma design system with responsive breakpoints
+ * 
+ * Breakpoints:
+ * - Mobile: 640px (default)
+ * - Tablet: 768px (md)
+ * - Desktop: 1280px (xl)
+ */
+
+@layer utilities {
+  /* ========================================
+     DISPLAY STYLES (Responsive)
+     ======================================== */
+  
+  .text-d1 {
+    font-family: theme('fontFamily.display');
+    font-weight: 700; /* Bold */
+    font-size: 60px; /* Mobile */
+    line-height: 1.2;
+    letter-spacing: -2px;
+  }
+  
+  @media (min-width: 768px) {
+    .text-d1 {
+      font-size: 112px; /* Tablet */
+      letter-spacing: -3.5px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .text-d1 {
+      font-size: 160px; /* Desktop */
+      letter-spacing: -4px;
+    }
+  }
+  
+  .text-d2 {
+    font-family: theme('fontFamily.display');
+    font-weight: 500; /* Roman */
+    font-size: 38px; /* Mobile */
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+  }
+  
+  @media (min-width: 768px) {
+    .text-d2 {
+      font-size: 80px; /* Tablet */
+      letter-spacing: -1px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .text-d2 {
+      font-size: 120px; /* Desktop */
+      letter-spacing: -2px;
+    }
+  }
+  
+  /* ========================================
+     HEADING STYLES (Responsive)
+     ======================================== */
+  
+  .text-h1 {
+    font-family: theme('fontFamily.display');
+    font-weight: 700; /* Bold */
+    font-size: 32px; /* Mobile */
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+  
+  @media (min-width: 768px) {
+    .text-h1 {
+      font-size: 40px; /* Tablet */
+      letter-spacing: -1px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .text-h1 {
+      font-size: 56px; /* Desktop */
+      letter-spacing: -1.5px;
+    }
+  }
+  
+  .text-h2 {
+    font-family: theme('fontFamily.display');
+    font-weight: 700; /* Bold */
+    font-size: 28px; /* Mobile */
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+  
+  @media (min-width: 768px) {
+    .text-h2 {
+      font-size: 36px; /* Tablet */
+      letter-spacing: -0.5px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .text-h2 {
+      font-size: 48px; /* Desktop */
+      letter-spacing: -1px;
+    }
+  }
+  
+  .text-h3 {
+    font-family: theme('fontFamily.display');
+    font-weight: 600; /* Medium */
+    font-size: 24px; /* Mobile */
+    line-height: 1.2;
+    letter-spacing: -0.25px;
+  }
+  
+  @media (min-width: 768px) {
+    .text-h3 {
+      font-size: 30px; /* Tablet */
+      letter-spacing: -0.5px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .text-h3 {
+      font-size: 40px; /* Desktop */
+      letter-spacing: -0.5px;
+    }
+  }
+  
+  .text-h4 {
+    font-family: theme('fontFamily.display');
+    font-weight: 600; /* Medium (65) */
+    font-size: 22px; /* Mobile */
+    line-height: 1.2;
+    letter-spacing: -0.25px;
+  }
+  
+  @media (min-width: 768px) {
+    .text-h4 {
+      font-size: 28px; /* Tablet */
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .text-h4 {
+      font-size: 32px; /* Desktop */
+    }
+  }
+  
+  .text-h5 {
+    font-family: theme('fontFamily.accent');
+    font-weight: 400; /* Normal */
+    font-size: 20px; /* Mobile */
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+  
+  @media (min-width: 768px) {
+    .text-h5 {
+      font-size: 24px; /* Tablet */
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .text-h5 {
+      font-size: 28px; /* Desktop */
+    }
+  }
+  
+  .text-h6 {
+    font-family: theme('fontFamily.display');
+    font-weight: 600; /* Medium */
+    font-size: 18px; /* Mobile */
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+  
+  @media (min-width: 768px) {
+    .text-h6 {
+      font-size: 22px; /* Tablet */
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .text-h6 {
+      font-size: 24px; /* Desktop */
+    }
+  }
+  
+  /* ========================================
+     BODY STYLES (Fixed across all devices)
+     ======================================== */
+  
+  .text-b1 {
+    font-family: theme('fontFamily.text');
+    font-weight: 400; /* Normal */
+    font-size: 20px;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+  
+  .text-b2 {
+    font-family: theme('fontFamily.text');
+    font-weight: 400; /* Normal */
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+  
+  /* ========================================
+     ADDITIONAL TEXT STYLES (Fixed)
+     ======================================== */
+  
+  .text-button {
+    font-family: theme('fontFamily.text');
+    font-weight: 500; /* Medium */
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+  
+  .text-caption {
+    font-family: theme('fontFamily.text');
+    font-weight: 400; /* Normal */
+    font-size: 12px;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+  
+  .text-label {
+    font-family: theme('fontFamily.text');
+    font-weight: 500; /* Medium */
+    font-size: 12px;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+}
