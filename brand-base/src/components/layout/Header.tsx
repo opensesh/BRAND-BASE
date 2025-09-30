@@ -25,11 +25,11 @@ export default function Header() {
         <div className="w-full max-w-[1184px] mx-auto px-6 py-3 flex items-center justify-between">
           {/* Brand Logo */}
           <div className="flex items-center">
-            <a href="#" className="flex items-center">
+            <a href="/" className="flex items-center">
               <img
-                src="http://localhost:3845/assets/4616150fc23035aa4d566608ac01cc98af4f2698.svg"
+                src="http://localhost:3845/assets/c211f5a3d4f63b1df665a029a544dfcc056932ac.svg"
                 alt="Brand Logo"
-                className="w-6 h-6 text-brand-vanilla"
+                className="h-6 w-auto"
               />
             </a>
           </div>

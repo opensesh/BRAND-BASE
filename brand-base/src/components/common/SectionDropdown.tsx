@@ -69,14 +69,14 @@ export default function SectionDropdown({
         {/* Header Button */}
         <button
           onClick={toggleOpen}
-          className="w-full bg-transparent px-0 pb-6 flex items-start justify-between group transition-colors"
+          className="w-full bg-transparent px-0 pb-6 flex items-center justify-between group transition-colors"
           type="button"
           aria-expanded={isOpen}
           aria-controls={`section-${title.toLowerCase().replace(/\s+/g, '-')}-content`}
         >
-          <div className="flex items-start gap-3">
-            {/* Separate Number Text Box - H5 */}
-            <span className="font-accent font-normal text-sm leading-[1.25] text-brand-vanilla">
+          <div className="flex items-center gap-3">
+            {/* Separate Number Text Box - H5 with doubled font size */}
+            <span className="font-accent font-normal text-[28px] leading-[1.25] text-brand-vanilla">
               {number}
             </span>
             {/* Separate Title Text Box - Display D1 */}
