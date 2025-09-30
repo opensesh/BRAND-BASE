@@ -20,36 +20,36 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
     body: "We envision a world where anyone can access the level of design once reserved for tech giants. A future where bold branding, creative AI, and great content fuel growth and connection. We want to wake up knowing our work helps people create."
   }
 
-  // Values content with illustrations - 5 items
+  // Values content with illustrations - 5 items (matching Figma screenshots)
   const valuesItems = [
     {
       id: 'curiosity',
-      title: 'Curiosity',
+      title: 'Curiousity',
       description: 'We believe curiosity is essential to staying on the cutting edge of design and innovation.',
       illustration: 'http://localhost:3845/assets/curiosity-icon.svg'
     },
     {
       id: 'solutions',
       title: 'Solutions',
-      description: 'We focus on solving real problems with practical, effective approaches that drive results.',
+      description: 'Every initiative we undertake—whether for clients or our community—is driven by problem-solving and impactful outcomes.',
       illustration: 'http://localhost:3845/assets/solutions-icon.svg'
     },
     {
       id: 'respect',
       title: 'Respect',
-      description: 'We treat everyone with dignity and value diverse perspectives in all our interactions.',
+      description: 'We treat everyone with respect and wield technology responsibly, understanding its potential and its limits.',
       illustration: 'http://localhost:3845/assets/respect-icon.svg'
     },
     {
       id: 'connection',
       title: 'Connection',
-      description: 'We build meaningful relationships that foster collaboration and shared success.',
+      description: 'We nurture relationships within our community and brand ecosystems through meaningful engagement and collaborative design systems.',
       illustration: 'http://localhost:3845/assets/connection-icon.svg'
     },
     {
       id: 'transparency',
       title: 'Transparency',
-      description: 'We communicate openly and honestly, building trust through clear and consistent actions.',
+      description: 'Celebrate who we are, how we got here, and how we help clients and community grow',
       illustration: 'http://localhost:3845/assets/transparency-icon.svg'
     }
   ]

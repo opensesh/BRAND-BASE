@@ -38,30 +38,29 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
             {/* Dropdown Header */}
             <button
               onClick={() => toggleItem(item.id)}
-              className="w-full py-6 flex items-center justify-between hover:opacity-80 transition-opacity"
+              className="w-full py-6 flex items-center gap-6 hover:opacity-80 transition-opacity"
               type="button"
               aria-expanded={openItems[item.id]}
             >
-              <div className="flex items-center gap-6">
-                {/* Illustration (for Values only) - fills container */}
-                {hasIllustrations && item.illustration && (
-                  <div className="w-20 h-20 flex-shrink-0">
-                    <img
-                      src={item.illustration}
-                      alt={item.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-                {/* Title - H4 */}
-                <h4 className="font-text font-medium text-lg leading-[1.5] text-brand-vanilla text-left">
-                  {item.title}
-                </h4>
-              </div>
+              {/* Illustration (for Values only) - fills container */}
+              {hasIllustrations && item.illustration && (
+                <div className="w-16 h-16 flex-shrink-0">
+                  <img
+                    src={item.illustration}
+                    alt={item.title}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              )}
+              
+              {/* Title - H4 */}
+              <h4 className="font-accent font-normal text-xl leading-[1.5] text-brand-vanilla text-left flex-1">
+                {item.title}
+              </h4>
               
               {/* Chevron */}
               <ChevronDown
-                className={`w-6 h-6 text-brand-vanilla transition-transform duration-300 flex-shrink-0 ${
+                className={`w-5 h-5 text-brand-vanilla transition-transform duration-300 flex-shrink-0 ${
                   openItems[item.id] ? 'rotate-180' : 'rotate-0'
                 }`}
               />
@@ -69,7 +68,7 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
 
             {/* Dropdown Content */}
             {openItems[item.id] && (
-              <div className="pb-6 pl-[104px]">
+              <div className="pb-6 pl-[88px]">
                 <p className="font-text font-normal text-xl leading-[1.5] text-brand-vanilla">
                   {item.description}
                 </p>
