@@ -35,20 +35,26 @@ export default function Header() {
           </div>
 
           {/* Hamburger/Close Menu Icon (Mobile & Desktop) */}
-          <div className="flex items-center justify-center w-6 h-6">
+          <div className="relative flex items-center justify-center w-6 h-6 z-[70]">
             <button
-              className="relative w-6 h-6 flex items-center justify-center"
-              onClick={() => setMenuOpen(!menuOpen)}
+              className="relative w-6 h-6 flex items-center justify-center z-[70]"
+              onClick={(e) => {
+                e.stopPropagation()
+                setMenuOpen(!menuOpen)
+              }}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              type="button"
             >
               {/* Hamburger Lines - transform to X when open */}
-              <div className={`absolute flex flex-col items-center justify-center w-6 h-6 transition-all duration-300 ease-in-out ${menuOpen ? 'rotate-180' : 'rotate-0'}`}>
+              <div 
+                className={`absolute flex flex-col items-center justify-center w-6 h-6 transition-all duration-300 ease-in-out pointer-events-none ${menuOpen ? 'rotate-180' : 'rotate-0'}`}
+              >
                 {/* Top line - rotates to form top part of X */}
-                <span className={`absolute w-[18px] h-[1.5px] bg-brand-vanilla transition-all duration-300 ease-in-out ${
+                <span className={`absolute w-[18px] h-[1.5px] bg-brand-vanilla transition-all duration-300 ease-in-out pointer-events-none ${
                   menuOpen ? 'rotate-45 translate-y-0' : 'rotate-0 -translate-y-[3px]'
                 }`} />
                 {/* Bottom line - rotates to form bottom part of X */}
-                <span className={`absolute w-[18px] h-[1.5px] bg-brand-vanilla transition-all duration-300 ease-in-out ${
+                <span className={`absolute w-[18px] h-[1.5px] bg-brand-vanilla transition-all duration-300 ease-in-out pointer-events-none ${
                   menuOpen ? '-rotate-45 translate-y-0' : 'rotate-0 translate-y-[3px]'
                 }`} />
               </div>
