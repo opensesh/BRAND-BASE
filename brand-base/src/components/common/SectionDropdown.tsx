@@ -64,31 +64,36 @@ export default function SectionDropdown({
 
   return (
     <section className={`w-full ${className}`}>
-      {/* Header */}
-      <button
-        onClick={toggleOpen}
-        className="w-full bg-transparent px-0 pb-6 flex items-start justify-between group transition-colors"
-        type="button"
-        aria-expanded={isOpen}
-        aria-controls={`section-${title.toLowerCase().replace(/\s+/g, '-')}-content`}
-      >
-        <div className="flex items-start gap-3">
-          <span className="font-accent font-normal text-sm leading-[1.25] text-brand-vanilla">
-            {number}
-          </span>
-          <h2 className="font-display font-bold text-[80px] leading-[1.2] tracking-[-4px] text-brand-vanilla">
-            {title}
-          </h2>
-        </div>
-        <ChevronDown 
-          className={`w-6 h-6 text-brand-vanilla transition-transform duration-300 flex-shrink-0 ${
-            isOpen ? 'rotate-180' : 'rotate-0'
-          }`} 
-        />
-      </button>
-      
-      {/* Bottom line - directly after button */}
-      <div className="w-full h-[1px] bg-brand-vanilla mb-0"></div>
+      {/* Flexbox Container */}
+      <div className="flex flex-col w-full">
+        {/* Header Button */}
+        <button
+          onClick={toggleOpen}
+          className="w-full bg-transparent px-0 pb-6 flex items-start justify-between group transition-colors"
+          type="button"
+          aria-expanded={isOpen}
+          aria-controls={`section-${title.toLowerCase().replace(/\s+/g, '-')}-content`}
+        >
+          <div className="flex items-start gap-3">
+            {/* Separate Number Text Box - H5 */}
+            <span className="font-accent font-normal text-sm leading-[1.25] text-brand-vanilla">
+              {number}
+            </span>
+            {/* Separate Title Text Box - Display D1 */}
+            <h2 className="font-display font-bold text-[80px] leading-[1.2] tracking-[-4px] text-brand-vanilla">
+              {title}
+            </h2>
+          </div>
+          <ChevronDown 
+            className={`w-6 h-6 text-brand-vanilla transition-transform duration-300 flex-shrink-0 ${
+              isOpen ? 'rotate-180' : 'rotate-0'
+            }`} 
+          />
+        </button>
+        
+        {/* Bottom Line Vector - 1px weight, vanilla color, fills container */}
+        <div className="w-full h-[1px] bg-brand-vanilla"></div>
+      </div>
 
       {/* Content Panel */}
       <div
