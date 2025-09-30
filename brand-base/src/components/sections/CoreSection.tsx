@@ -1,36 +1,64 @@
-import { useRef, useState } from 'react'
-import Accordion from '@components/common/Accordion'
+import { useRef } from 'react'
+import SectionDropdown from '@components/common/SectionDropdown'
 import useIntersectionObserver from '@hooks/useIntersectionObserver'
 
 type Props = { defaultOpen?: boolean; lazyLoad?: boolean }
 
 export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Props) {
   const ref = useRef<HTMLDivElement | null>(null)
-  const inView = useIntersectionObserver(ref, { threshold: 0.2 })
-  const [open, setOpen] = useState(defaultOpen)
+  const inView = useIntersectionObserver(ref as React.RefObject<Element>, { threshold: 0.2 })
 
-  const shouldLoad = !lazyLoad || inView || open
+  const shouldLoad = !lazyLoad || inView
+
+  const coreLinks = [
+    { id: 'mission', label: 'Mission', href: '#mission' },
+    { id: 'values', label: 'Values', href: '#values' },
+    { id: 'voice', label: 'Voice', href: '#voice' },
+    { id: 'pillars', label: 'Pillars', href: '#pillars' }
+  ]
 
   return (
-    <div ref={ref} className="container-responsive py-8 md:py-12">
-      <Accordion title="Core" isOpen={open} onOpenChange={setOpen} defaultOpen={defaultOpen}>
+    <div ref={ref} className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
+      <SectionDropdown
+        title="Core"
+        defaultOpen={defaultOpen}
+        links={coreLinks}
+        iconType="chevron"
+      >
         {shouldLoad ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-            <div className="opacity-0 animate-fade-in [animation-fill-mode:forwards]">
-              <p className="text-sm opacity-80">
-                Core resources and foundational guidelines for the brand system.
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-4">
+                <h3 className="font-accent text-[28px] leading-[1.5] text-brand-vanilla">Brand Mission</h3>
+                <p className="font-text text-base leading-[1.25] text-brand-vanilla">
+                  Our mission is to create meaningful connections through authentic brand experiences that inspire and engage our community.
+                </p>
+              </div>
+              <div className="space-y-4">
+                <h3 className="font-accent text-[28px] leading-[1.5] text-brand-vanilla">Core Values</h3>
+                <ul className="font-text text-base leading-[1.25] text-brand-vanilla space-y-2">
+                  <li>• Authenticity</li>
+                  <li>• Innovation</li>
+                  <li>• Community</li>
+                  <li>• Excellence</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <h3 className="font-accent text-[28px] leading-[1.5] text-brand-vanilla">Brand Voice</h3>
+              <p className="font-text text-base leading-[1.25] text-brand-vanilla">
+                Our voice is confident yet approachable, professional yet human. We communicate with clarity and purpose, 
+                always staying true to our brand values while connecting authentically with our audience.
               </p>
             </div>
-            <div className="opacity-0 animate-fade-in [animation-delay:120ms] [animation-fill-mode:forwards]">
-              <ul className="list-disc list-inside text-sm opacity-90">
-                <li>Principles</li>
-                <li>Voice & Tone</li>
-                <li>Usage</li>
-              </ul>
-            </div>
           </div>
-        ) : null}
-      </Accordion>
+        ) : (
+          <div className="text-brand-vanilla/50 font-text text-sm">
+            Content loading...
+          </div>
+        )}
+      </SectionDropdown>
     </div>
   )
 }
