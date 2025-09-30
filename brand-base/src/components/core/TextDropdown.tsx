@@ -38,13 +38,13 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
             {/* Dropdown Header */}
             <button
               onClick={() => toggleItem(item.id)}
-              className="w-full py-6 flex items-center gap-6 hover:opacity-80 transition-opacity"
+              className="w-full py-6 flex items-center gap-6 group transition-colors hover:[&>*]:text-brand-aperol"
               type="button"
               aria-expanded={openItems[item.id]}
             >
               {/* Illustration (for Values only) - fills container */}
               {hasIllustrations && item.illustration && (
-                <div className="w-16 h-16 flex-shrink-0">
+                <div className="w-16 h-16 flex-shrink-0 group-hover:brightness-0 group-hover:saturate-100 group-hover:[filter:invert(45%)_sepia(99%)_saturate(2783%)_hue-rotate(5deg)_brightness(101%)_contrast(102%)] transition-all">
                   <img
                     src={item.illustration}
                     alt={item.title}
@@ -53,14 +53,14 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
                 </div>
               )}
               
-              {/* Title - H4 */}
-              <h4 className="font-accent font-normal text-xl leading-[1.5] text-brand-vanilla text-left flex-1">
+              {/* Title - H4 (font-text, not font-accent) */}
+              <h4 className="font-text font-medium text-lg leading-[1.5] text-brand-vanilla text-left flex-1 group-hover:text-brand-aperol transition-colors">
                 {item.title}
               </h4>
               
               {/* Chevron */}
               <ChevronDown
-                className={`w-5 h-5 text-brand-vanilla transition-transform duration-300 flex-shrink-0 ${
+                className={`w-5 h-5 text-brand-vanilla transition-all duration-300 flex-shrink-0 group-hover:text-brand-aperol ${
                   openItems[item.id] ? 'rotate-180' : 'rotate-0'
                 }`}
               />

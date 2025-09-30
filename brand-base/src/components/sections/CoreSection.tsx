@@ -21,36 +21,37 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
   }
 
   // Values content with illustrations - 5 items (matching Figma screenshots)
+  // Using placeholder SVG data URLs until actual assets are available
   const valuesItems = [
     {
       id: 'curiosity',
       title: 'Curiousity',
       description: 'We believe curiosity is essential to staying on the cutting edge of design and innovation.',
-      illustration: 'http://localhost:3845/assets/curiosity-icon.svg'
+      illustration: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"%3E%3Ccircle cx="32" cy="32" r="28" fill="%23FFFAEE"/%3E%3C/svg%3E'
     },
     {
       id: 'solutions',
       title: 'Solutions',
       description: 'Every initiative we undertake—whether for clients or our community—is driven by problem-solving and impactful outcomes.',
-      illustration: 'http://localhost:3845/assets/solutions-icon.svg'
+      illustration: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"%3E%3Crect x="12" y="12" width="40" height="40" fill="%23FFFAEE"/%3E%3C/svg%3E'
     },
     {
       id: 'respect',
       title: 'Respect',
       description: 'We treat everyone with respect and wield technology responsibly, understanding its potential and its limits.',
-      illustration: 'http://localhost:3845/assets/respect-icon.svg'
+      illustration: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"%3E%3Cpath d="M32 8L52 56H12L32 8Z" fill="%23FFFAEE"/%3E%3C/svg%3E'
     },
     {
       id: 'connection',
       title: 'Connection',
       description: 'We nurture relationships within our community and brand ecosystems through meaningful engagement and collaborative design systems.',
-      illustration: 'http://localhost:3845/assets/connection-icon.svg'
+      illustration: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"%3E%3Ccircle cx="20" cy="32" r="12" fill="%23FFFAEE"/%3E%3Ccircle cx="44" cy="32" r="12" fill="%23FFFAEE"/%3E%3C/svg%3E'
     },
     {
       id: 'transparency',
       title: 'Transparency',
       description: 'Celebrate who we are, how we got here, and how we help clients and community grow',
-      illustration: 'http://localhost:3845/assets/transparency-icon.svg'
+      illustration: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"%3E%3Cpolygon points="32,8 56,24 56,48 32,56 8,48 8,24" fill="%23FFFAEE"/%3E%3C/svg%3E'
     }
   ]
 
