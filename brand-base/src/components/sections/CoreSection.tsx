@@ -15,8 +15,9 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
 
   // Mission content
   const missionContent = {
-    heading: "Mission",
-    body: "To empower teams to build authentic, consistent brand experiences that resonate with audiences and drive meaningful connections."
+    title: "Mission",
+    heading: "Help the world make the most of technology",
+    body: "We envision a world where anyone can access the level of design once reserved for tech giants. A future where bold branding, creative AI, and great content fuel growth and connection. We want to wake up knowing our work helps people create."
   }
 
   // Values content with illustrations
@@ -102,6 +103,7 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
           <div className="flex flex-col gap-16">
             {/* Mission - Dual Heading Text */}
             <DualHeadingText
+              title={missionContent.title}
               heading={missionContent.heading}
               body={missionContent.body}
             />
