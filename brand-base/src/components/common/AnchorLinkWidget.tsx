@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { Figma, Github, ExternalLink, ChevronDown, ChevronRight } from 'lucide-react'
+import { Figma, Github, ExternalLink, ChevronDown, ChevronRight, CornerDownRight } from 'lucide-react'
 
 interface AnchorLinkWidgetProps {
   menuOpen: boolean
@@ -18,9 +18,9 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
   const widgetRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
-    core: true, // Core open by default as per Figma
-    identity: false,
-    system: false,
+    core: true, // Core OPEN by default
+    identity: false, // Identity CLOSED by default
+    system: false, // System CLOSED by default
   })
 
   const handleScrollToSection = (id: string) => {
@@ -154,7 +154,9 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                   }`}>
                     {item.number} {item.label}
                   </span>
-                  <div className="flex-1 border-b border-dotted border-[#787878] mx-2"></div>
+                  <div className={`flex-1 border-b border-dotted mx-2 ${
+                    openSections[item.id] ? 'border-brand-aperol' : 'border-[#787878]'
+                  }`}></div>
                   {openSections[item.id] ? (
                     <ChevronDown className="w-6 h-6 text-brand-aperol transition-transform duration-300" />
                   ) : (
@@ -172,7 +174,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                           currentPath === subItem.id ? 'text-brand-aperol' : 'text-brand-vanilla hover:text-brand-aperol'
                         } transition-colors duration-200`}
                       >
-                        <ChevronRight className="w-4 h-4 text-brand-vanilla" />
+                        <CornerDownRight className="w-4 h-4 text-brand-vanilla" />
                         <span className="font-text text-lg flex-1">{subItem.label}</span>
                         <div className="flex-1 border-b border-dotted border-[#787878] mx-2"></div>
                       </a>
@@ -191,7 +193,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                 href="https://www.figma.com/design/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-white text-brand-charcoal rounded-full px-6 py-4 font-text font-medium text-base flex items-center justify-center gap-3 hover:bg-brand-aperol hover:text-white transition-colors"
+                className="w-full min-w-[132px] bg-white text-brand-charcoal rounded-full px-6 py-4 font-text font-medium text-base flex items-center justify-center gap-3 hover:bg-brand-aperol hover:text-white transition-colors"
               >
                 <Figma className="w-5 h-5" />
                 Figma
@@ -200,7 +202,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                 href="https://github.com/opensesh/OS_Brand-Design-System"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-white text-brand-charcoal rounded-full px-6 py-4 font-text font-medium text-base flex items-center justify-center gap-3 hover:bg-brand-aperol hover:text-white transition-colors"
+                className="w-full min-w-[132px] bg-white text-brand-charcoal rounded-full px-6 py-4 font-text font-medium text-base flex items-center justify-center gap-3 hover:bg-brand-aperol hover:text-white transition-colors"
               >
                 <Github className="w-5 h-5" />
                 Git Repo
