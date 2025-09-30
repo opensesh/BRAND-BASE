@@ -105,7 +105,6 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
           menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setMenuOpen(false)}
-        style={{ clipPath: 'inset(60px 0 0 0)' }}
       ></div>
 
       {/* Menu Panel */}
