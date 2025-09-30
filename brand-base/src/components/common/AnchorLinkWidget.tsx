@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 import { ExternalLink, ChevronDown, ChevronRight, CornerDownRight } from 'lucide-react'
 
 interface AnchorLinkWidgetProps {
@@ -15,7 +14,6 @@ interface NavItem {
 
 export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWidgetProps) {
   const widgetRef = useRef<HTMLDivElement>(null)
-  const location = useLocation()
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     core: true, // Core OPEN by default
     identity: false, // Identity CLOSED by default
@@ -90,8 +88,6 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     },
   ]
 
-  const currentPath = location.hash.replace('#', '')
-
   return (
     <div
       className={`fixed inset-0 z-40 transition-opacity duration-300 ${
@@ -157,19 +153,17 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                   )}
                 </button>
                 {openSections[item.id] && item.subItems && (
-                  <div className="pl-8 flex flex-col gap-2 mt-3 animate-fade-in">
+                  <div className="pl-8 flex flex-col gap-3 mt-3 pb-6 animate-fade-in">
                     {item.subItems.map((subItem) => (
                       <a
                         key={subItem.id}
                         href={`#${subItem.id}`}
                         onClick={() => handleScrollToSection(subItem.id)}
-                        className={`flex items-center gap-2 py-1 group ${
-                          currentPath === subItem.id ? 'text-brand-aperol' : 'text-brand-vanilla hover:text-brand-aperol'
-                        } transition-colors duration-200`}
+                        className="flex items-center gap-2 py-1 group text-brand-vanilla hover:text-brand-aperol transition-colors duration-200"
                       >
-                        <CornerDownRight className="w-4 h-4 text-brand-vanilla flex-shrink-0" />
+                        <CornerDownRight className="w-4 h-4 text-brand-vanilla group-hover:text-brand-aperol transition-colors duration-200 flex-shrink-0" />
                         <span className="font-text text-base flex-1">{subItem.label}</span>
-                        <div className="flex-1 border-b border-dotted border-[#787878] mx-2"></div>
+                        <div className="flex-1 border-b border-dotted border-[#787878] group-hover:border-brand-aperol transition-colors duration-200 mx-2"></div>
                       </a>
                     ))}
                   </div>
