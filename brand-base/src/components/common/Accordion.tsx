@@ -1,4 +1,5 @@
-import { ReactNode, useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
+import type { ReactNode } from 'react'
 
 type AccordionProps = {
   id?: string

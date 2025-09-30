@@ -62,5 +62,3 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
     </div>
   )
 }
-
-
