@@ -99,13 +99,13 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
         menuOpen ? 'opacity-100' : 'opacity-0'
       }`}
     >
-      {/* Backdrop - starts below header */}
+      {/* Backdrop */}
       <div
-        className={`absolute left-0 right-0 bottom-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
           menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setMenuOpen(false)}
-        style={{ top: '60px' }}
+        style={{ clipPath: 'inset(60px 0 0 0)' }}
       ></div>
 
       {/* Menu Panel */}
