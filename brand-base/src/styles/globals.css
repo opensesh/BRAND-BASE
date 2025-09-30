@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  :root {
+    --brand-charcoal: #191919;
+    --brand-vanilla: #FFFAEE;
+    --brand-aperol: #FE5102;
+  }
+  
+  body {
+    @apply bg-brand-charcoal text-brand-vanilla antialiased font-text;
+  }
+}
+
+/* Smooth fade-in animation for lazy-loaded content */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out;
+}
+
+@layer utilities {
+  .container-responsive {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
