@@ -99,9 +99,9 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
         menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
-      {/* Backdrop */}
+      {/* Backdrop - excludes header area */}
       <div
-        className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`absolute inset-0 top-[60px] bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
           menuOpen ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={() => setMenuOpen(false)}
