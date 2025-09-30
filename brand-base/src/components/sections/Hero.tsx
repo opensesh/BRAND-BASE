@@ -13,7 +13,7 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-[1184px] mx-auto px-6 md:px-12 pb-12 flex flex-col items-start justify-end gap-3">
+      <div className="relative z-10 w-full max-w-[1184px] mx-auto px-6 md:px-12 pb-12 flex flex-col items-start justify-end gap-3 overflow-visible">
         {/* Brand Logo */}
         <img
           src="http://localhost:3845/assets/c211f5a3d4f63b1df665a029a544dfcc056932ac.svg"
@@ -21,13 +21,13 @@ export default function Hero() {
           className="w-40 h-auto"
         />
 
-        {/* Main Heading - Display D2 with Glass Effect on Text */}
-        <h1 className="font-display font-normal text-[80px] md:text-[120px] leading-[1.2] tracking-[-4px] glass-text">
+        {/* Main Heading - Display D2 with Glass Fill + Glass Effect */}
+        <h1 className="font-display font-normal text-[80px] md:text-[120px] leading-[1.2] tracking-[-4px] glass-text pr-4">
           Basecamp
         </h1>
 
-        {/* Subtitle - H4 */}
-        <p className="font-text font-medium text-lg leading-[1.5] text-brand-vanilla">
+        {/* Subtitle - H4 (font-accent for Offbit) */}
+        <p className="font-accent font-normal text-base leading-[1.5] text-brand-vanilla">
           Our home page for all brand assets, systems, and guidelines
         </p>
       </div>
