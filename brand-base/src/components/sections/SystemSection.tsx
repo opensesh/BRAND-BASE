@@ -22,43 +22,43 @@ export default function SystemSection({ defaultOpen = false, lazyLoad = false }:
           <div className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-4">
-                <h3 className="font-accent text-[28px] leading-[1.5] text-brand-vanilla">Design Components</h3>
-                <p className="font-text text-base leading-[1.25] text-brand-vanilla">
+                <h3 className="font-accent text-h5-mobile md:text-h5-tablet xl:text-h5-desktop text-brand-vanilla">Design Components</h3>
+                <p className="font-text text-b2 text-brand-vanilla">
                   Reusable components that maintain consistency and efficiency across all brand applications.
                 </p>
                 <div className="space-y-3 mt-4">
                   <div className="p-4 border border-[#787878] rounded">
-                    <p className="font-text text-sm text-brand-vanilla">Button Components</p>
+                    <p className="font-text text-caption text-brand-vanilla">Button Components</p>
                   </div>
                   <div className="p-4 border border-[#787878] rounded">
-                    <p className="font-text text-sm text-brand-vanilla">Form Elements</p>
+                    <p className="font-text text-caption text-brand-vanilla">Form Elements</p>
                   </div>
                   <div className="p-4 border border-[#787878] rounded">
-                    <p className="font-text text-sm text-brand-vanilla">Navigation Items</p>
+                    <p className="font-text text-caption text-brand-vanilla">Navigation Items</p>
                   </div>
                 </div>
               </div>
               <div className="space-y-4">
-                <h3 className="font-accent text-[28px] leading-[1.5] text-brand-vanilla">Design Patterns</h3>
-                <p className="font-text text-base leading-[1.25] text-brand-vanilla">
+                <h3 className="font-accent text-h5-mobile md:text-h5-tablet xl:text-h5-desktop text-brand-vanilla">Design Patterns</h3>
+                <p className="font-text text-b2 text-brand-vanilla">
                   Established patterns for common user interactions and interface layouts that ensure consistency.
                 </p>
                 <div className="space-y-3 mt-4">
                   <div className="p-4 border border-[#787878] rounded">
-                    <p className="font-text text-sm text-brand-vanilla">Card Layouts</p>
+                    <p className="font-text text-caption text-brand-vanilla">Card Layouts</p>
                   </div>
                   <div className="p-4 border border-[#787878] rounded">
-                    <p className="font-text text-sm text-brand-vanilla">Modal Patterns</p>
+                    <p className="font-text text-caption text-brand-vanilla">Modal Patterns</p>
                   </div>
                   <div className="p-4 border border-[#787878] rounded">
-                    <p className="font-text text-sm text-brand-vanilla">Grid Systems</p>
+                    <p className="font-text text-caption text-brand-vanilla">Grid Systems</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         ) : (
-          <div className="text-brand-vanilla/50 font-text text-sm">
+          <div className="text-brand-vanilla/50 font-text text-caption">
             Content loading...
           </div>
         )}

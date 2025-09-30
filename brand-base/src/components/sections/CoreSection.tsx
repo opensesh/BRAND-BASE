@@ -57,43 +57,48 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
   // Pillars content (no illustrations)
   const pillarsItems = [
     {
-      id: 'consistency',
-      title: 'Consistency',
-      description: 'Maintaining a unified brand presence across all touchpoints ensures recognition and builds trust with our audience.'
+      id: 'trusted-advisors',
+      title: 'Trusted Advisors',
+      description: 'We build lasting relationships through expertise, reliability, and consistent delivery of exceptional results.'
     },
     {
-      id: 'clarity',
-      title: 'Clarity',
-      description: 'Clear communication and straightforward messaging make our brand accessible and easy to understand.'
+      id: 'transparent-truth',
+      title: 'Transparent Truth',
+      description: 'Open, honest communication forms the foundation of our relationships with clients and community.'
     },
     {
-      id: 'flexibility',
-      title: 'Flexibility',
-      description: 'Adapting to different contexts while maintaining core identity allows our brand to thrive in diverse environments.'
+      id: 'realistic-visionaries',
+      title: 'Realistic Visionaries',
+      description: 'We balance ambitious thinking with practical execution, turning bold ideas into achievable outcomes.'
     },
     {
-      id: 'purpose',
-      title: 'Purpose',
-      description: 'Every brand element serves a specific function and contributes to our overall mission and goals.'
+      id: 'community-catalysts',
+      title: 'Community Catalysts',
+      description: 'We actively foster connections, collaboration, and growth within our creative community.'
+    },
+    {
+      id: 'friendly-creatives',
+      title: 'Friendly Creatives',
+      description: 'Approachable expertise and creative excellence delivered with warmth and genuine care.'
     }
   ]
 
   // Voice columns
   const voiceColumns = [
     {
-      id: 'tone',
-      title: 'Tone',
-      description: 'Our tone is confident yet approachable, professional yet conversational. We speak with authority while remaining relatable and human.'
+      id: 'expert-educational',
+      title: 'Expert & Educational',
+      description: 'Communicate as if you\'re having a friendly conversation over coffee. Use natural language and relatable examples that connect with everyday experiences. Be transparent about challenges and lessons learned. Your voice should feel warm and welcoming, making even complex topics approachable.'
     },
     {
-      id: 'style',
-      title: 'Style',
-      description: 'We communicate with clarity and purpose, using straightforward language that resonates with our audience without unnecessary complexity.'
+      id: 'conversational-accessible',
+      title: 'Conversational & Accessible',
+      description: 'Communicate as if you\'re having a friendly conversation over coffee. Use natural language and relatable examples that connect with everyday experiences. Be transparent about challenges and lessons learned. Your voice should feel warm and welcoming, making even complex topics approachable.'
     },
     {
-      id: 'personality',
-      title: 'Personality',
-      description: 'Our brand personality is authentic, innovative, and collaborative—reflecting our core values in every interaction.'
+      id: 'inspirational-visionary',
+      title: 'Inspirational & Visionary',
+      description: 'Communicate as if you\'re having a friendly conversation over coffee. Use natural language and relatable examples that connect with everyday experiences. Be transparent about challenges and lessons learned. Your voice should feel warm and welcoming, making even complex topics approachable.'
     }
   ]
 
@@ -121,17 +126,17 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
               hasIllustrations={true}
             />
 
+            {/* Voice - Text Columns */}
+            <TextColumns
+              heading="Voice"
+              columns={voiceColumns}
+            />
+
             {/* Pillars - Text Dropdown without Illustrations */}
             <TextDropdown
               title="Pillars"
               items={pillarsItems}
               hasIllustrations={false}
-            />
-
-            {/* Voice - Text Columns */}
-            <TextColumns
-              heading="Voice"
-              columns={voiceColumns}
             />
           </div>
         ) : (

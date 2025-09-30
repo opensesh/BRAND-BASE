@@ -27,7 +27,7 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
   return (
     <div className="w-full flex flex-col gap-12">
       {/* Section Title - D2 */}
-      <h2 className="font-display font-normal text-[56px] leading-[1.2] tracking-[-2px] text-brand-vanilla">
+      <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
         {title}
       </h2>
 
@@ -54,7 +54,7 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
               )}
               
               {/* Title - H4 (22px, Display Medium, 600 weight) */}
-              <h4 className="text-h4 text-brand-vanilla text-left flex-1 group-hover:text-brand-aperol transition-colors">
+              <h4 className="text-h4-mobile md:text-h4-tablet xl:text-h4-desktop text-brand-vanilla text-left flex-1 group-hover:text-brand-aperol transition-colors">
                 {item.title}
               </h4>
               
@@ -68,7 +68,7 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
 
             {/* Dropdown Content - Body text aligns with title */}
             {openItems[item.id] && (
-              <div className="pb-6 pl-12">
+              <div className={`pb-6 ${hasIllustrations ? 'pl-12' : 'pl-0'}`}>
                 <p className="text-b1 text-brand-vanilla">
                   {item.description}
                 </p>

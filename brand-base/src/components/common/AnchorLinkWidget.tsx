@@ -14,11 +14,21 @@ interface NavItem {
 
 export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWidgetProps) {
   const widgetRef = useRef<HTMLDivElement>(null)
+  const [headerHeight, setHeaderHeight] = useState(60)
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     core: true, // Core OPEN by default
     identity: false, // Identity CLOSED by default
     system: false, // System CLOSED by default
   })
+
+  // Calculate actual header height
+  useEffect(() => {
+    const header = document.querySelector('header')
+    if (header) {
+      const height = header.offsetHeight
+      setHeaderHeight(height)
+    }
+  }, [])
 
   const handleScrollToSection = (id: string) => {
     const element = document.getElementById(id)
@@ -51,10 +61,14 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [setMenuOpen])
 
-  // Close menu on outside click (backdrop only)
+  // Close menu on outside click (backdrop only, excluding header button)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuOpen && widgetRef.current && !widgetRef.current.contains(event.target as Node)) {
+      const target = event.target as HTMLElement
+      // Don't close if clicking the header toggle button (it has its own toggle logic)
+      const isHeaderButton = target.closest('header button[aria-label*="menu"]')
+
+      if (menuOpen && widgetRef.current && !widgetRef.current.contains(target) && !isHeaderButton) {
         setMenuOpen(false)
       }
     }
@@ -94,26 +108,23 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
   ]
 
   return (
-    <div
-      className={`fixed inset-0 z-40 pointer-events-none transition-opacity duration-300 ${
-        menuOpen ? 'opacity-100' : 'opacity-0'
-      }`}
-    >
-      {/* Backdrop */}
-      <div
-        className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
-          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={() => setMenuOpen(false)}
-      ></div>
+    <>
+      {/* Backdrop - z-30 to stay below header (z-50), only render when open */}
+      {menuOpen && (
+        <div
+          className="fixed left-0 right-0 bottom-0 bg-black/40 backdrop-blur-sm z-30"
+          style={{ top: `${headerHeight}px` }}
+          onClick={() => setMenuOpen(false)}
+        ></div>
+      )}
 
-      {/* Menu Panel */}
+      {/* Menu Panel - z-40 to stay between backdrop and header */}
       <div
         ref={widgetRef}
-        className={`absolute top-[60px] w-full max-w-[448px] bg-brand-charcoal border border-[#787878] rounded-lg shadow-lg transform transition-all duration-300 ease-out pointer-events-auto
-        ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className="fixed w-[448px] bg-brand-charcoal border border-[#787878] rounded-lg shadow-lg transition-all duration-300 ease-out z-40"
         style={{
-          right: 'calc(50vw - 592px + 18px)', // Align exactly to hamburger icon's right edge
+          top: `${headerHeight + 12}px`,
+          right: menuOpen ? 'max(24px, calc(50vw - 568px))' : '-480px', // Fully off-screen when closed (width + margin), aligned when open
         }}
       >
         <div className="px-8 py-6 flex flex-col gap-8">
@@ -141,7 +152,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                       <circle cx="8" cy="8" r="6" />
                     </svg>
                   </div>
-                  <span className={`font-display text-h4 flex-shrink-0 ${
+                  <span className={`font-display text-h4-mobile md:text-h4-tablet xl:text-h4-desktop flex-shrink-0 ${
                     openSections[item.id] ? 'text-brand-aperol' : 'text-brand-vanilla'
                   }`}>
                     {item.label}
@@ -165,8 +176,8 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                         className="flex items-center gap-2 py-1 group text-brand-vanilla hover:text-brand-aperol transition-colors duration-200"
                       >
                         <CornerDownRight className="w-4 h-4 text-brand-vanilla group-hover:text-brand-aperol transition-colors duration-200 flex-shrink-0" />
-                        <span className="font-text text-b1 flex-1">{subItem.label}</span>
-                        <div className="flex-1 border-b border-dotted border-[#787878] group-hover:border-brand-aperol transition-colors duration-200 mx-2"></div>
+                        <span className="font-text text-b1 flex-shrink-0">{subItem.label}</span>
+                        <div className="flex-1 border-b border-dotted border-[#787878] group-hover:border-brand-aperol transition-colors duration-200 ml-2"></div>
                       </a>
                     ))}
                   </div>
@@ -218,6 +229,6 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

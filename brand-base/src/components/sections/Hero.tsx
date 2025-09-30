@@ -22,12 +22,12 @@ export default function Hero() {
         />
 
         {/* Main Heading - Display D2 */}
-        <h1 className="font-display font-normal text-[80px] md:text-[120px] leading-[1.2] tracking-[-4px] text-brand-vanilla">
+        <h1 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
           Brand Base
         </h1>
 
         {/* Subtitle - H4 */}
-        <p className="font-text font-medium text-lg leading-[1.5] text-brand-vanilla">
+        <p className="font-display text-h4-mobile md:text-h4-tablet xl:text-h4-desktop text-white">
           Our home page for all brand assets, systems, and guidelines
         </p>
       </div>

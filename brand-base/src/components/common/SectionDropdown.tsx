@@ -75,12 +75,12 @@ export default function SectionDropdown({
           aria-controls={`section-${title.toLowerCase().replace(/\s+/g, '-')}-content`}
         >
           <div className="flex items-center gap-3">
-            {/* Separate Number Text Box - H5 with doubled font size */}
-            <span className="font-accent font-normal text-[28px] leading-[1.25] text-brand-vanilla">
+            {/* Separate Number Text Box - H5 */}
+            <span className="font-accent text-h5-mobile md:text-h5-tablet xl:text-h5-desktop text-brand-vanilla">
               {number}
             </span>
             {/* Separate Title Text Box - Display D1 */}
-            <h2 className="font-display font-bold text-[80px] leading-[1.2] tracking-[-4px] text-brand-vanilla">
+            <h2 className="font-display text-d1-mobile md:text-d1-tablet xl:text-d1-desktop text-brand-vanilla">
               {title}
             </h2>
           </div>
