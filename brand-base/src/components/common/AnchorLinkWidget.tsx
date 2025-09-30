@@ -156,7 +156,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                   )}
                 </button>
                 {openSections[item.id] && item.subItems && (
-                  <div className="pl-8 flex flex-col gap-3 mt-3 pb-6 animate-fade-in">
+                  <div className="pl-8 flex flex-col gap-1 mt-3 pb-6 animate-fade-in">
                     {item.subItems.map((subItem) => (
                       <a
                         key={subItem.id}
