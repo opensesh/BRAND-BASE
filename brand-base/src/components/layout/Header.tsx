@@ -36,13 +36,16 @@ export default function Header() {
 
           {/* Hamburger/Close Menu Icon (Mobile & Desktop) */}
           <button
-            className="relative flex items-center justify-center w-6 h-6 z-[70]"
+            className="relative flex items-center justify-center w-6 h-6 z-[70] cursor-pointer"
             onClick={(e) => {
+              e.preventDefault()
               e.stopPropagation()
+              console.log('Button clicked! Current state:', menuOpen)
               setMenuOpen(!menuOpen)
             }}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             type="button"
+            style={{ pointerEvents: 'auto' }}
           >
             {/* Hamburger Lines - transform to X when open */}
             <div 
