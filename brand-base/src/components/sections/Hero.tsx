@@ -21,8 +21,8 @@ export default function Hero() {
           className="w-40 h-auto"
         />
 
-        {/* Main Heading - Display D2 with Glass Effect */}
-        <h1 className="font-display font-normal text-[80px] md:text-[120px] leading-[1.2] tracking-[-4px] text-brand-vanilla glass-text px-6 py-3 rounded-xl w-fit">
+        {/* Main Heading - Display D2 with Glass Effect on Text */}
+        <h1 className="font-display font-normal text-[80px] md:text-[120px] leading-[1.2] tracking-[-4px] glass-text">
           Basecamp
         </h1>
 
