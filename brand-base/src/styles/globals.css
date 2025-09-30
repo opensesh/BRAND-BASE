@@ -38,5 +38,14 @@
   .container-responsive {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+  
+  /* Glass effect for text - creates frosted glass appearance */
+  .glass-text {
+    background: linear-gradient(135deg, rgba(255, 250, 238, 0.1) 0%, rgba(255, 250, 238, 0.05) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 250, 238, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
 }
 
