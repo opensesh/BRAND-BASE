@@ -23,13 +23,13 @@ export default function Header() {
     <>
       <header className="sticky top-0 z-50 bg-brand-charcoal border-b border-[#787878]">
         <div className="w-full max-w-[1184px] mx-auto px-6 py-3 flex items-center justify-between">
-          {/* Brand Logo */}
+          {/* Brand Logo - Small Icon */}
           <div className="flex items-center">
             <a href="/" className="flex items-center">
               <img
-                src="http://localhost:3845/assets/c211f5a3d4f63b1df665a029a544dfcc056932ac.svg"
+                src="http://localhost:3845/assets/4616150fc23035aa4d566608ac01cc98af4f2698.svg"
                 alt="Brand Logo"
-                className="h-6 w-auto"
+                className="w-6 h-6"
               />
             </a>
           </div>

@@ -21,14 +21,14 @@ export default function Hero() {
           className="w-40 h-auto"
         />
 
-        {/* Main Heading - Display D1 */}
-        <h1 className="font-display font-normal text-[80px] md:text-[120px] leading-[1.2] tracking-[-4px] text-brand-vanilla">
-          Brand Base
+        {/* Main Heading - Display D1 with Glass Effect */}
+        <h1 className="font-display font-normal text-[80px] md:text-[120px] leading-[1.2] tracking-[-4px] text-brand-vanilla backdrop-blur-sm bg-brand-vanilla/10 px-4 py-2 rounded-lg">
+          Brand Basecamp
         </h1>
 
-        {/* Subtitle - Body P1 */}
-        <p className="font-text text-xl leading-[1.25] text-brand-vanilla max-w-xl">
-          Find up-to-date brand assets and guidelines to create content
+        {/* Subtitle - Body P2 */}
+        <p className="font-text text-base leading-[1.5] text-brand-vanilla max-w-xl">
+          Your central hub for brand assets, guidelines, and resources to create consistent, on-brand content
         </p>
       </div>
     </section>
