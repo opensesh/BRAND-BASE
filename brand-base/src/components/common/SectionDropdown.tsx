@@ -67,25 +67,28 @@ export default function SectionDropdown({
       {/* Header */}
       <button
         onClick={toggleOpen}
-        className="w-full bg-transparent px-0 py-6 flex items-center justify-between gap-4 group transition-colors"
+        className="w-full bg-transparent px-0 py-6 flex items-start justify-between group transition-colors"
         type="button"
         aria-expanded={isOpen}
         aria-controls={`section-${title.toLowerCase().replace(/\s+/g, '-')}-content`}
       >
-        <div className="flex items-center gap-4">
-          <span className="font-display font-bold text-[56px] leading-[1.2] tracking-[-2px] text-[#f0f0f0]">
+        <div className="flex items-start gap-3">
+          <span className="font-text font-medium text-base leading-[1.25] text-[#f0f0f0]">
             {number}
           </span>
-          <span className="font-display font-bold text-[56px] leading-[1.2] tracking-[-2px] text-[#f0f0f0]">
+          <span className="font-display font-bold text-[80px] leading-[1.2] tracking-[-4px] text-[#f0f0f0]">
             {title}
           </span>
         </div>
         <ChevronDown 
-          className={`w-6 h-6 text-[#f0f0f0] transition-transform duration-300 flex-shrink-0 ${
+          className={`w-6 h-6 text-[#f0f0f0] transition-transform duration-300 flex-shrink-0 mt-2 ${
             isOpen ? 'rotate-180' : 'rotate-0'
           }`} 
         />
       </button>
+      
+      {/* Bottom line */}
+      <div className="w-full h-px bg-brand-vanilla"></div>
 
       {/* Content Panel */}
       <div
