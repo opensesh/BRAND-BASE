@@ -18,6 +18,7 @@ export default {
         display: ['"Neue Haas Grotesk Display Pro"', 'system-ui', 'sans-serif'],
         text: ['"Neue Haas Grotesk Text Pro"', 'system-ui', 'sans-serif'],
         mono: ['Offbit', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        accent: ['Offbit', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
     },
   },
