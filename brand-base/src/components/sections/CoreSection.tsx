@@ -23,28 +23,28 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
   // Values content with illustrations
   const valuesItems = [
     {
-      id: 'authenticity',
-      title: 'Authenticity',
-      description: 'We believe in genuine expression and staying true to our core identity in every interaction and decision.',
-      illustration: 'http://localhost:3845/assets/authenticity-icon.svg' // Update with actual asset
+      id: 'bold',
+      title: 'Bold',
+      description: 'We take risks and challenge norms. Innovation requires courage, and we embrace it in pursuit of meaningful impact.',
+      illustration: 'http://localhost:3845/assets/bold-icon.svg'
     },
     {
-      id: 'innovation',
-      title: 'Innovation',
-      description: 'We continuously push boundaries and embrace new ideas to stay ahead and deliver exceptional value.',
-      illustration: 'http://localhost:3845/assets/innovation-icon.svg' // Update with actual asset
+      id: 'creative',
+      title: 'Creative',
+      description: 'Imagination drives everything we do. We think differently, design beautifully, and solve problems in unexpected ways.',
+      illustration: 'http://localhost:3845/assets/creative-icon.svg'
     },
     {
-      id: 'collaboration',
-      title: 'Collaboration',
-      description: 'We foster teamwork and open communication, believing that the best results come from collective effort.',
-      illustration: 'http://localhost:3845/assets/collaboration-icon.svg' // Update with actual asset
+      id: 'helpful',
+      title: 'Helpful',
+      description: 'Our success is measured by the value we provide. We listen, support, and empower others to achieve their goals.',
+      illustration: 'http://localhost:3845/assets/helpful-icon.svg'
     },
     {
-      id: 'excellence',
-      title: 'Excellence',
-      description: 'We maintain high standards in everything we do, striving for quality and precision in every detail.',
-      illustration: 'http://localhost:3845/assets/excellence-icon.svg' // Update with actual asset
+      id: 'honest',
+      title: 'Honest',
+      description: 'Transparency builds trust. We communicate openly, admit mistakes, and always do what we say we will do.',
+      illustration: 'http://localhost:3845/assets/honest-icon.svg'
     }
   ]
 
