@@ -21,7 +21,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-brand-charcoal border-b border-[#787878]">
+      <header className="sticky top-0 z-[60] bg-brand-charcoal border-b border-[#787878]">
         <div className="w-full max-w-[1184px] mx-auto px-6 py-3 flex items-center justify-between">
           {/* Brand Logo */}
           <div className="flex items-center">
@@ -37,7 +37,7 @@ export default function Header() {
           {/* Hamburger/Close Menu Icon (Mobile & Desktop) */}
           <div className="flex items-center justify-center w-6 h-6">
             <button
-              className="relative w-6 h-6 flex items-center justify-center z-50"
+              className="relative w-6 h-6 flex items-center justify-center"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             >
