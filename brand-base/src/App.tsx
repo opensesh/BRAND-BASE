@@ -1,4 +1,4 @@
-import { Suspense, lazy, useMemo } from 'react'
+import { Suspense, lazy, useMemo, useEffect } from 'react'
 
 const Header = lazy(() => import('@components/layout/Header'))
 const Hero = lazy(() => import('@components/sections/Hero'))
@@ -9,6 +9,24 @@ const SystemSection = lazy(() => import('@components/sections/SystemSection'))
 const Footer = lazy(() => import('@components/layout/Footer'))
 
 export default function App() {
+  // Clear hash on initial load if needed
+  useEffect(() => {
+    if (window.location.hash && window.location.pathname === '/') {
+      // Preserve scroll position but clean URL
+      const scrollToId = window.location.hash.slice(1)
+      window.history.replaceState(null, '', window.location.pathname)
+      
+      // Optional: scroll to the section if it exists
+      if (scrollToId) {
+        setTimeout(() => {
+          const element = document.getElementById(scrollToId)
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' })
+          }
+        }, 100)
+      }
+    }
+  }, [])
   const fallback = useMemo(
     () => <div className="container-responsive py-12 text-sm opacity-70">Loading…</div>,
     [],
