@@ -95,22 +95,23 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
 
   return (
     <div
-      className={`fixed inset-0 z-40 transition-opacity duration-300 ${
-        menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+      className={`fixed inset-0 z-40 pointer-events-none transition-opacity duration-300 ${
+        menuOpen ? 'opacity-100' : 'opacity-0'
       }`}
     >
-      {/* Backdrop - excludes header area */}
+      {/* Backdrop */}
       <div
-        className={`absolute inset-0 top-[60px] bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
-          menuOpen ? 'opacity-100' : 'opacity-0'
+        className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
+          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setMenuOpen(false)}
+        style={{ paddingTop: '60px' }}
       ></div>
 
       {/* Menu Panel */}
       <div
         ref={widgetRef}
-        className={`absolute top-[60px] w-full max-w-[448px] bg-brand-charcoal border border-[#787878] rounded-lg shadow-lg transform transition-all duration-300 ease-out
+        className={`absolute top-[60px] w-full max-w-[448px] bg-brand-charcoal border border-[#787878] rounded-lg shadow-lg transform transition-all duration-300 ease-out pointer-events-auto
         ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}
         style={{
           right: 'calc(50vw - 592px + 18px)', // Align exactly to hamburger icon's right edge
