@@ -20,31 +20,37 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
     body: "We envision a world where anyone can access the level of design once reserved for tech giants. A future where bold branding, creative AI, and great content fuel growth and connection. We want to wake up knowing our work helps people create."
   }
 
-  // Values content with illustrations
+  // Values content with illustrations - 5 items
   const valuesItems = [
     {
-      id: 'bold',
-      title: 'Bold',
-      description: 'We take risks and challenge norms. Innovation requires courage, and we embrace it in pursuit of meaningful impact.',
-      illustration: 'http://localhost:3845/assets/bold-icon.svg'
+      id: 'curiosity',
+      title: 'Curiosity',
+      description: 'We believe curiosity is essential to staying on the cutting edge of design and innovation.',
+      illustration: 'http://localhost:3845/assets/curiosity-icon.svg'
     },
     {
-      id: 'creative',
-      title: 'Creative',
-      description: 'Imagination drives everything we do. We think differently, design beautifully, and solve problems in unexpected ways.',
-      illustration: 'http://localhost:3845/assets/creative-icon.svg'
+      id: 'solutions',
+      title: 'Solutions',
+      description: 'We focus on solving real problems with practical, effective approaches that drive results.',
+      illustration: 'http://localhost:3845/assets/solutions-icon.svg'
     },
     {
-      id: 'helpful',
-      title: 'Helpful',
-      description: 'Our success is measured by the value we provide. We listen, support, and empower others to achieve their goals.',
-      illustration: 'http://localhost:3845/assets/helpful-icon.svg'
+      id: 'respect',
+      title: 'Respect',
+      description: 'We treat everyone with dignity and value diverse perspectives in all our interactions.',
+      illustration: 'http://localhost:3845/assets/respect-icon.svg'
     },
     {
-      id: 'honest',
-      title: 'Honest',
-      description: 'Transparency builds trust. We communicate openly, admit mistakes, and always do what we say we will do.',
-      illustration: 'http://localhost:3845/assets/honest-icon.svg'
+      id: 'connection',
+      title: 'Connection',
+      description: 'We build meaningful relationships that foster collaboration and shared success.',
+      illustration: 'http://localhost:3845/assets/connection-icon.svg'
+    },
+    {
+      id: 'transparency',
+      title: 'Transparency',
+      description: 'We communicate openly and honestly, building trust through clear and consistent actions.',
+      illustration: 'http://localhost:3845/assets/transparency-icon.svg'
     }
   ]
 

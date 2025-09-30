@@ -32,29 +32,31 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
       </h2>
 
       {/* Dropdown Items */}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col">
         {items.map((item) => (
-          <div key={item.id} className="w-full">
+          <div key={item.id} className="w-full border-b border-brand-vanilla">
             {/* Dropdown Header */}
             <button
               onClick={() => toggleItem(item.id)}
-              className="w-full py-4 flex items-center justify-between hover:opacity-80 transition-opacity"
+              className="w-full py-6 flex items-center justify-between hover:opacity-80 transition-opacity"
               type="button"
               aria-expanded={openItems[item.id]}
             >
-              <div className="flex items-center gap-4">
-                {/* Illustration (for Values only) */}
+              <div className="flex items-center gap-6">
+                {/* Illustration (for Values only) - fills container */}
                 {hasIllustrations && item.illustration && (
-                  <img
-                    src={item.illustration}
-                    alt={item.title}
-                    className="w-16 h-16 object-contain flex-shrink-0"
-                  />
+                  <div className="w-20 h-20 flex-shrink-0">
+                    <img
+                      src={item.illustration}
+                      alt={item.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 )}
-                {/* Title - H3 */}
-                <h3 className="font-accent font-normal text-[28px] leading-[1.5] text-brand-vanilla text-left">
+                {/* Title - H4 */}
+                <h4 className="font-text font-medium text-lg leading-[1.5] text-brand-vanilla text-left">
                   {item.title}
-                </h3>
+                </h4>
               </div>
               
               {/* Chevron */}
@@ -67,7 +69,7 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
 
             {/* Dropdown Content */}
             {openItems[item.id] && (
-              <div className="pt-3 pl-20">
+              <div className="pb-6 pl-[104px]">
                 <p className="font-text font-normal text-xl leading-[1.5] text-brand-vanilla">
                   {item.description}
                 </p>
