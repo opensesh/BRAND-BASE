@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './typography.css';
-
 @layer base {
   html {
     scroll-behavior: smooth;

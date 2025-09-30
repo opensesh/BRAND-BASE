@@ -119,7 +119,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
         <div className="px-8 py-6 flex flex-col gap-8">
           {/* Top Section: On this page */}
           <div className="flex items-center justify-between">
-            <h3 className="font-text font-normal text-[10px] text-brand-vanilla uppercase tracking-wider">On this page</h3>
+            <h3 className="font-text text-label uppercase text-brand-vanilla">On this page</h3>
           </div>
 
           {/* Navigation Links */}
@@ -141,7 +141,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                       <circle cx="8" cy="8" r="6" />
                     </svg>
                   </div>
-                  <span className={`font-display font-bold text-[32px] leading-none tracking-tight flex-shrink-0 ${
+                  <span className={`font-display text-h4 flex-shrink-0 ${
                     openSections[item.id] ? 'text-brand-aperol' : 'text-brand-vanilla'
                   }`}>
                     {item.label}
@@ -165,7 +165,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                         className="flex items-center gap-2 py-1 group text-brand-vanilla hover:text-brand-aperol transition-colors duration-200"
                       >
                         <CornerDownRight className="w-4 h-4 text-brand-vanilla group-hover:text-brand-aperol transition-colors duration-200 flex-shrink-0" />
-                        <span className="font-text text-lg flex-1">{subItem.label}</span>
+                        <span className="font-text text-b1 flex-1">{subItem.label}</span>
                         <div className="flex-1 border-b border-dotted border-[#787878] group-hover:border-brand-aperol transition-colors duration-200 mx-2"></div>
                       </a>
                     ))}
@@ -177,13 +177,13 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
 
           {/* Quick Links */}
           <div className="flex flex-col gap-3">
-            <h3 className="font-text font-normal text-[10px] text-brand-vanilla uppercase tracking-wider">Quick Links</h3>
+            <h3 className="font-text text-caption uppercase text-brand-vanilla">Quick Links</h3>
             <div className="flex gap-2">
               <a
                 href="https://www.figma.com/design/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 min-w-[132px] bg-white text-brand-charcoal rounded-full px-4 py-2.5 font-text font-medium text-sm flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
+                className="flex-1 min-w-[132px] bg-white text-brand-charcoal rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
               >
                 Figma
                 <svg className="w-4 h-4" viewBox="0 0 38 57" fill="currentColor">
@@ -198,7 +198,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                 href="https://github.com/opensesh/OS_Brand-Design-System"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 min-w-[132px] bg-white text-brand-charcoal rounded-full px-4 py-2.5 font-text font-medium text-sm flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
+                className="flex-1 min-w-[132px] bg-white text-brand-charcoal rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
               >
                 Git Repo
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -210,7 +210,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
               href="https://www.figma.com/design/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS?node-id=20094-16807&t=w51tqPrTUlDRqfak-1"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-white text-brand-charcoal rounded-full px-4 py-2.5 font-text font-medium text-sm flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
+              className="w-full bg-white text-brand-charcoal rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
             >
               Guidelines
               <ExternalLink className="w-4 h-4" />
