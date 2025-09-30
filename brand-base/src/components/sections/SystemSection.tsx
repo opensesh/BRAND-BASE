@@ -10,17 +10,12 @@ export default function SystemSection({ defaultOpen = false, lazyLoad = false }:
 
   const shouldLoad = !lazyLoad || inView
 
-  const systemLinks = [
-    { id: 'components', label: 'Components', href: '#components' },
-    { id: 'patterns', label: 'Patterns', href: '#patterns' }
-  ]
-
   return (
     <div ref={ref} className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
       <SectionDropdown
         title="System"
+        number="03"
         defaultOpen={defaultOpen}
-        links={systemLinks}
         iconType="chevron"
       >
         {shouldLoad ? (

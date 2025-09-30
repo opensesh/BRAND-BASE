@@ -10,17 +10,12 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
 
   const shouldLoad = !lazyLoad || inView
 
-  const identityLinks = [
-    { id: 'color', label: 'Color', href: '#color' },
-    { id: 'typography', label: 'Typography', href: '#typography' }
-  ]
-
   return (
     <div ref={ref} className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
       <SectionDropdown
         title="Identity"
+        number="02"
         defaultOpen={defaultOpen}
-        links={identityLinks}
         iconType="chevron"
       >
         {shouldLoad ? (

@@ -10,19 +10,12 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
 
   const shouldLoad = !lazyLoad || inView
 
-  const coreLinks = [
-    { id: 'mission', label: 'Mission', href: '#mission' },
-    { id: 'values', label: 'Values', href: '#values' },
-    { id: 'voice', label: 'Voice', href: '#voice' },
-    { id: 'pillars', label: 'Pillars', href: '#pillars' }
-  ]
-
   return (
     <div ref={ref} className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
       <SectionDropdown
         title="Core"
+        number="01"
         defaultOpen={defaultOpen}
-        links={coreLinks}
         iconType="chevron"
       >
         {shouldLoad ? (

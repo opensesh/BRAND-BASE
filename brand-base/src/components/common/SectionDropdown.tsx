@@ -11,6 +11,7 @@ interface LinkItem {
 
 interface SectionDropdownProps {
   title: string
+  number: string // e.g., "01", "02", "03"
   children: ReactNode
   defaultOpen?: boolean
   links?: LinkItem[]
@@ -20,6 +21,7 @@ interface SectionDropdownProps {
 
 export default function SectionDropdown({
   title,
+  number,
   children,
   defaultOpen = true,
   links = [],
@@ -61,19 +63,28 @@ export default function SectionDropdown({
   }
 
   return (
-    <section className={`w-full border border-brand-vanilla rounded-lg overflow-hidden ${className}`}>
+    <section className={`w-full ${className}`}>
       {/* Header */}
       <button
         onClick={toggleOpen}
-        className="w-full bg-brand-charcoal border-b border-[#595959] px-6 py-4 flex items-center justify-between gap-3 hover:bg-brand-charcoal/90 transition-colors"
+        className="w-full bg-transparent px-0 py-6 flex items-center justify-between gap-4 group transition-colors"
         type="button"
         aria-expanded={isOpen}
         aria-controls={`section-${title.toLowerCase().replace(/\s+/g, '-')}-content`}
       >
-        <span className="font-text font-medium text-xs text-white uppercase tracking-wide">
-          {title}
-        </span>
-        {renderIcon()}
+        <div className="flex items-center gap-4">
+          <span className="font-display font-bold text-[56px] leading-[1.2] tracking-[-2px] text-[#f0f0f0]">
+            {number}
+          </span>
+          <span className="font-display font-bold text-[56px] leading-[1.2] tracking-[-2px] text-[#f0f0f0]">
+            {title}
+          </span>
+        </div>
+        <ChevronDown 
+          className={`w-6 h-6 text-[#f0f0f0] transition-transform duration-300 flex-shrink-0 ${
+            isOpen ? 'rotate-180' : 'rotate-0'
+          }`} 
+        />
       </button>
 
       {/* Content Panel */}
@@ -86,39 +97,9 @@ export default function SectionDropdown({
           visibility: isOpen ? 'visible' : 'hidden'
         }}
       >
-        <div ref={contentRef} className="bg-brand-charcoal">
-          {/* Navigation Links */}
-          {links.length > 0 && (
-            <div className="px-6 py-6 border-b border-[#595959]">
-              <nav className="space-y-3">
-                {links.map((link) => (
-                  <a
-                    key={link.id}
-                    href={link.href}
-                    target={link.external ? '_blank' : undefined}
-                    rel={link.external ? 'noopener noreferrer' : undefined}
-                    className="block font-text text-base text-brand-vanilla hover:text-brand-aperol transition-colors duration-200 flex items-center gap-2 group"
-                  >
-                    <span className="flex-1">{link.label}</span>
-                    {link.external && (
-                      <svg 
-                        className="w-4 h-4 text-brand-vanilla group-hover:text-brand-aperol transition-colors" 
-                        viewBox="0 0 16 16" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="1.5"
-                      >
-                        <path d="M6 3h7v7M13 3L3 13" />
-                      </svg>
-                    )}
-                  </a>
-                ))}
-              </nav>
-            </div>
-          )}
-
+        <div ref={contentRef}>
           {/* Main Content */}
-          <div className="px-6 py-8">
+          <div className="py-8">
             {children}
           </div>
         </div>
