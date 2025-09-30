@@ -116,7 +116,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
       {/* Menu Panel */}
       <div
         ref={widgetRef}
-        className={`absolute top-[60px] w-80 max-w-[calc(100vw-32px)] bg-brand-charcoal border border-[#787878] rounded-lg shadow-lg transform transition-transform duration-300 ease-out
+        className={`absolute top-[60px] w-72 max-w-[calc(100vw-32px)] bg-brand-charcoal border border-[#787878] rounded-lg shadow-lg transform transition-transform duration-300 ease-out
         ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}
         style={{
           right: 'calc(50vw - 592px + 24px)', // Align to hamburger icon's right edge
@@ -124,10 +124,10 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
           maxHeight: 'calc(100vh - 80px)', // Prevent overflow
         }}
       >
-        <div className="p-6 flex flex-col">
+        <div className="p-6 md:p-12 flex flex-col">
           {/* Top Section: On this page */}
           <div className="flex items-center justify-between mb-6">
-            <h3 className="font-text font-medium text-xs text-brand-vanilla uppercase">On this page</h3>
+            <h3 className="font-text font-normal text-xs text-brand-vanilla uppercase tracking-wide">On this page</h3>
           </div>
 
           {/* Navigation Links */}
@@ -138,7 +138,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                   onClick={() => toggleSection(item.id)}
                   className={`flex items-center gap-2 py-2 group w-full text-left ${
                     currentPath === item.id ? 'text-brand-aperol' : 'text-brand-vanilla hover:text-brand-aperol'
-                  } transition-colors`}
+                  } transition-colors duration-200`}
                 >
                   <div className="flex items-center justify-center w-6 h-6">
                     <svg
@@ -170,7 +170,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                         onClick={() => handleScrollToSection(subItem.id)}
                         className={`flex items-center gap-2 py-1 group ${
                           currentPath === subItem.id ? 'text-brand-aperol' : 'text-brand-vanilla hover:text-brand-aperol'
-                        } transition-colors`}
+                        } transition-colors duration-200`}
                       >
                         <ChevronRight className="w-4 h-4 text-brand-vanilla" />
                         <span className="font-text text-lg flex-1">{subItem.label}</span>
@@ -185,7 +185,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
 
           {/* Quick Links */}
           <div className="space-y-3">
-            <h3 className="font-text font-normal text-xs text-brand-vanilla uppercase">Quick Links</h3>
+            <h3 className="font-text font-normal text-xs text-brand-vanilla uppercase tracking-wide">Quick Links</h3>
             <div className="flex flex-col gap-2">
               <a
                 href="https://www.figma.com/design/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS"
