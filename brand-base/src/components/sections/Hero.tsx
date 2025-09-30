@@ -8,8 +8,8 @@ export default function Hero() {
           alt="Brand Basecamp Background"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-brand-charcoal opacity-70"></div>
+        {/* Dark Overlay - Lighter */}
+        <div className="absolute inset-0 bg-brand-charcoal opacity-40"></div>
       </div>
 
       {/* Content */}
@@ -21,9 +21,9 @@ export default function Hero() {
           className="w-40 h-auto"
         />
 
-        {/* Main Heading - Display D2 with Glass Fill + Glass Effect */}
-        <h1 className="font-display font-normal text-[80px] md:text-[120px] leading-[1.2] tracking-[-4px] glass-text pr-4">
-          Basecamp
+        {/* Main Heading - Display D2 */}
+        <h1 className="font-display font-normal text-[80px] md:text-[120px] leading-[1.2] tracking-[-4px] text-brand-vanilla">
+          Brand Base
         </h1>
 
         {/* Subtitle - H4 */}
