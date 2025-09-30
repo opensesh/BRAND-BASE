@@ -39,20 +39,19 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
-  /* Glass Fill + Glass Effect for text - matches Figma's Glass Fill + Glass Effect layers */
+  /* Glass Fill + Glass Effect - exact Figma specs */
   .glass-text {
-    /* Glass Fill - semi-transparent vanilla with gradient */
-    background: linear-gradient(135deg, rgba(255, 250, 238, 0.15) 0%, rgba(255, 250, 238, 0.08) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    /* Glass Effect - backdrop blur and shadow for depth */
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(255, 250, 238, 0.2);
-    /* Add stroke/outline to match logo glass appearance */
-    -webkit-text-stroke: 1px rgba(255, 250, 238, 0.3);
-    paint-order: stroke fill;
+    /* Fill: FFFAEE at 20% opacity */
+    color: rgba(255, 250, 238, 0.2);
+    /* Background blur: 102.19px */
+    -webkit-backdrop-filter: blur(102.19px);
+    backdrop-filter: blur(102.19px);
+    /* Inner shadows from Figma (approximated with text-shadow and filter) */
+    text-shadow: 
+      3.41px -3.41px 3.41px rgba(214, 210, 200, 0.6) inset,
+      -3.41px 3.41px 3.41px rgba(255, 255, 255, 0.6) inset;
+    /* Subtle stroke for definition */
+    -webkit-text-stroke: 0.5px rgba(255, 250, 238, 0.15);
   }
 }
 

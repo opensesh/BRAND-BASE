@@ -26,8 +26,8 @@ export default function Hero() {
           Basecamp
         </h1>
 
-        {/* Subtitle - H4 (font-accent for Offbit) */}
-        <p className="font-accent font-normal text-base leading-[1.5] text-brand-vanilla">
+        {/* Subtitle - H4 */}
+        <p className="font-text font-medium text-lg leading-[1.5] text-brand-vanilla">
           Our home page for all brand assets, systems, and guidelines
         </p>
       </div>
