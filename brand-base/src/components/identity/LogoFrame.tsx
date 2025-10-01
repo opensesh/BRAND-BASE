@@ -356,7 +356,7 @@ export default function LogoFrame({
 
             {/* Color Menu */}
             {showColorMenu && (
-              <div className="absolute top-full right-0 mt-2 flex flex-col gap-2 z-[30]">
+              <div className="absolute top-full right-0 mt-4 flex flex-col gap-2 z-[30]">
                 {colorVariants.map((color) => {
                   const isSelected = currentColor === color
                   const getColorButtonStyle = () => {
@@ -383,7 +383,9 @@ export default function LogoFrame({
                       return 'bg-brand-charcoal border-brand-charcoal text-brand-vanilla hover:opacity-80'
                     }
                     if (color === 'Glass') {
-                      return 'backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla text-brand-charcoal shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)] hover:bg-[rgba(255,250,238,0.3)]'
+                      // Glass button text: vanilla when vanilla selected (charcoal bg), charcoal otherwise
+                      const textColor = currentColor === 'Vanilla' ? 'text-brand-vanilla' : 'text-brand-charcoal'
+                      return `backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla ${textColor} shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)] hover:bg-[rgba(255,250,238,0.3)]`
                     }
                     if (color === 'Vanilla') {
                       return 'bg-brand-vanilla border-black text-black hover:opacity-80'
@@ -419,7 +421,7 @@ export default function LogoFrame({
 
             {/* Download Menu */}
             {showDownloadMenu && (
-              <div className="absolute top-full right-0 mt-2 flex flex-col gap-2 z-[30]">
+              <div className="absolute top-full right-0 mt-4 flex flex-col gap-2 z-[30]">
                 <button
                   onClick={() => handleFormatSelect('SVG')}
                   className="bg-brand-charcoal rounded-full px-4 py-3 border border-white hover:opacity-80 transition-opacity min-w-[80px]"
