@@ -348,7 +348,7 @@ export default function LogoFrame({
           <div className="relative" ref={colorMenuRef}>
             <button
               onClick={handleColorClick}
-              className={`rounded-full p-3 transition-all ${showColorMenu ? 'bg-brand-secondary text-brand-vanilla' : 'bg-brand-charcoal hover:opacity-80'}`}
+              className={`rounded-full p-3 transition-all ${showColorMenu ? 'bg-brand-secondary' : 'bg-brand-charcoal hover:opacity-80'}`}
               aria-label="Change color"
             >
               <PaintBucket className="w-4 h-4 text-brand-vanilla" />
@@ -356,7 +356,7 @@ export default function LogoFrame({
 
             {/* Color Menu */}
             {showColorMenu && (
-              <div className="absolute top-full right-0 mt-[24px] flex flex-col gap-2 z-[30]">
+              <div className="absolute top-full right-0 mt-[20px] flex flex-col gap-2 z-[30]">
                 {colorVariants.map((color) => {
                   const isSelected = currentColor === color
                   const getColorButtonStyle = () => {
@@ -425,7 +425,7 @@ export default function LogoFrame({
 
             {/* Download Menu */}
             {showDownloadMenu && (
-              <div className="absolute top-full right-0 mt-[24px] flex flex-col gap-2 z-[30]">
+              <div className="absolute top-full right-0 mt-[20px] flex flex-col gap-2 z-[30]">
                 <button
                   onClick={() => handleFormatSelect('SVG')}
                   className="bg-brand-charcoal rounded-full px-4 py-3 border border-white hover:opacity-80 transition-opacity min-w-[80px]"
