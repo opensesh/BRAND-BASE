@@ -81,11 +81,11 @@ export default function LogoBlock() {
         </div>
       </div>
 
-      {/* Monogram Section */}
+      {/* Accessory Section */}
       <div className="flex flex-col gap-6">
         <div className="flex items-start justify-between w-full">
           <h3 className="font-display text-h4-mobile tracking-[-0.25px] text-brand-vanilla">
-            Monogram
+            Accessory
           </h3>
           <button
             onClick={handleMonogramReset}
