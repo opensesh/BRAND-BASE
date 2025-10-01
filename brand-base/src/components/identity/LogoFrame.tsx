@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { PaintBucket, Download } from 'lucide-react'
 import { LOGO_ASSETS, type LogoType, type ColorVariant } from '../../assets/logos'
+import type { LogoFrameHandle } from './LogoBlock'
 
 type DownloadFormat = 'SVG' | 'PNG'
 
@@ -11,12 +12,12 @@ interface LogoFrameProps {
   colorVariants?: ColorVariant[]
 }
 
-export default function LogoFrame({
+const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
   title,
   logoType,
   logoAlt = 'Logo',
   colorVariants = ['Charcoal', 'Glass', 'Vanilla'],
-}: LogoFrameProps) {
+}, ref) => {
   const [showColorMenu, setShowColorMenu] = useState(false)
   const [showDownloadMenu, setShowDownloadMenu] = useState(false)
   const [currentColor, setCurrentColor] = useState<ColorVariant>('Vanilla')
@@ -24,6 +25,13 @@ export default function LogoFrame({
   const [svgContent, setSvgContent] = useState<string>('')
   const colorMenuRef = useRef<HTMLDivElement>(null)
   const downloadMenuRef = useRef<HTMLDivElement>(null)
+
+  // Expose resetColor method to parent via ref
+  useImperativeHandle(ref, () => ({
+    resetColor: () => {
+      setCurrentColor('Vanilla')
+    }
+  }))
 
   // Handle click outside to close menus
   useEffect(() => {
@@ -453,4 +461,8 @@ export default function LogoFrame({
       </div>
     </div>
   )
-}
+})
+
+LogoFrame.displayName = 'LogoFrame'
+
+export default LogoFrame
