@@ -365,17 +365,15 @@ export default function LogoFrame({
                       return 'bg-brand-secondary border-brand-secondary text-brand-vanilla'
                     }
 
-                    // Unselected states - text color depends on background
-                    const isVanillaBackground = currentColor === 'Vanilla'
-
+                    // Unselected states - text color based on what's selected
                     if (color === 'Charcoal') {
-                      // Charcoal button: charcoal fill with text based on container background
-                      const textColor = isVanillaBackground ? 'text-brand-vanilla' : 'text-brand-charcoal'
+                      // Charcoal button: charcoal fill with text matching selected color
+                      const textColor = currentColor === 'Charcoal' ? 'text-brand-charcoal' : 'text-brand-vanilla'
                       return `bg-brand-charcoal border-brand-charcoal ${textColor} hover:opacity-80`
                     }
                     if (color === 'Glass') {
                       // Glass button: always keep glass effect with text based on container background
-                      const textColor = isVanillaBackground ? 'text-brand-vanilla' : 'text-brand-charcoal'
+                      const textColor = currentColor === 'Vanilla' ? 'text-brand-vanilla' : 'text-brand-charcoal'
                       return `backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla ${textColor} shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)] hover:bg-[rgba(255,250,238,0.3)]`
                     }
                     if (color === 'Vanilla') {
