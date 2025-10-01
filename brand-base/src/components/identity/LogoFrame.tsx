@@ -432,7 +432,7 @@ export default function LogoFrame({
       {/* Logo Display Area - exact Figma structure */}
       <div
         ref={logoDisplayRef}
-        className={`w-full box-border flex gap-2.5 items-center justify-center px-0 py-6 relative shrink-0 transition-colors overflow-visible ${getBackgroundColor()}`}
+        className={`w-full box-border flex gap-2.5 items-center justify-center p-0 relative shrink-0 transition-colors overflow-visible ${getBackgroundColor()}`}
       >
         {renderLogo()}
       </div>
