@@ -356,7 +356,7 @@ export default function LogoFrame({
 
             {/* Color Menu */}
             {showColorMenu && (
-              <div className="absolute top-full right-0 mt-4 flex flex-col gap-2 z-[30]">
+              <div className="absolute top-full right-0 mt-[24px] flex flex-col gap-2 z-[30]">
                 {colorVariants.map((color) => {
                   const isSelected = currentColor === color
                   const getColorButtonStyle = () => {
@@ -425,7 +425,7 @@ export default function LogoFrame({
 
             {/* Download Menu */}
             {showDownloadMenu && (
-              <div className="absolute top-full right-0 mt-4 flex flex-col gap-2 z-[30]">
+              <div className="absolute top-full right-0 mt-[24px] flex flex-col gap-2 z-[30]">
                 <button
                   onClick={() => handleFormatSelect('SVG')}
                   className="bg-brand-charcoal rounded-full px-4 py-3 border border-white hover:opacity-80 transition-opacity min-w-[80px]"
