@@ -359,22 +359,25 @@ export default function LogoFrame({
               <div className="absolute top-full right-0 mt-2 flex flex-col gap-2 z-[30]">
                 {colorVariants.map((color) => {
                   const isSelected = currentColor === color
+
+                  // Get button styling - selected state is always orange fill with vanilla text
                   const getColorButtonStyle = () => {
+                    // Selected state: orange fill with vanilla text (always)
                     if (isSelected) {
                       return 'bg-brand-secondary border-brand-secondary text-brand-vanilla'
                     }
+
+                    // Unselected states
                     if (color === 'Charcoal') {
-                      return 'bg-brand-charcoal border-white text-white hover:opacity-80'
+                      return 'bg-brand-charcoal border-brand-vanilla text-brand-vanilla hover:opacity-80'
                     }
                     if (color === 'Glass') {
-                      // Text color depends on current background
-                      const textColor = currentColor === 'Charcoal' ? 'text-brand-charcoal' : 'text-brand-vanilla'
-                      return `backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla ${textColor} shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)] hover:bg-[rgba(255,250,238,0.3)]`
+                      return 'backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla text-brand-vanilla shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)] hover:bg-[rgba(255,250,238,0.3)]'
                     }
                     if (color === 'Vanilla') {
-                      return 'bg-brand-vanilla border-black text-black hover:opacity-80'
+                      return 'bg-brand-charcoal border-brand-vanilla text-brand-vanilla hover:opacity-80'
                     }
-                    return 'bg-brand-charcoal border-white text-white hover:opacity-80'
+                    return 'bg-brand-charcoal border-brand-vanilla text-brand-vanilla hover:opacity-80'
                   }
 
                   return (
