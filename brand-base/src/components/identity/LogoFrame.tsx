@@ -380,7 +380,11 @@ export default function LogoFrame({
 
                     // Unselected states - always show consistent styling
                     if (color === 'Charcoal') {
-                      return 'bg-brand-charcoal border-brand-charcoal text-brand-vanilla hover:opacity-80'
+                      // When Vanilla or Glass selected, use vanilla border for contrast
+                      const borderColor = (currentColor === 'Vanilla' || currentColor === 'Glass')
+                        ? 'border-brand-vanilla'
+                        : 'border-brand-charcoal'
+                      return `bg-brand-charcoal ${borderColor} text-brand-vanilla hover:opacity-80`
                     }
                     if (color === 'Glass') {
                       // Glass button text: vanilla when vanilla selected (charcoal bg), charcoal otherwise
