@@ -360,21 +360,30 @@ export default function LogoFrame({
                 {colorVariants.map((color) => {
                   const isSelected = currentColor === color
                   const getColorButtonStyle = () => {
-                    // Selected state: orange fill with vanilla text
+                    // Selected state styling based on which color is selected
                     if (isSelected) {
+                      if (color === 'Charcoal') {
+                        // Charcoal selected: charcoal fill with vanilla text
+                        return 'bg-brand-charcoal border-brand-charcoal text-brand-vanilla'
+                      }
+                      if (color === 'Glass') {
+                        // Glass selected: glass effect with vanilla text
+                        return 'backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla text-brand-vanilla shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)]'
+                      }
+                      if (color === 'Vanilla') {
+                        // Vanilla selected: vanilla fill with charcoal text
+                        return 'bg-brand-vanilla border-brand-vanilla text-brand-charcoal'
+                      }
+                      // Default selected state (orange)
                       return 'bg-brand-secondary border-brand-secondary text-brand-vanilla'
                     }
 
-                    // Unselected states - text color based on what's selected
+                    // Unselected states - always show consistent styling
                     if (color === 'Charcoal') {
-                      // Charcoal button: charcoal fill with text matching selected color
-                      const textColor = currentColor === 'Charcoal' ? 'text-brand-charcoal' : 'text-brand-vanilla'
-                      return `bg-brand-charcoal border-brand-charcoal ${textColor} hover:opacity-80`
+                      return 'bg-brand-charcoal border-brand-charcoal text-brand-vanilla hover:opacity-80'
                     }
                     if (color === 'Glass') {
-                      // Glass button: always keep glass effect with text based on container background
-                      const textColor = currentColor === 'Vanilla' ? 'text-brand-vanilla' : 'text-brand-charcoal'
-                      return `backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla ${textColor} shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)] hover:bg-[rgba(255,250,238,0.3)]`
+                      return 'backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla text-brand-charcoal shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)] hover:bg-[rgba(255,250,238,0.3)]'
                     }
                     if (color === 'Vanilla') {
                       return 'bg-brand-vanilla border-black text-black hover:opacity-80'
