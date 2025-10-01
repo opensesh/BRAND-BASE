@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import SectionDropdown from '@components/common/SectionDropdown'
 import LogoBlock from '@components/identity/LogoBlock'
+import TypographyBlock from '@components/identity/TypographyBlock'
 import useIntersectionObserver from '@hooks/useIntersectionObserver'
 
 type Props = { defaultOpen?: boolean; lazyLoad?: boolean }
@@ -234,15 +235,8 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
               </div>
             </div>
 
-            {/* Typography Block - Placeholder */}
-            <div className="flex flex-col gap-8">
-              <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
-                Typography
-              </h2>
-              <p className="font-text text-b1 text-brand-vanilla/50">
-                Interactive type editor coming soon...
-              </p>
-            </div>
+            {/* Typography Block */}
+            <TypographyBlock />
 
             {/* Guide/Iframe Block */}
             <div className="flex gap-6 items-start w-full">

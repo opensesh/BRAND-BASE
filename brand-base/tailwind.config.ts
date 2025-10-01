@@ -58,10 +58,10 @@ export default {
         'h5-tablet': ['24px', { lineHeight: '1.25', letterSpacing: '0', fontWeight: '400' }],
         'h5-desktop': ['28px', { lineHeight: '1.25', letterSpacing: '0', fontWeight: '400' }],
         
-        // Heading 6: 18px → 22px → 24px
-        'h6-mobile': ['18px', { lineHeight: '1.2', letterSpacing: '0', fontWeight: '600' }],
-        'h6-tablet': ['22px', { lineHeight: '1.2', letterSpacing: '0', fontWeight: '600' }],
-        'h6-desktop': ['24px', { lineHeight: '1.2', letterSpacing: '0', fontWeight: '600' }],
+        // Heading 6: 18px → 22px → 24px (Offbit font)
+        'h6-mobile': ['18px', { lineHeight: '1.2', letterSpacing: '0', fontWeight: '400' }],
+        'h6-tablet': ['22px', { lineHeight: '1.2', letterSpacing: '0', fontWeight: '400' }],
+        'h6-desktop': ['24px', { lineHeight: '1.2', letterSpacing: '0', fontWeight: '400' }],
         
         // BODY STYLES (Fixed across all breakpoints)
         // Body 1: 20px (all devices)
