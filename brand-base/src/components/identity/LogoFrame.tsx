@@ -282,10 +282,10 @@ export default function LogoFrame({
       )
     }
 
-    // Stacked - uses aspect ratio with side margins
+    // Stacked - uses aspect ratio with side margins, fills container height
     if (logoType === 'stacked') {
       return (
-        <div className="relative shrink-0 size-[211.437px]">
+        <div className="relative w-full h-full flex items-center justify-center">
           <div
             className="absolute aspect-[368.133/140] left-[19.41%] right-[19.24%] top-1/2 -translate-y-1/2"
             dangerouslySetInnerHTML={{ __html: svgContent }}
