@@ -282,10 +282,10 @@ export default function LogoFrame({
       )
     }
 
-    // Stacked - uses aspect ratio with side margins, fills container height
+    // Stacked - uses Figma structure with py-24 wrapper and fixed size container
     if (logoType === 'stacked') {
       return (
-        <div className="relative w-full h-full">
+        <div className="relative shrink-0 size-[211.437px]">
           <div
             className="absolute aspect-[368.133/140] left-[19.41%] right-[19.24%] top-1/2 -translate-y-1/2"
             dangerouslySetInnerHTML={{ __html: svgContent }}
@@ -432,7 +432,7 @@ export default function LogoFrame({
       {/* Logo Display Area - exact Figma structure */}
       <div
         ref={logoDisplayRef}
-        className={`w-full box-border flex gap-2.5 items-center justify-center p-0 relative shrink-0 transition-colors overflow-visible ${getBackgroundColor()}`}
+        className={`w-full box-border flex gap-2.5 items-center justify-center px-0 py-6 relative shrink-0 transition-colors overflow-visible ${getBackgroundColor()}`}
       >
         {renderLogo()}
       </div>
