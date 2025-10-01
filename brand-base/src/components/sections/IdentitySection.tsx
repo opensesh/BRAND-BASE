@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import SectionDropdown from '@components/common/SectionDropdown'
+import LogoBlock from '@components/identity/LogoBlock'
 import useIntersectionObserver from '@hooks/useIntersectionObserver'
 
 type Props = { defaultOpen?: boolean; lazyLoad?: boolean }
@@ -229,6 +230,9 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                 </div>
               </div>
             </div>
+
+            {/* Logo Block */}
+            <LogoBlock />
 
             {/* Typography Block - Placeholder */}
             <div className="flex flex-col gap-8">
