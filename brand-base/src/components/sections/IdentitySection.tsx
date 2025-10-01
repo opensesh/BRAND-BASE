@@ -99,6 +99,9 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
       >
         {shouldLoad ? (
           <div className="flex flex-col gap-24">
+            {/* Logo Block */}
+            <LogoBlock />
+
             {/* Color Block */}
             <div className="flex flex-col gap-8">
               <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
@@ -230,9 +233,6 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                 </div>
               </div>
             </div>
-
-            {/* Logo Block */}
-            <LogoBlock />
 
             {/* Typography Block - Placeholder */}
             <div className="flex flex-col gap-8">
