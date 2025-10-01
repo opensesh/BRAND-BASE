@@ -348,7 +348,7 @@ export default function LogoFrame({
           <div className="relative" ref={colorMenuRef}>
             <button
               onClick={handleColorClick}
-              className={`rounded-full p-3 transition-all ${showColorMenu ? 'bg-brand-secondary' : 'bg-brand-charcoal hover:opacity-80'}`}
+              className={`rounded-full p-3 transition-all ${showColorMenu ? 'bg-brand-aperol' : 'bg-brand-charcoal hover:opacity-80'}`}
               aria-label="Change color"
             >
               <PaintBucket className="w-4 h-4 text-brand-vanilla" />
@@ -375,7 +375,7 @@ export default function LogoFrame({
                         return 'bg-brand-vanilla border-brand-vanilla text-brand-charcoal'
                       }
                       // Default selected state (orange)
-                      return 'bg-brand-secondary border-brand-secondary text-brand-vanilla'
+                      return 'bg-brand-aperol border-brand-aperol text-brand-vanilla'
                     }
 
                     // Unselected states - always show consistent styling
@@ -417,7 +417,7 @@ export default function LogoFrame({
           <div className="relative" ref={downloadMenuRef}>
             <button
               onClick={handleDownloadClick}
-              className={`rounded-full p-3 transition-all ${showDownloadMenu ? 'bg-brand-secondary' : 'bg-brand-charcoal hover:opacity-80'}`}
+              className={`rounded-full p-3 transition-all ${showDownloadMenu ? 'bg-brand-aperol' : 'bg-brand-charcoal hover:opacity-80'}`}
               aria-label="Download logo"
             >
               <Download className="w-4 h-4 text-brand-vanilla" />
