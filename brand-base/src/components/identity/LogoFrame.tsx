@@ -333,7 +333,7 @@ export default function LogoFrame({
   }
 
   return (
-    <div className="relative flex flex-col items-center justify-center bg-black rounded-3xl min-w-[260px] flex-1 basis-0 grow overflow-hidden">
+    <div className="relative flex flex-col bg-black rounded-3xl min-w-[260px] flex-1 basis-0 grow overflow-hidden">
       {/* Border overlay */}
       <div aria-hidden="true" className="absolute border border-[#787878] border-solid inset-0 pointer-events-none rounded-3xl z-10" style={{ borderColor: currentColor === 'Charcoal' ? 'transparent' : '#787878' }} />
 
@@ -432,7 +432,7 @@ export default function LogoFrame({
       {/* Logo Display Area - exact Figma structure */}
       <div
         ref={logoDisplayRef}
-        className={`w-full box-border flex gap-2.5 items-center justify-center px-0 py-6 relative shrink-0 transition-colors overflow-visible ${getBackgroundColor()}`}
+        className={`w-full box-border flex gap-2.5 items-center justify-center px-0 py-6 relative flex-1 transition-colors overflow-visible ${getBackgroundColor()}`}
       >
         {renderLogo()}
       </div>
