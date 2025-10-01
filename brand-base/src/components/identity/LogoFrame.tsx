@@ -232,14 +232,39 @@ export default function LogoFrame({
   const renderLogo = () => {
     if (!svgContent) return null
 
-    // Combo logo - uses complete SVG files for all variants (480x141 aspect ratio)
-    // Much smaller to match stacked logo proportions
+    // Combo - modify SVG to match stacked properties
     if (logoType === 'combo') {
+      // Modify SVG to have same properties as stacked: preserveAspectRatio="none" width="100%" height="100%"
+      let modifiedSvg = svgContent
+        .replace(/<svg[^>]*/, (match) => {
+          return match
+            .replace(/width="[^"]*"/gi, 'width="100%"')
+            .replace(/height="[^"]*"/gi, 'height="100%"')
+            .replace(/preserveAspectRatio="[^"]*"/gi, 'preserveAspectRatio="none"')
+        })
+
+      // Add attributes if they don't exist
+      if (!modifiedSvg.includes('width=')) {
+        modifiedSvg = modifiedSvg.replace('<svg', '<svg width="100%"')
+      }
+      if (!modifiedSvg.includes('height=')) {
+        modifiedSvg = modifiedSvg.replace('<svg', '<svg height="100%"')
+      }
+      if (!modifiedSvg.includes('preserveAspectRatio')) {
+        modifiedSvg = modifiedSvg.replace('<svg', '<svg preserveAspectRatio="none"')
+      }
+      if (!modifiedSvg.includes('overflow=')) {
+        modifiedSvg = modifiedSvg.replace('<svg', '<svg overflow="visible"')
+      }
+      if (!modifiedSvg.includes('style=')) {
+        modifiedSvg = modifiedSvg.replace('<svg', '<svg style="display: block;"')
+      }
+
       return (
         <div className="relative shrink-0 size-[211.437px]">
           <div
-            className="absolute aspect-[480/141] left-[25%] right-[25%] top-1/2 -translate-y-1/2"
-            dangerouslySetInnerHTML={{ __html: svgContent }}
+            className="absolute aspect-[480/141] left-[5%] right-[5%] top-1/2 -translate-y-1/2"
+            dangerouslySetInnerHTML={{ __html: modifiedSvg }}
           />
         </div>
       )
@@ -402,7 +427,7 @@ export default function LogoFrame({
       {/* Logo Display Area - exact Figma structure */}
       <div
         ref={logoDisplayRef}
-        className={`w-full box-border flex gap-2.5 items-center justify-center px-0 py-6 relative shrink-0 transition-colors ${getBackgroundColor()}`}
+        className={`w-full box-border flex gap-2.5 items-center justify-center px-0 py-6 relative shrink-0 transition-colors overflow-visible ${getBackgroundColor()}`}
       >
         {renderLogo()}
       </div>
