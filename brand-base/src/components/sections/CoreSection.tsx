@@ -91,13 +91,13 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
       description: 'Communicate as if you\'re having a friendly conversation over coffee. Use natural language and relatable examples that connect with everyday experiences. Be transparent about challenges and lessons learned. Your voice should feel warm and welcoming, making even complex topics approachable.'
     },
     {
-      id: 'conversational-accessible',
-      title: 'Conversational & Accessible',
+      id: 'inspirational-visionary',
+      title: 'Inspirational & Visionary',
       description: 'Communicate as if you\'re having a friendly conversation over coffee. Use natural language and relatable examples that connect with everyday experiences. Be transparent about challenges and lessons learned. Your voice should feel warm and welcoming, making even complex topics approachable.'
     },
     {
-      id: 'inspirational-visionary',
-      title: 'Inspirational & Visionary',
+      id: 'conversational-accessible',
+      title: 'Conversational & Accessible',
       description: 'Communicate as if you\'re having a friendly conversation over coffee. Use natural language and relatable examples that connect with everyday experiences. Be transparent about challenges and lessons learned. Your voice should feel warm and welcoming, making even complex topics approachable.'
     }
   ]
