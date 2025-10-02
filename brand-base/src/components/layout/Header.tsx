@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
+import { Sun, Moon } from 'lucide-react'
 import AnchorLinkWidget from '@components/common/AnchorLinkWidget'
+import { useTheme } from '@/contexts/ThemeContext'
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { theme, toggleTheme } = useTheme()
 
   useEffect(() => {
     if (menuOpen) {
@@ -21,10 +24,10 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-brand-charcoal border-b border-[#595959]">
+      <header className="sticky top-0 z-50 bg-background border-b border-border/30">
         <div className="w-full max-w-[1184px] mx-auto px-6 py-3 flex items-center justify-between">
           {/* Brand Logo - Small Icon */}
-          <div className="flex items-center">
+          <div className="flex items-center gap-4">
             <a href="/" className="flex items-center">
               <img
                 src="http://localhost:3845/assets/4616150fc23035aa4d566608ac01cc98af4f2698.svg"
@@ -32,6 +35,20 @@ export default function Header() {
                 className="w-6 h-6"
               />
             </a>
+
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="relative flex items-center justify-center w-6 h-6 text-foreground hover:opacity-70"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              type="button"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+            </button>
           </div>
 
           {/* Hamburger/Close Menu Icon (Mobile & Desktop) */}
@@ -42,15 +59,15 @@ export default function Header() {
             type="button"
           >
             {/* Hamburger Lines - transform to X when open */}
-            <div 
+            <div
               className={`absolute flex flex-col items-center justify-center w-6 h-6 transition-all duration-300 ease-in-out pointer-events-none ${menuOpen ? 'rotate-180' : 'rotate-0'}`}
             >
               {/* Top line - rotates to form top part of X */}
-              <span className={`absolute w-[18px] h-[1.5px] bg-brand-vanilla transition-all duration-300 ease-in-out pointer-events-none ${
+              <span className={`absolute w-[18px] h-[1.5px] bg-foreground transition-all duration-300 ease-in-out pointer-events-none ${
                 menuOpen ? 'rotate-45 translate-y-0' : 'rotate-0 -translate-y-[3px]'
               }`} />
               {/* Bottom line - rotates to form bottom part of X */}
-              <span className={`absolute w-[18px] h-[1.5px] bg-brand-vanilla transition-all duration-300 ease-in-out pointer-events-none ${
+              <span className={`absolute w-[18px] h-[1.5px] bg-foreground transition-all duration-300 ease-in-out pointer-events-none ${
                 menuOpen ? '-rotate-45 translate-y-0' : 'rotate-0 translate-y-[3px]'
               }`} />
             </div>

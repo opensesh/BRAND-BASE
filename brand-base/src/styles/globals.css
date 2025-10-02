@@ -6,15 +6,33 @@
   html {
     scroll-behavior: smooth;
   }
-  
+
   :root {
     --brand-charcoal: #191919;
     --brand-vanilla: #FFFAEE;
     --brand-aperol: #FE5102;
+
+    /* Dark mode (default) - RGB values for Tailwind alpha support */
+    --color-background: 25 25 25; /* #191919 charcoal */
+    --color-foreground: 255 250 238; /* #FFFAEE vanilla */
+    --color-border: 89 89 89; /* #595959 gray */
+    --color-muted: 255 250 238; /* vanilla at reduced opacity */
   }
-  
+
+  /* Light mode - inverted colors */
+  .light {
+    --color-background: 255 250 238; /* #FFFAEE vanilla */
+    --color-foreground: 25 25 25; /* #191919 charcoal */
+    --color-border: 25 25 25; /* charcoal at reduced opacity */
+    --color-muted: 25 25 25; /* charcoal at reduced opacity */
+  }
+
+  * {
+    @apply transition-colors duration-300;
+  }
+
   body {
-    @apply bg-brand-charcoal text-brand-vanilla antialiased font-text;
+    @apply bg-background text-foreground antialiased font-text;
   }
 }
 

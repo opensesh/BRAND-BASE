@@ -27,7 +27,7 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
   return (
     <div className="w-full flex flex-col gap-12">
       {/* Section Title - D2 */}
-      <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
+      <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-foreground">
         {title}
       </h2>
 
@@ -54,13 +54,13 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
               )}
               
               {/* Title - H4 (22px, Display Medium, 600 weight) */}
-              <h4 className="text-h4-mobile md:text-h4-tablet xl:text-h4-desktop text-brand-vanilla text-left flex-1 group-hover:text-brand-aperol transition-colors">
+              <h4 className="text-h4-mobile md:text-h4-tablet xl:text-h4-desktop text-foreground text-left flex-1 group-hover:text-brand-aperol transition-colors">
                 {item.title}
               </h4>
               
               {/* Chevron */}
               <ChevronDown
-                className={`w-4 h-4 text-brand-vanilla transition-all duration-300 flex-shrink-0 group-hover:text-brand-aperol ${
+                className={`w-4 h-4 text-foreground transition-all duration-300 flex-shrink-0 group-hover:text-brand-aperol ${
                   openItems[item.id] ? 'rotate-180' : 'rotate-0'
                 }`}
               />
@@ -69,7 +69,7 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
             {/* Dropdown Content - Body text aligns with title */}
             {openItems[item.id] && (
               <div className={`pb-6 ${hasIllustrations ? 'pl-12' : 'pl-0'}`}>
-                <p className="text-b1 text-brand-vanilla">
+                <p className="text-b1 text-foreground">
                   {item.description}
                 </p>
               </div>

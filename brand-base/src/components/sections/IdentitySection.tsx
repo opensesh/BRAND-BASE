@@ -122,18 +122,18 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
 
             {/* Color Block */}
             <div id="color" className="flex flex-col gap-8">
-              <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
+              <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-foreground">
                 Color
               </h2>
 
               {/* Brand Colors */}
               <div className="flex flex-col gap-6">
-                <h3 className="font-display text-h4-mobile md:text-h4-tablet xl:text-h4-desktop text-brand-vanilla">Brand</h3>
+                <h3 className="font-display text-h4-mobile md:text-h4-tablet xl:text-h4-desktop text-foreground">Brand</h3>
                 <div className="flex flex-col md:flex-row gap-6 w-full">
                   {brandColors.map((color) => (
                     <div
                       key={color.hex}
-                      className={`flex-1 ${color.bg} rounded-xl p-6 flex flex-col border ${color.name.includes('Charcoal') ? 'border-[#787878]' : 'border-[#4a4a4a]'}`}
+                      className={`flex-1 ${color.bg} rounded-xl p-6 flex flex-col border ${color.name.includes('Charcoal') ? 'border-border' : 'border-[#4a4a4a]'}`}
                     >
                       <div className="flex flex-wrap gap-4 items-start justify-between w-full">
                         <div className="flex gap-2 items-center">
@@ -194,7 +194,7 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
 
               {/* Mono Colors */}
               <div className="flex flex-col gap-6">
-                <h3 className="font-display text-h4-mobile md:text-h4-tablet xl:text-h4-desktop text-brand-vanilla">Mono</h3>
+                <h3 className="font-display text-h4-mobile md:text-h4-tablet xl:text-h4-desktop text-foreground">Mono</h3>
                 <div className="flex flex-wrap gap-4 w-full">
                   {monoColors.map((color) => (
                     <div
@@ -258,10 +258,10 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
             {/* Guide/Iframe Block - Horizontal */}
             <div id="guide" className="flex gap-6 items-start w-full">
               <div className="flex-1 flex flex-col gap-8 min-w-0">
-                <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
+                <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-foreground">
                   Guide
                 </h2>
-                <p className="font-text text-b1 text-brand-vanilla">
+                <p className="font-text text-b1 text-foreground">
                   Welcome to Open Session. Here you can find all of our brand guidelines. Covering everything from messaging to art direction and even AI guidance
                 </p>
                 <div className="flex gap-3 items-center">
@@ -269,9 +269,9 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                     href="https://www.figma.com/proto/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS?page-id=19939%3A21956&node-id=20255-18337&viewport=465%2C-92%2C0.05&t=Fjx1co9Q53DPCGLw-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=20255%3A18337"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-brand-vanilla hover:bg-brand-vanilla/90 transition-colors px-4 py-3 rounded-full flex gap-2 items-center min-w-[128px] justify-center"
+                    className="bg-foreground hover:bg-foreground/90 transition-colors px-4 py-3 rounded-full flex gap-2 items-center min-w-[128px] justify-center"
                   >
-                    <span className="font-text text-button text-brand-charcoal">Source</span>
+                    <span className="font-text text-button text-background">Source</span>
                     <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
                       <path d="M3.33333 8H12.6667M12.6667 8L8.66667 4M12.6667 8L8.66667 12"
                         stroke="#191919"
@@ -294,7 +294,7 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
             </div>
           </div>
         ) : (
-          <div className="text-brand-vanilla/50 font-text text-caption">
+          <div className="text-foreground/50 font-text text-caption">
             Content loading...
           </div>
         )}

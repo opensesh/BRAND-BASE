@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 export default {
+  darkMode: 'class',
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}',
@@ -13,6 +14,11 @@ export default {
           vanilla: '#FFFAEE',
           aperol: '#FE5102',
         },
+        // Semantic theme colors that switch automatically
+        background: 'rgb(var(--color-background) / <alpha-value>)',
+        foreground: 'rgb(var(--color-foreground) / <alpha-value>)',
+        border: 'rgb(var(--color-border) / <alpha-value>)',
+        muted: 'rgb(var(--color-muted) / <alpha-value>)',
       },
       fontFamily: {
         display: ['"Neue Haas Grotesk Display Pro"', 'system-ui', 'sans-serif'],

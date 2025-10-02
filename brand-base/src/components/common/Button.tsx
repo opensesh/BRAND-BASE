@@ -7,10 +7,10 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const VARIANT_STYLES: Record<NonNullable<ButtonProps['variant']>, string> = {
   primary:
-    'bg-brand-aperol text-brand-vanilla hover:bg-brand-aperol/90 focus-visible:outline-brand-aperol',
+    'bg-brand-aperol text-foreground hover:bg-brand-aperol/90 focus-visible:outline-brand-aperol',
   secondary:
-    'bg-white/10 text-brand-vanilla hover:bg-white/20 focus-visible:outline-white/40',
-  ghost: 'bg-transparent text-brand-vanilla hover:bg-white/10 focus-visible:outline-white/30',
+    'bg-white/10 text-foreground hover:bg-white/20 focus-visible:outline-white/40',
+  ghost: 'bg-transparent text-foreground hover:bg-white/10 focus-visible:outline-white/30',
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
