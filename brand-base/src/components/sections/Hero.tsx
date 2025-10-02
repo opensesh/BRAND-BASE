@@ -18,8 +18,8 @@ export default function Hero() {
         style={{ zIndex: 0 }}
       >
         <FaultyTerminal
-          scale={1.5}
-          gridMul={[2, 1]}
+          scale={2}
+          gridMul={[1.5, 1]}
           digitSize={1.2}
           timeScale={0.5}
           scanlineIntensity={0.5}
@@ -31,7 +31,7 @@ export default function Hero() {
           curvature={0}
           tint="#FE5102"
           mouseReact={false}
-          pageLoadAnimation={false}
+          pageLoadAnimation={true}
           brightness={1}
         />
       </div>
