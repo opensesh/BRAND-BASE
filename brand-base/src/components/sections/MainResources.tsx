@@ -1,111 +1,46 @@
 import { useState } from 'react'
-import { ExternalLink, Globe } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 
-// Custom SVG icons from Figma - exact structure for pixel-perfect rendering
-// Using Lucide Globe icon for simplicity
+// Social icon components using SVGs from public folder
 const OpenSessionIcon = () => (
-  <Globe className="w-4 h-4" />
+  <div className="overflow-clip relative shrink-0 size-[16px]">
+    <img alt="" className="block max-w-none size-full" src="/Social Link Icons/Linkree_website_thumbnails.svg" />
+  </div>
 )
 
 const SubstackIcon = () => (
   <div className="overflow-clip relative shrink-0 size-[16px]">
-    <div className="absolute aspect-[195.2/222] bottom-[13.07%] left-[8px] overflow-clip top-[12.93%] translate-x-[-50%]">
-      <img alt="" className="block max-w-none size-full" src="http://localhost:3845/assets/89038d0585bdf94627b82de481f4f47017db7811.svg" />
-    </div>
+    <img alt="" className="block max-w-none size-full" src="/Social Link Icons/Linkree_substack_thumbnails.svg" />
   </div>
 )
 
 const MediumIcon = () => (
   <div className="overflow-clip relative shrink-0 size-[16px]">
-    <div className="absolute aspect-[258/145.6] bottom-[25.73%] left-[7.99px] top-[25.73%] translate-x-[-50%]">
-      <div className="absolute bottom-0 left-0 right-[0.18%] top-0">
-        <div
-          className="absolute bottom-0 left-0 right-[0.18%] top-0"
-          style={{
-            maskImage: `url('http://localhost:3845/assets/a13030af1b5624f312827621c2a97345569a6d8d.svg')`,
-            WebkitMaskImage: `url('http://localhost:3845/assets/a13030af1b5624f312827621c2a97345569a6d8d.svg')`,
-            maskSize: '398.047px 225px',
-            WebkitMaskSize: '398.047px 225px',
-            maskRepeat: 'no-repeat',
-            WebkitMaskRepeat: 'no-repeat'
-          }}
-        >
-          <img alt="" className="block max-w-none size-full" src="http://localhost:3845/assets/7cfe9de2df2c7981cc454105526ce28805a45b21.svg" />
-        </div>
-      </div>
-    </div>
+    <img alt="" className="block max-w-none size-full" src="/Social Link Icons/Linkree_medium_thumbnails.svg" />
   </div>
 )
 
 const YouTubeIcon = () => (
   <div className="overflow-clip relative shrink-0 size-[16px]">
-    <div className="absolute aspect-[525.5/295.594] bottom-[0.8%] overflow-clip top-[0.67%] translate-x-[-50%]" style={{ left: 'calc(100% - 7.986px)' }}>
-      <div className="absolute h-[9.513px] translate-x-[-50%] translate-y-[-50%] w-[13.758px]" style={{ top: 'calc(50% - 0.01px)', left: 'calc(50% - 0.001px)' }}>
-        <div className="absolute bottom-0 left-0 right-[0.4%] top-0">
-          <img alt="" className="block max-w-none size-full" src="http://localhost:3845/assets/d8c5d89cc85698f8b7b75954f830677a6f6e2fb3.svg" />
-        </div>
-      </div>
-    </div>
+    <img alt="" className="block max-w-none size-full" src="/Social Link Icons/Linkree_youtube_thumbnails.svg" />
   </div>
 )
 
 const FigmaIcon = () => (
   <div className="overflow-clip relative shrink-0 size-[16px]">
-    <div className="absolute h-[14px] left-[7.5px] translate-x-[-50%] translate-y-[-50%] w-[9px]" style={{ top: 'calc(100% - 7.994px)' }}>
-      <div className="absolute inset-0">
-        <div
-          className="absolute inset-0"
-          style={{
-            maskImage: `url('http://localhost:3845/assets/8849242fa3763bd4a29638b458e9f912d5bf51bc.svg')`,
-            WebkitMaskImage: `url('http://localhost:3845/assets/8849242fa3763bd4a29638b458e9f912d5bf51bc.svg')`,
-            maskSize: '248px 372px',
-            WebkitMaskSize: '248px 372px',
-            maskRepeat: 'no-repeat',
-            WebkitMaskRepeat: 'no-repeat'
-          }}
-        >
-          <img alt="" className="block max-w-none size-full" src="http://localhost:3845/assets/84f2b655e2732157523af9f9a05dd0950460fe98.svg" />
-        </div>
-      </div>
-    </div>
+    <img alt="" className="block max-w-none size-full" src="/Social Link Icons/Linkree_figma_thumbnails.svg" />
   </div>
 )
 
 const InstagramIcon = () => (
   <div className="overflow-clip relative shrink-0 size-[16px]">
-    <div className="absolute size-[14px] translate-x-[-50%] translate-y-[-50%]" style={{ top: 'calc(100% - 7.985px)', left: 'calc(100% - 7.997px)' }}>
-      <div className="absolute inset-[24.52%_24.38%_24.38%_24.47%]">
-        <img alt="" className="block max-w-none size-full" src="http://localhost:3845/assets/dba1f865397c68ffbfc97ed7778b25c3148f9e59.svg" />
-      </div>
-      <div className="absolute inset-[17.25%_17.25%_70.48%_70.56%]">
-        <img alt="" className="block max-w-none size-full" src="http://localhost:3845/assets/12395308d61a5beb6f67a5df1c7a4e25d4952a4f.svg" />
-      </div>
-      <div className="absolute bottom-[0.09%] left-0 right-0 top-[0.09%]">
-        <img alt="" className="block max-w-none size-full" src="http://localhost:3845/assets/eeb63d3b7395b564724c97b58916dfcce1b1d69e.svg" />
-      </div>
-    </div>
+    <img alt="" className="block max-w-none size-full" src="/Social Link Icons/Linkree_instagram_thumbnails.svg" />
   </div>
 )
 
 const LinkedInIcon = () => (
-  <div className="overflow-clip relative shrink-0 size-[16px]">
-    <div className="absolute size-[14px] translate-x-[-50%] translate-y-[-50%]" style={{ top: 'calc(100% - 7.991px)', left: 'calc(100% - 7.997px)' }}>
-      <div className="absolute bottom-0 left-0 right-[-18.11%] top-0">
-        <div
-          className="absolute bottom-[0.82%] left-0 right-[0.13%] top-0"
-          style={{
-            maskImage: `url('http://localhost:3845/assets/eb380d26c128581d1893e39837969770278de2e0.svg')`,
-            WebkitMaskImage: `url('http://localhost:3845/assets/eb380d26c128581d1893e39837969770278de2e0.svg')`,
-            maskSize: '16.537px 14px',
-            WebkitMaskSize: '16.537px 14px',
-            maskRepeat: 'no-repeat',
-            WebkitMaskRepeat: 'no-repeat'
-          }}
-        >
-          <img alt="" className="block max-w-none size-full" src="http://localhost:3845/assets/2bb5e40a9df127d853819e396e9c35f8dab02602.svg" />
-        </div>
-      </div>
-    </div>
+  <div className="overflow-clip relative shrink-0 size-[18px]">
+    <img alt="" className="block max-w-none size-full" src="/Social Link Icons/Linkree_linkedin_thumbnails.svg" />
   </div>
 )
 
@@ -116,7 +51,7 @@ export default function MainResources() {
   return (
     <section className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
       {/* Main Resources Heading */}
-      <h2 className="font-display text-h1-mobile md:text-h1-tablet xl:text-h1-desktop text-[#f0f0f0] mb-6">
+      <h2 className="font-display text-h1-mobile md:text-h1-tablet xl:text-h1-desktop text-brand-vanilla mb-6">
         Main Resources
       </h2>
 
@@ -266,10 +201,13 @@ export default function MainResources() {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full border border-brand-vanilla bg-brand-charcoal flex items-center justify-center hover:bg-brand-aperol hover:border-brand-aperol transition-colors"
+                      className="group relative w-10 h-10 rounded-full border border-brand-vanilla bg-brand-charcoal flex items-center justify-center hover:bg-brand-aperol hover:border-brand-aperol transition-colors"
                       aria-label={label}
                     >
                       <Icon />
+                      <span className="absolute bottom-full mb-2 px-2 py-1 bg-brand-charcoal border border-brand-vanilla rounded text-brand-vanilla font-text text-caption whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        {label}
+                      </span>
                     </a>
                   ))}
                 </div>

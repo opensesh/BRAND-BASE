@@ -27,7 +27,7 @@ export default function Header() {
           <div className="flex items-center">
             <a href="/" className="flex items-center">
               <img
-                src="http://localhost:3845/assets/4616150fc23035aa4d566608ac01cc98af4f2698.svg"
+                src="/logos/brandmark-vanilla.svg"
                 alt="Brand Logo"
                 className="w-6 h-6"
               />

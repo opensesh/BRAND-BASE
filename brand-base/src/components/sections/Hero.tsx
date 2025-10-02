@@ -52,8 +52,8 @@ export default function Hero() {
         {/* Subtitle with Typewriter */}
         <div
           className="animate-fade-in text-center
-          text-lg tracking-tight font-text
-          md:text-xl"
+          text-2xl tracking-tight font-accent
+          md:text-3xl"
           style={{ animationDelay: '0.4s', opacity: 0 }}
         >
           <p className="text-brand-vanilla">
@@ -69,7 +69,7 @@ export default function Hero() {
                 "make",
               ]}
               speed={70}
-              className="text-brand-aperol"
+              className="text-brand-aperol font-accent"
               waitTime={1500}
               deleteSpeed={40}
               cursorChar="_"
