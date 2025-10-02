@@ -323,7 +323,7 @@ function TypeRow({ category, isFirst = false }: TypeRowProps) {
 
 export default function TypographyBlock() {
   return (
-    <div className="flex flex-col gap-8">
+    <div id="typography" className="flex flex-col gap-8">
       {/* Section Title */}
       <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
         Typography

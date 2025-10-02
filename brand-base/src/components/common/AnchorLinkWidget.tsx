@@ -20,6 +20,12 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     identity: false, // Identity CLOSED by default
     system: false, // System CLOSED by default
   })
+  const [activeSubItem, setActiveSubItem] = useState<string | null>(null)
+  const userInteractedRef = useRef<Record<string, boolean>>({
+    core: false,
+    identity: false,
+    system: false,
+  })
 
   // Calculate actual header height
   useEffect(() => {
@@ -30,22 +36,49 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     }
   }, [])
 
-  const handleScrollToSection = (id: string) => {
+  const handleScrollToSection = (id: string, parentId?: string) => {
     const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+    if (element && parentId) {
+      // Mark that user interacted with this section
+      userInteractedRef.current[parentId] = true
+
+      // Dispatch custom event to open the section
+      const openSectionEvent = new CustomEvent('open-section', {
+        detail: { sectionId: parentId }
+      })
+      window.dispatchEvent(openSectionEvent)
+
+      // Wait for section to open, then scroll
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }, 350)
+
+      setMenuOpen(false)
+    } else if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
       setMenuOpen(false)
     }
   }
 
   const toggleSection = (id: string) => {
+    // Mark that user has interacted with this section
+    userInteractedRef.current[id] = true
+
     setOpenSections((prev) => {
-      // Only one section can be open at a time
       const isCurrentlyOpen = prev[id]
+      // If clicking on an already open section, close it
+      // Otherwise, close all and open the clicked one
+      if (isCurrentlyOpen) {
+        return {
+          core: false,
+          identity: false,
+          system: false,
+        }
+      }
       return {
-        core: id === 'core' && !isCurrentlyOpen,
-        identity: id === 'identity' && !isCurrentlyOpen,
-        system: id === 'system' && !isCurrentlyOpen,
+        core: id === 'core',
+        identity: id === 'identity',
+        system: id === 'system',
       }
     })
   }
@@ -78,6 +111,104 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [menuOpen, setMenuOpen])
 
+  // Reset menu state when opening - detect current section
+  useEffect(() => {
+    if (menuOpen) {
+      // Detect which section user is currently viewing
+      const allSubItems = navItems.flatMap(item =>
+        (item.subItems || []).map(sub => ({ ...sub, parentId: item.id }))
+      )
+
+      const viewportCenter = window.innerHeight / 2
+      const threshold = 500
+      let closestElement: { id: string; distance: number; parentId: string } | null = null
+
+      allSubItems.forEach(({ id, parentId }) => {
+        const element = document.getElementById(id)
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0
+
+          if (isVisible) {
+            const elementCenter = rect.top + rect.height / 2
+            const distance = Math.abs(elementCenter - viewportCenter)
+
+            if (distance < threshold && (!closestElement || distance < closestElement.distance)) {
+              closestElement = { id, distance, parentId }
+            }
+          }
+        }
+      })
+
+      if (closestElement) {
+        // Open the section the user is currently viewing
+        setOpenSections({
+          core: closestElement.parentId === 'core',
+          identity: closestElement.parentId === 'identity',
+          system: closestElement.parentId === 'system',
+        })
+        setActiveSubItem(closestElement.id)
+      } else {
+        // Default to all closed if nothing is detected (above core section)
+        setOpenSections({
+          core: false,
+          identity: false,
+          system: false,
+        })
+        setActiveSubItem(null)
+      }
+
+      // Reset user interaction tracking
+      userInteractedRef.current = {
+        core: false,
+        identity: false,
+        system: false,
+      }
+    }
+  }, [menuOpen])
+
+  // Scroll detection to highlight active subsection
+  useEffect(() => {
+    const handleScroll = () => {
+      const allSubItems = navItems.flatMap(item =>
+        (item.subItems || []).map(sub => ({ ...sub, parentId: item.id }))
+      )
+
+      const viewportCenter = window.innerHeight / 2
+      const threshold = 300 // Only consider elements within 300px of center
+      let closestElement: { id: string; distance: number; parentId: string } | null = null
+
+      allSubItems.forEach(({ id, parentId }) => {
+        const element = document.getElementById(id)
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          // Check if element is visible in viewport
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0
+
+          if (isVisible) {
+            const elementCenter = rect.top + rect.height / 2
+            const distance = Math.abs(elementCenter - viewportCenter)
+
+            // Only consider elements that are reasonably close to viewport center
+            if (distance < threshold && (!closestElement || distance < closestElement.distance)) {
+              closestElement = { id, distance, parentId }
+            }
+          }
+        }
+      })
+
+      if (closestElement) {
+        setActiveSubItem(closestElement.id)
+      } else {
+        setActiveSubItem(null)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll() // Initial check
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [menuOpen])
+
   const navItems: NavItem[] = [
     {
       id: 'core',
@@ -93,16 +224,17 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
       id: 'identity',
       label: 'Identity',
       subItems: [
+        { id: 'logo', label: 'Logo' },
         { id: 'color', label: 'Color' },
         { id: 'typography', label: 'Typography' },
+        { id: 'guide', label: 'Guide' },
       ],
     },
     {
       id: 'system',
       label: 'System',
       subItems: [
-        { id: 'components', label: 'Components' },
-        { id: 'patterns', label: 'Patterns' },
+        { id: 'figma', label: 'Figma' },
       ],
     },
   ]
@@ -168,18 +300,30 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                 </button>
                 {openSections[item.id] && item.subItems && (
                   <div className="pl-8 flex flex-col gap-1 mt-3 pb-6 animate-fade-in">
-                    {item.subItems.map((subItem) => (
-                      <a
-                        key={subItem.id}
-                        href={`#${subItem.id}`}
-                        onClick={() => handleScrollToSection(subItem.id)}
-                        className="flex items-center gap-2 py-1 group text-brand-vanilla hover:text-brand-aperol transition-colors duration-200"
-                      >
-                        <CornerDownRight className="w-4 h-4 text-brand-vanilla group-hover:text-brand-aperol transition-colors duration-200 flex-shrink-0" />
-                        <span className="font-text text-b1 flex-shrink-0">{subItem.label}</span>
-                        <div className="flex-1 border-b border-dotted border-[#787878] group-hover:border-brand-aperol transition-colors duration-200 ml-2"></div>
-                      </a>
-                    ))}
+                    {item.subItems.map((subItem) => {
+                      const isActive = activeSubItem === subItem.id
+                      return (
+                        <a
+                          key={subItem.id}
+                          href={`#${subItem.id}`}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            handleScrollToSection(subItem.id, item.id)
+                          }}
+                          className={`flex items-center gap-2 py-1 group transition-colors duration-200 ${
+                            isActive ? 'text-brand-aperol' : 'text-brand-vanilla hover:text-brand-aperol'
+                          }`}
+                        >
+                          <CornerDownRight className={`w-4 h-4 transition-colors duration-200 flex-shrink-0 ${
+                            isActive ? 'text-brand-aperol' : 'text-brand-vanilla group-hover:text-brand-aperol'
+                          }`} />
+                          <span className="font-text text-b1 flex-shrink-0">{subItem.label}</span>
+                          <div className={`flex-1 border-b border-dotted transition-colors duration-200 ml-2 ${
+                            isActive ? 'border-brand-aperol' : 'border-[#787878] group-hover:border-brand-aperol'
+                          }`}></div>
+                        </a>
+                      )
+                    })}
                   </div>
                 )}
               </div>
@@ -191,7 +335,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
             <h3 className="font-text text-caption uppercase text-brand-vanilla">Quick Links</h3>
             <div className="flex gap-2">
               <a
-                href="https://www.figma.com/design/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS"
+                href="https://www.figma.com/design/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS?node-id=11107-68411&t=w51tqPrTUlDRqfak-1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 min-w-[132px] bg-white text-brand-charcoal rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
@@ -206,7 +350,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                 </svg>
               </a>
               <a
-                href="https://github.com/opensesh/OS_Brand-Design-System"
+                href="https://github.com/opensesh"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 min-w-[132px] bg-white text-brand-charcoal rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
@@ -218,7 +362,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
               </a>
             </div>
             <a
-              href="https://www.figma.com/design/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS?node-id=20094-16807&t=w51tqPrTUlDRqfak-1"
+              href="https://www.figma.com/proto/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS?page-id=19939%3A21956&node-id=20255-18337&viewport=465%2C-92%2C0.05&t=Fjx1co9Q53DPCGLw-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=20255%3A18337"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full bg-white text-brand-charcoal rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"

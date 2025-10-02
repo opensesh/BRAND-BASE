@@ -113,31 +113,39 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
         {shouldLoad ? (
           <div className="flex flex-col gap-16">
             {/* Mission - Dual Heading Text */}
-            <DualHeadingText
-              title={missionContent.title}
-              heading={missionContent.heading}
-              body={missionContent.body}
-            />
+            <div id="mission">
+              <DualHeadingText
+                title={missionContent.title}
+                heading={missionContent.heading}
+                body={missionContent.body}
+              />
+            </div>
 
             {/* Values - Text Dropdown with Illustrations */}
-            <TextDropdown
-              title="Values"
-              items={valuesItems}
-              hasIllustrations={true}
-            />
+            <div id="values">
+              <TextDropdown
+                title="Values"
+                items={valuesItems}
+                hasIllustrations={true}
+              />
+            </div>
 
             {/* Voice - Text Columns */}
-            <TextColumns
-              heading="Voice"
-              columns={voiceColumns}
-            />
+            <div id="voice">
+              <TextColumns
+                heading="Voice"
+                columns={voiceColumns}
+              />
+            </div>
 
             {/* Pillars - Text Dropdown without Illustrations */}
-            <TextDropdown
-              title="Pillars"
-              items={pillarsItems}
-              hasIllustrations={false}
-            />
+            <div id="pillars">
+              <TextDropdown
+                title="Pillars"
+                items={pillarsItems}
+                hasIllustrations={false}
+              />
+            </div>
           </div>
         ) : (
           <div className="text-brand-vanilla/50 font-text text-sm">

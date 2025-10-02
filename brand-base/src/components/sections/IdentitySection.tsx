@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import SectionDropdown from '@components/common/SectionDropdown'
 import LogoBlock from '@components/identity/LogoBlock'
 import TypographyBlock from '@components/identity/TypographyBlock'
@@ -10,8 +10,21 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
   const ref = useRef<HTMLDivElement | null>(null)
   const inView = useIntersectionObserver(ref as React.RefObject<Element>, { threshold: 0.2 })
   const [copiedValue, setCopiedValue] = useState<string | null>(null)
+  const [isOpen, setIsOpen] = useState(defaultOpen)
 
   const shouldLoad = !lazyLoad || inView
+
+  // Listen for custom open-section events
+  useEffect(() => {
+    const handleOpenSection = (event: CustomEvent) => {
+      if (event.detail.sectionId === 'identity') {
+        setIsOpen(true)
+      }
+    }
+
+    window.addEventListener('open-section', handleOpenSection as EventListener)
+    return () => window.removeEventListener('open-section', handleOpenSection as EventListener)
+  }, [])
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -91,20 +104,24 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
   ]
 
   return (
-    <div ref={ref} className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
+    <div id="identity" ref={ref} className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
       <SectionDropdown
         title="Identity"
         number="02"
         defaultOpen={defaultOpen}
         iconType="chevron"
+        isOpen={isOpen}
+        onToggle={setIsOpen}
       >
         {shouldLoad ? (
           <div className="flex flex-col gap-24">
             {/* Logo Block */}
-            <LogoBlock />
+            <div id="logo">
+              <LogoBlock />
+            </div>
 
             {/* Color Block */}
-            <div className="flex flex-col gap-8">
+            <div id="color" className="flex flex-col gap-8">
               <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
                 Color
               </h2>
@@ -182,7 +199,7 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                   {monoColors.map((color) => (
                     <div
                       key={color.hex}
-                      className={`flex-1 min-w-[140px] min-h-[167px] ${color.bg} rounded-xl p-4 flex flex-col border border-[#4a4a4a]`}
+                      className={`flex-1 min-w-[162px] min-h-[162px] ${color.bg} rounded-xl p-[10px] flex flex-col justify-between border border-[#4a4a4a]`}
                     >
                       <div className="flex gap-2 items-center">
                         <p className={`font-text text-b2 ${color.textColor}`}>
@@ -203,7 +220,7 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                           </svg>
                         </button>
                       </div>
-                      <div className="flex flex-col gap-2 mt-12">
+                      <div className="flex flex-col gap-2">
                         {[
                           { label: color.hex },
                           { label: color.rgb }
@@ -238,18 +255,23 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
             {/* Typography Block */}
             <TypographyBlock />
 
-            {/* Guide/Iframe Block */}
-            <div className="flex gap-6 items-start w-full">
+            {/* Guide/Iframe Block - Horizontal */}
+            <div id="guide" className="flex gap-6 items-start w-full">
               <div className="flex-1 flex flex-col gap-8 min-w-0">
                 <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
                   Guide
                 </h2>
                 <p className="font-text text-b1 text-brand-vanilla">
-                  Welcome to ToolKit. Here you'll find the most up to date brand assets as well as interactive tools enabling creative agency.
+                  Welcome to Open Session. Here you can find all of our brand guidelines. Covering everything from messaging to art direction and even AI guidance
                 </p>
                 <div className="flex gap-3 items-center">
-                  <button className="bg-brand-vanilla hover:bg-brand-vanilla/90 transition-colors px-4 py-3 rounded-full flex gap-2 items-center min-w-[128px] justify-center">
-                    <span className="font-text text-button text-brand-charcoal">Link</span>
+                  <a
+                    href="https://www.figma.com/proto/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS?page-id=19939%3A21956&node-id=20255-18337&viewport=465%2C-92%2C0.05&t=Fjx1co9Q53DPCGLw-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=20255%3A18337"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-brand-vanilla hover:bg-brand-vanilla/90 transition-colors px-4 py-3 rounded-full flex gap-2 items-center min-w-[128px] justify-center"
+                  >
+                    <span className="font-text text-button text-brand-charcoal">Source</span>
                     <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
                       <path d="M3.33333 8H12.6667M12.6667 8L8.66667 4M12.6667 8L8.66667 12"
                         stroke="#191919"
@@ -258,10 +280,17 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                         strokeLinejoin="round"
                       />
                     </svg>
-                  </button>
+                  </a>
                 </div>
               </div>
-              <div className="flex-1 bg-brand-vanilla rounded-xl h-[399px] min-w-[300px]" />
+              <div className="flex-1 min-w-[300px] h-[399px] rounded-xl overflow-hidden">
+                <iframe
+                  style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
+                  className="w-full h-full rounded-xl"
+                  src="https://embed.figma.com/proto/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS?page-id=19939%3A21956&node-id=20255-18337&viewport=465%2C-92%2C0.05&scaling=scale-down&content-scaling=fixed&starting-point-node-id=20255%3A18337&embed-host=share"
+                  allowFullScreen
+                />
+              </div>
             </div>
           </div>
         ) : (

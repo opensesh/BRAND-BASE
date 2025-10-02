@@ -17,6 +17,8 @@ interface SectionDropdownProps {
   links?: LinkItem[]
   className?: string
   iconType?: 'chevron' | 'plus-minus'
+  isOpen?: boolean
+  onToggle?: (isOpen: boolean) => void
 }
 
 export default function SectionDropdown({
@@ -26,9 +28,12 @@ export default function SectionDropdown({
   defaultOpen = true,
   links = [],
   className = '',
-  iconType = 'chevron'
+  iconType = 'chevron',
+  isOpen: controlledIsOpen,
+  onToggle
 }: SectionDropdownProps) {
-  const [isOpen, setIsOpen] = useState(defaultOpen)
+  const [internalIsOpen, setInternalIsOpen] = useState(defaultOpen)
+  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen
   const contentRef = useRef<HTMLDivElement>(null)
   const [contentHeight, setContentHeight] = useState<number>(0)
 
@@ -41,7 +46,12 @@ export default function SectionDropdown({
   }, [children, isOpen])
 
   const toggleOpen = () => {
-    setIsOpen(!isOpen)
+    const newIsOpen = !isOpen
+    if (onToggle) {
+      onToggle(newIsOpen)
+    } else {
+      setInternalIsOpen(newIsOpen)
+    }
   }
 
   const renderIcon = () => {
@@ -63,7 +73,7 @@ export default function SectionDropdown({
   }
 
   return (
-    <section className={`w-full ${className}`}>
+    <section className={`w-full ${className}`} data-section-dropdown>
       {/* Flexbox Container */}
       <div className="flex flex-col w-full">
         {/* Header Button */}
