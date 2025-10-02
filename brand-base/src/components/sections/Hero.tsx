@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react"
 import Button from "@components/common/Button"
 import FaultyTerminal from "@components/ui/faulty-terminal"
+import { Typewriter } from "@components/ui/typewriter"
 
 export default function Hero() {
   return (
@@ -10,7 +11,7 @@ export default function Hero() {
       h-[690px] overflow-hidden
       bg-[linear-gradient(to_bottom,#FFFAEE,#FFFAEE_50%,#e8e8e8_88%)]
       dark:bg-[linear-gradient(to_bottom,#191919,#191919_50%,#0a0a0a_88%)]
-      rounded-b-xl"
+      rounded-b-xl flex flex-col items-center justify-center"
     >
       {/* FaultyTerminal Effect - Layer 0 (behind everything) */}
       <div
@@ -36,51 +37,45 @@ export default function Hero() {
         />
       </div>
 
-      {/* Title */}
-      <h1
-        className="animate-fade-in text-balance relative
-        bg-gradient-to-br from-brand-vanilla from-30% to-brand-vanilla/40
-        bg-clip-text py-6 font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop
-        leading-none tracking-tighter
-        text-transparent"
-        style={{ animationDelay: '0.2s', opacity: 0, zIndex: 10 }}
-      >
-        Brand OS
-      </h1>
+      {/* Centered Content */}
+      <div className="relative w-full max-w-7xl mx-auto px-4" style={{ zIndex: 10 }}>
+        {/* Title */}
+        <h1
+          className="animate-fade-in text-balance text-center
+          text-brand-vanilla py-6 font-display text-d1-mobile md:text-d1-tablet xl:text-d1-desktop
+          leading-none tracking-tighter"
+          style={{ animationDelay: '0.2s', opacity: 0 }}
+        >
+          Brand OS
+        </h1>
 
-      {/* Subtitle */}
-      <p
-        className="animate-fade-in mb-12 text-balance relative
-        text-lg tracking-tight text-brand-vanilla/60 font-text
-        md:text-xl"
-        style={{ animationDelay: '0.4s', opacity: 0, zIndex: 10 }}
-      >
-        the basecamp for our brand
-      </p>
-
-      {/* CTA Buttons */}
-      <div className="flex justify-center gap-4 flex-wrap animate-fade-in relative" style={{ animationDelay: '0.6s', opacity: 0, zIndex: 10 }}>
-        <button className="px-6 py-3 text-sm text-brand-vanilla/70 font-text
-          bg-gradient-to-tr from-brand-vanilla/5 via-brand-vanilla/10 to-transparent
-          border-[2px] border-brand-vanilla/20
-          rounded-full w-fit tracking-tight uppercase
-          transition-all duration-300 hover:border-brand-vanilla/40 hover:text-brand-vanilla/90">
-          Core
-        </button>
-        <button className="px-6 py-3 text-sm text-brand-vanilla/70 font-text
-          bg-gradient-to-tr from-brand-vanilla/5 via-brand-vanilla/10 to-transparent
-          border-[2px] border-brand-vanilla/20
-          rounded-full w-fit tracking-tight uppercase
-          transition-all duration-300 hover:border-brand-vanilla/40 hover:text-brand-vanilla/90">
-          Identity
-        </button>
-        <button className="px-6 py-3 text-sm text-brand-vanilla/70 font-text
-          bg-gradient-to-tr from-brand-vanilla/5 via-brand-vanilla/10 to-transparent
-          border-[2px] border-brand-vanilla/20
-          rounded-full w-fit tracking-tight uppercase
-          transition-all duration-300 hover:border-brand-vanilla/40 hover:text-brand-vanilla/90">
-          System
-        </button>
+        {/* Subtitle with Typewriter */}
+        <div
+          className="animate-fade-in text-center
+          text-lg tracking-tight font-text
+          md:text-xl"
+          style={{ animationDelay: '0.4s', opacity: 0 }}
+        >
+          <p className="text-brand-vanilla">
+            <span>Made to help you </span>
+            <Typewriter
+              text={[
+                "create",
+                "design",
+                "build",
+                "render",
+                "code",
+                "experiment",
+                "make",
+              ]}
+              speed={70}
+              className="text-brand-aperol"
+              waitTime={1500}
+              deleteSpeed={40}
+              cursorChar="_"
+            />
+          </p>
+        </div>
       </div>
 
       {/* Bottom Fade */}
