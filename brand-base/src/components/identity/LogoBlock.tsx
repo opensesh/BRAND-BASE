@@ -33,7 +33,7 @@ export default function LogoBlock() {
     <div className="flex flex-col gap-12 p-12">
       {/* Section Title */}
       <div className="flex flex-col gap-8">
-        <h2 className="font-display text-d2-mobile md:text-d2-tablet tracking-[-2px] text-foreground">
+        <h2 className="font-display text-d2-mobile md:text-d2-tablet tracking-[-2px] text-brand-vanilla">
           Logo
         </h2>
       </div>
@@ -41,15 +41,15 @@ export default function LogoBlock() {
       {/* Main Section */}
       <div className="flex flex-col gap-6">
         <div className="flex items-start justify-between w-full">
-          <h3 className="font-display text-h4-mobile tracking-[-0.25px] text-foreground">
+          <h3 className="font-display text-h4-mobile tracking-[-0.25px] text-brand-vanilla">
             Main
           </h3>
           <button
             onClick={handleMainReset}
             className="flex items-center gap-2 px-4 py-3 rounded-full border border-brand-vanilla transition-opacity hover:opacity-80"
           >
-            <span className="font-text text-button text-foreground leading-[1.25]">Reset</span>
-            <RotateCcw className="w-4 h-4 text-foreground" />
+            <span className="font-text text-button text-brand-vanilla leading-[1.25]">Reset</span>
+            <RotateCcw className="w-4 h-4 text-brand-vanilla" />
           </button>
         </div>
 
@@ -84,15 +84,15 @@ export default function LogoBlock() {
       {/* Accessory Section */}
       <div className="flex flex-col gap-6">
         <div className="flex items-start justify-between w-full">
-          <h3 className="font-display text-h4-mobile tracking-[-0.25px] text-foreground">
+          <h3 className="font-display text-h4-mobile tracking-[-0.25px] text-brand-vanilla">
             Accessory
           </h3>
           <button
             onClick={handleMonogramReset}
             className="flex items-center gap-2 px-4 py-3 rounded-full border border-brand-vanilla transition-opacity hover:opacity-80"
           >
-            <span className="font-text text-button text-foreground leading-[1.25]">Reset</span>
-            <RotateCcw className="w-4 h-4 text-foreground" />
+            <span className="font-text text-button text-brand-vanilla leading-[1.25]">Reset</span>
+            <RotateCcw className="w-4 h-4 text-brand-vanilla" />
           </button>
         </div>
 

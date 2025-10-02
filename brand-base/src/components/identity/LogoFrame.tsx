@@ -108,7 +108,7 @@ const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
       canvas.height = rect.height * 2
 
       // Fill background
-      ctx.fillStyle = getBackgroundColor() === 'bg-background' ? '#191919' : '#FFFAEE'
+      ctx.fillStyle = getBackgroundColor() === 'bg-brand-charcoal' ? '#191919' : '#FFFAEE'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       // Create blob from SVG and draw
@@ -226,9 +226,9 @@ const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
   const getBackgroundColor = () => {
     switch (currentColor) {
       case 'Charcoal':
-        return 'bg-foreground' // White background for charcoal logo
+        return 'bg-brand-vanilla' // White background for charcoal logo
       case 'Vanilla':
-        return 'bg-background' // Dark background for vanilla logo
+        return 'bg-brand-charcoal' // Dark background for vanilla logo
       case 'Glass':
         return 'bg-[#1e1e1e]' // Dark background for glass logo
       default:
@@ -343,11 +343,11 @@ const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
   return (
     <div className="relative flex flex-col bg-black rounded-3xl min-w-[260px] flex-1 basis-0 grow overflow-hidden">
       {/* Border overlay */}
-      <div aria-hidden="true" className="absolute border border-border border-solid inset-0 pointer-events-none rounded-3xl z-10" style={{ borderColor: currentColor === 'Charcoal' ? 'transparent' : '#787878' }} />
+      <div aria-hidden="true" className="absolute border border-[#787878] border-solid inset-0 pointer-events-none rounded-3xl z-10" style={{ borderColor: currentColor === 'Charcoal' ? 'transparent' : '#787878' }} />
 
       {/* Header */}
-      <div className="bg-foreground box-border flex items-center justify-between overflow-visible p-3 relative rounded-tl-3xl rounded-tr-3xl shrink-0 w-full z-[15]">
-        <h3 className="font-display text-h4-mobile tracking-[-0.25px] text-background leading-[1.2]">
+      <div className="bg-brand-vanilla box-border flex items-center justify-between overflow-visible p-3 relative rounded-tl-3xl rounded-tr-3xl shrink-0 w-full z-[15]">
+        <h3 className="font-display text-h4-mobile tracking-[-0.25px] text-brand-charcoal leading-[1.2]">
           {title}
         </h3>
 
@@ -356,10 +356,10 @@ const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
           <div className="relative" ref={colorMenuRef}>
             <button
               onClick={handleColorClick}
-              className={`rounded-full p-3 transition-all ${showColorMenu ? 'bg-brand-aperol' : 'bg-background hover:opacity-80'}`}
+              className={`rounded-full p-3 transition-all ${showColorMenu ? 'bg-brand-aperol' : 'bg-brand-charcoal hover:opacity-80'}`}
               aria-label="Change color"
             >
-              <PaintBucket className="w-4 h-4 text-foreground" />
+              <PaintBucket className="w-4 h-4 text-brand-vanilla" />
             </button>
 
             {/* Color Menu */}
@@ -372,18 +372,18 @@ const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
                     if (isSelected) {
                       if (color === 'Charcoal') {
                         // Charcoal selected: charcoal fill with vanilla text
-                        return 'bg-background border-brand-charcoal text-foreground'
+                        return 'bg-brand-charcoal border-brand-charcoal text-brand-vanilla'
                       }
                       if (color === 'Glass') {
                         // Glass selected: glass effect with vanilla text
-                        return 'backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla text-foreground shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)]'
+                        return 'backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla text-brand-vanilla shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)]'
                       }
                       if (color === 'Vanilla') {
                         // Vanilla selected: vanilla fill with charcoal text
-                        return 'bg-foreground border-brand-vanilla text-background'
+                        return 'bg-brand-vanilla border-brand-vanilla text-brand-charcoal'
                       }
                       // Default selected state (orange)
-                      return 'bg-brand-aperol border-brand-aperol text-foreground'
+                      return 'bg-brand-aperol border-brand-aperol text-brand-vanilla'
                     }
 
                     // Unselected states - always show consistent styling
@@ -392,17 +392,17 @@ const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
                       const borderColor = (currentColor === 'Vanilla' || currentColor === 'Glass')
                         ? 'border-brand-vanilla'
                         : 'border-brand-charcoal'
-                      return `bg-background ${borderColor} text-foreground hover:opacity-80`
+                      return `bg-brand-charcoal ${borderColor} text-brand-vanilla hover:opacity-80`
                     }
                     if (color === 'Glass') {
                       // Glass button text: vanilla when vanilla selected (charcoal bg), charcoal otherwise
-                      const textColor = currentColor === 'Vanilla' ? 'text-foreground' : 'text-background'
+                      const textColor = currentColor === 'Vanilla' ? 'text-brand-vanilla' : 'text-brand-charcoal'
                       return `backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla ${textColor} shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)] hover:bg-[rgba(255,250,238,0.3)]`
                     }
                     if (color === 'Vanilla') {
-                      return 'bg-foreground border-black text-black hover:opacity-80'
+                      return 'bg-brand-vanilla border-black text-black hover:opacity-80'
                     }
-                    return 'bg-background border-white text-white hover:opacity-80'
+                    return 'bg-brand-charcoal border-white text-white hover:opacity-80'
                   }
 
                   return (
@@ -425,10 +425,10 @@ const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
           <div className="relative" ref={downloadMenuRef}>
             <button
               onClick={handleDownloadClick}
-              className={`rounded-full p-3 transition-all ${showDownloadMenu ? 'bg-brand-aperol' : 'bg-background hover:opacity-80'}`}
+              className={`rounded-full p-3 transition-all ${showDownloadMenu ? 'bg-brand-aperol' : 'bg-brand-charcoal hover:opacity-80'}`}
               aria-label="Download logo"
             >
-              <Download className="w-4 h-4 text-foreground" />
+              <Download className="w-4 h-4 text-brand-vanilla" />
             </button>
 
             {/* Download Menu */}
@@ -436,13 +436,13 @@ const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
               <div className="absolute top-full right-0 mt-[20px] flex flex-col gap-2 z-[30]">
                 <button
                   onClick={() => handleFormatSelect('SVG')}
-                  className="bg-background rounded-full px-4 py-3 border border-white hover:opacity-80 transition-opacity min-w-[80px]"
+                  className="bg-brand-charcoal rounded-full px-4 py-3 border border-white hover:opacity-80 transition-opacity min-w-[80px]"
                 >
                   <span className="font-text text-button text-white leading-[1.25]">SVG</span>
                 </button>
                 <button
                   onClick={() => handleFormatSelect('PNG')}
-                  className="bg-background rounded-full px-4 py-3 border border-white hover:opacity-80 transition-opacity min-w-[80px]"
+                  className="bg-brand-charcoal rounded-full px-4 py-3 border border-white hover:opacity-80 transition-opacity min-w-[80px]"
                 >
                   <span className="font-text text-button text-white leading-[1.25]">PNG</span>
                 </button>

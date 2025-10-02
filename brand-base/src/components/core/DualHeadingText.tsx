@@ -8,7 +8,7 @@ export default function DualHeadingText({ title, heading, body }: DualHeadingTex
   return (
     <div className="w-full flex flex-col gap-12">
       {/* Title - D2 (Display 2) */}
-      <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-foreground">
+      <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
         {title}
       </h2>
 
@@ -20,7 +20,7 @@ export default function DualHeadingText({ title, heading, body }: DualHeadingTex
         </h3>
 
         {/* Body Text - B1 (Body 1) */}
-        <p className="font-text text-b1 text-foreground">
+        <p className="font-text text-b1 text-brand-vanilla">
           {body}
         </p>
       </div>

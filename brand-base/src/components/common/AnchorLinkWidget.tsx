@@ -253,7 +253,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
       {/* Menu Panel - z-40 to stay between backdrop and header */}
       <div
         ref={widgetRef}
-        className="fixed w-[448px] bg-background border border-border rounded-lg shadow-lg transition-all duration-300 ease-out z-40"
+        className="fixed w-[448px] bg-brand-charcoal border border-[#787878] rounded-lg shadow-lg transition-all duration-300 ease-out z-40"
         style={{
           top: `${headerHeight + 12}px`,
           right: menuOpen ? 'max(24px, calc(50vw - 568px))' : '-480px', // Fully off-screen when closed (width + margin), aligned when open
@@ -262,7 +262,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
         <div className="px-8 py-6 flex flex-col gap-8">
           {/* Top Section: On this page */}
           <div className="flex items-center justify-between">
-            <h3 className="font-text text-label uppercase text-foreground">On this page</h3>
+            <h3 className="font-text text-label uppercase text-brand-vanilla">On this page</h3>
           </div>
 
           {/* Navigation Links */}
@@ -275,7 +275,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                 >
                   <div className="flex items-center justify-center w-5 h-5">
                     <svg
-                      className={`w-3 h-3 ${openSections[item.id] ? 'text-brand-aperol' : 'text-foreground'}`}
+                      className={`w-3 h-3 ${openSections[item.id] ? 'text-brand-aperol' : 'text-brand-vanilla'}`}
                       viewBox="0 0 16 16"
                       fill="none"
                       stroke="currentColor"
@@ -285,17 +285,17 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                     </svg>
                   </div>
                   <span className={`font-display text-h4-mobile md:text-h4-tablet xl:text-h4-desktop flex-shrink-0 ${
-                    openSections[item.id] ? 'text-brand-aperol' : 'text-foreground'
+                    openSections[item.id] ? 'text-brand-aperol' : 'text-brand-vanilla'
                   }`}>
                     {item.label}
                   </span>
                   <div className={`flex-1 border-b border-dotted mx-3 ${
-                    openSections[item.id] ? 'border-brand-aperol' : 'border-border'
+                    openSections[item.id] ? 'border-brand-aperol' : 'border-[#787878]'
                   }`}></div>
                   {openSections[item.id] ? (
                     <ChevronDown className="w-5 h-5 text-brand-aperol transition-transform duration-300 flex-shrink-0" />
                   ) : (
-                    <ChevronRight className="w-5 h-5 text-foreground transition-transform duration-300 flex-shrink-0" />
+                    <ChevronRight className="w-5 h-5 text-brand-vanilla transition-transform duration-300 flex-shrink-0" />
                   )}
                 </button>
                 {openSections[item.id] && item.subItems && (
@@ -311,15 +311,15 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                             handleScrollToSection(subItem.id, item.id)
                           }}
                           className={`flex items-center gap-2 py-1 group transition-colors duration-200 ${
-                            isActive ? 'text-brand-aperol' : 'text-foreground hover:text-brand-aperol'
+                            isActive ? 'text-brand-aperol' : 'text-brand-vanilla hover:text-brand-aperol'
                           }`}
                         >
                           <CornerDownRight className={`w-4 h-4 transition-colors duration-200 flex-shrink-0 ${
-                            isActive ? 'text-brand-aperol' : 'text-foreground group-hover:text-brand-aperol'
+                            isActive ? 'text-brand-aperol' : 'text-brand-vanilla group-hover:text-brand-aperol'
                           }`} />
                           <span className="font-text text-b1 flex-shrink-0">{subItem.label}</span>
                           <div className={`flex-1 border-b border-dotted transition-colors duration-200 ml-2 ${
-                            isActive ? 'border-brand-aperol' : 'border-border group-hover:border-brand-aperol'
+                            isActive ? 'border-brand-aperol' : 'border-[#787878] group-hover:border-brand-aperol'
                           }`}></div>
                         </a>
                       )
@@ -332,13 +332,13 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
 
           {/* Quick Links */}
           <div className="flex flex-col gap-3">
-            <h3 className="font-text text-caption uppercase text-foreground">Quick Links</h3>
+            <h3 className="font-text text-caption uppercase text-brand-vanilla">Quick Links</h3>
             <div className="flex gap-2">
               <a
                 href="https://www.figma.com/design/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS?node-id=11107-68411&t=w51tqPrTUlDRqfak-1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 min-w-[132px] bg-white text-background rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
+                className="flex-1 min-w-[132px] bg-white text-brand-charcoal rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
               >
                 Figma
                 <svg className="w-4 h-4" viewBox="0 0 38 57" fill="currentColor">
@@ -353,7 +353,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
                 href="https://github.com/opensesh"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 min-w-[132px] bg-white text-background rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
+                className="flex-1 min-w-[132px] bg-white text-brand-charcoal rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
               >
                 Git Repo
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -365,7 +365,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
               href="https://www.figma.com/proto/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS?page-id=19939%3A21956&node-id=20255-18337&viewport=465%2C-92%2C0.05&t=Fjx1co9Q53DPCGLw-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=20255%3A18337"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-white text-background rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
+              className="w-full bg-white text-brand-charcoal rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-white transition-colors"
             >
               Guidelines
               <ExternalLink className="w-4 h-4" />

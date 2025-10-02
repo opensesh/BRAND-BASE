@@ -245,7 +245,7 @@ function TypeRow({ category, isFirst = false }: TypeRowProps) {
       <div className="flex flex-wrap gap-3 items-center justify-between min-w-[282px] w-full">
         {/* Style and Weight Selector */}
         <div className="flex gap-6 items-center min-w-[200px] py-2">
-          <p className="font-display text-h4-mobile md:text-h4-tablet xl:text-h4-desktop text-foreground flex-grow min-w-0">
+          <p className="font-display text-h4-mobile md:text-h4-tablet xl:text-h4-desktop text-brand-vanilla flex-grow min-w-0">
             {category.label}
           </p>
 
@@ -255,10 +255,10 @@ function TypeRow({ category, isFirst = false }: TypeRowProps) {
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="flex gap-2 items-center hover:opacity-80 transition-opacity"
             >
-              <span className="font-text text-b2 text-foreground whitespace-nowrap">
+              <span className="font-text text-b2 text-brand-vanilla whitespace-nowrap">
                 {selectedStyle.label}
               </span>
-              <ChevronDown className="w-4 h-4 text-foreground" />
+              <ChevronDown className="w-4 h-4 text-brand-vanilla" />
             </button>
 
             {isDropdownOpen && (
@@ -272,7 +272,7 @@ function TypeRow({ category, isFirst = false }: TypeRowProps) {
                     <button
                       key={style.id}
                       onClick={() => handleStyleSelect(style)}
-                      className={`w-full text-left px-4 py-2.5 font-text text-b2 text-foreground hover:bg-[#383838] transition-colors first:rounded-t-lg last:rounded-b-lg ${
+                      className={`w-full text-left px-4 py-2.5 font-text text-b2 text-brand-vanilla hover:bg-[#383838] transition-colors first:rounded-t-lg last:rounded-b-lg ${
                         selectedStyle.id === style.id ? 'bg-[#2a2a2a]' : ''
                       }`}
                     >
@@ -290,19 +290,19 @@ function TypeRow({ category, isFirst = false }: TypeRowProps) {
           {/* Reset Button */}
           <button
             onClick={handleReset}
-            className="border border-brand-vanilla rounded-full px-4 py-3 flex gap-2 items-center hover:bg-foreground/10 transition-colors"
+            className="border border-brand-vanilla rounded-full px-4 py-3 flex gap-2 items-center hover:bg-brand-vanilla/10 transition-colors"
           >
-            <span className="font-text text-button text-foreground">Reset</span>
-            <RotateCcw className="w-4 h-4 text-foreground" />
+            <span className="font-text text-button text-brand-vanilla">Reset</span>
+            <RotateCcw className="w-4 h-4 text-brand-vanilla" />
           </button>
 
           {/* Download Button */}
           <button
             onClick={handleDownload}
-            className="border border-brand-vanilla rounded-full px-4 py-3 flex gap-2 items-center hover:bg-foreground/10 transition-colors"
+            className="border border-brand-vanilla rounded-full px-4 py-3 flex gap-2 items-center hover:bg-brand-vanilla/10 transition-colors"
           >
-            <span className="font-text text-button text-foreground">Download</span>
-            <Download className="w-4 h-4 text-foreground" />
+            <span className="font-text text-button text-brand-vanilla">Download</span>
+            <Download className="w-4 h-4 text-brand-vanilla" />
           </button>
         </div>
       </div>
@@ -312,7 +312,7 @@ function TypeRow({ category, isFirst = false }: TypeRowProps) {
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className={`w-full bg-transparent text-foreground resize-none outline-none ${selectedStyle.fontFamily} ${selectedStyle.className}`}
+          className={`w-full bg-transparent text-brand-vanilla resize-none outline-none ${selectedStyle.fontFamily} ${selectedStyle.className}`}
           style={{ lineHeight: 'inherit' }}
           rows={Math.max(1, Math.ceil(text.length / 50))}
         />
@@ -325,7 +325,7 @@ export default function TypographyBlock() {
   return (
     <div id="typography" className="flex flex-col gap-8">
       {/* Section Title */}
-      <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-foreground">
+      <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
         Typography
       </h2>
 

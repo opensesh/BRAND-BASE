@@ -57,15 +57,15 @@ export default function SectionDropdown({
   const renderIcon = () => {
     if (iconType === 'plus-minus') {
       return isOpen ? (
-        <Minus className="w-5 h-5 text-foreground transition-transform duration-300" />
+        <Minus className="w-5 h-5 text-brand-vanilla transition-transform duration-300" />
       ) : (
-        <Plus className="w-5 h-5 text-foreground transition-transform duration-300" />
+        <Plus className="w-5 h-5 text-brand-vanilla transition-transform duration-300" />
       )
     }
     
     return (
       <ChevronDown 
-        className={`w-5 h-5 text-foreground transition-transform duration-300 ${
+        className={`w-5 h-5 text-brand-vanilla transition-transform duration-300 ${
           isOpen ? 'rotate-180' : 'rotate-0'
         }`} 
       />
@@ -86,23 +86,23 @@ export default function SectionDropdown({
         >
           <div className="flex items-center gap-3">
             {/* Separate Number Text Box - H5 */}
-            <span className="font-accent text-h5-mobile md:text-h5-tablet xl:text-h5-desktop text-foreground">
+            <span className="font-accent text-h5-mobile md:text-h5-tablet xl:text-h5-desktop text-brand-vanilla">
               {number}
             </span>
             {/* Separate Title Text Box - Display D1 */}
-            <h2 className="font-display text-d1-mobile md:text-d1-tablet xl:text-d1-desktop text-foreground">
+            <h2 className="font-display text-d1-mobile md:text-d1-tablet xl:text-d1-desktop text-brand-vanilla">
               {title}
             </h2>
           </div>
           <ChevronDown 
-            className={`w-6 h-6 text-foreground transition-transform duration-300 flex-shrink-0 ${
+            className={`w-6 h-6 text-brand-vanilla transition-transform duration-300 flex-shrink-0 ${
               isOpen ? 'rotate-180' : 'rotate-0'
             }`} 
           />
         </button>
         
         {/* Bottom Line Vector - 1px weight, vanilla color, fills container */}
-        <div className="w-full h-[1px] bg-foreground"></div>
+        <div className="w-full h-[1px] bg-brand-vanilla"></div>
       </div>
 
       {/* Content Panel */}

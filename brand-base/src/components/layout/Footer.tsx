@@ -127,10 +127,10 @@ export default function Footer() {
 
           {/* Tagline and Copyright */}
           <div className="flex flex-wrap gap-[19px] items-center px-3">
-            <p className="font-accent text-[20px] text-foreground leading-[1.5]">
+            <p className="font-accent text-[20px] text-brand-vanilla leading-[1.5]">
               Brand, Design, Create
             </p>
-            <p className="font-text text-caption text-foreground">
+            <p className="font-text text-caption text-brand-vanilla">
               San Diego, CA © 2025
             </p>
           </div>
@@ -141,15 +141,15 @@ export default function Footer() {
           {/* Back to Top Button */}
           <button
             onClick={scrollToTop}
-            className="w-full bg-background border border-border rounded-lg px-3 py-3 flex items-center justify-center gap-3 hover:border-brand-vanilla transition-colors"
+            className="w-full bg-brand-charcoal border border-[#787878] rounded-lg px-3 py-3 flex items-center justify-center gap-3 hover:border-brand-vanilla transition-colors"
           >
-            <ArrowUp className="w-[18px] h-[18px] text-foreground" />
-            <span className="font-text text-button text-foreground">Back to top</span>
+            <ArrowUp className="w-[18px] h-[18px] text-brand-vanilla" />
+            <span className="font-text text-button text-brand-vanilla">Back to top</span>
           </button>
 
           {/* Social Links */}
           <div className="flex flex-col gap-3">
-            <p className="font-accent text-[18px] text-foreground leading-[1.5]">Social Links</p>
+            <p className="font-accent text-[18px] text-brand-vanilla leading-[1.5]">Social Links</p>
             <div className="flex flex-wrap gap-2">
               {[
                 { Icon: OpenSessionIcon, label: 'Website', url: 'https://opensession.co/' },
@@ -165,7 +165,7 @@ export default function Footer() {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full border border-brand-vanilla bg-background flex items-center justify-center hover:bg-brand-aperol hover:border-brand-aperol transition-colors"
+                  className="w-10 h-10 rounded-full border border-brand-vanilla bg-brand-charcoal flex items-center justify-center hover:bg-brand-aperol hover:border-brand-aperol transition-colors"
                   aria-label={label}
                 >
                   <Icon />

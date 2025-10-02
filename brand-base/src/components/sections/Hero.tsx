@@ -9,7 +9,8 @@ export default function Hero() {
       id="hero"
       className="relative mx-auto w-full pt-32 pb-20 px-6 text-center md:px-8
       h-[690px] overflow-hidden
-      bg-gradient-to-b from-background via-background to-background/80
+      bg-[linear-gradient(to_bottom,#FFFAEE,#FFFAEE_50%,#e8e8e8_88%)]
+      dark:bg-[linear-gradient(to_bottom,#191919,#191919_50%,#0a0a0a_88%)]
       rounded-b-xl flex flex-col items-center justify-center"
     >
       {/* FaultyTerminal Effect - Layer 0 (behind everything) */}
@@ -41,7 +42,7 @@ export default function Hero() {
         {/* Title */}
         <h1
           className="animate-fade-in text-balance text-center
-          text-foreground py-6 font-display text-d1-mobile md:text-d1-tablet xl:text-d1-desktop
+          text-brand-vanilla py-6 font-display text-d1-mobile md:text-d1-tablet xl:text-d1-desktop
           leading-none tracking-tighter"
           style={{ animationDelay: '0.2s', opacity: 0 }}
         >
@@ -55,7 +56,7 @@ export default function Hero() {
           md:text-xl"
           style={{ animationDelay: '0.4s', opacity: 0 }}
         >
-          <p className="text-foreground">
+          <p className="text-brand-vanilla">
             <span>Made to help you </span>
             <Typewriter
               text={[
