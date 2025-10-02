@@ -1,5 +1,6 @@
 import { ChevronRight } from "lucide-react"
 import Button from "@components/common/Button"
+import FaultyTerminal from "@components/ui/faulty-terminal"
 
 export default function Hero() {
   return (
@@ -11,15 +12,29 @@ export default function Hero() {
       dark:bg-[linear-gradient(to_bottom,#191919,#191919_50%,#0a0a0a_88%)]
       rounded-b-xl"
     >
-      {/* Grid BG */}
+      {/* FaultyTerminal Effect - Layer 0 (behind everything) */}
       <div
-        className="absolute inset-0 opacity-30 w-full h-full
-        bg-[linear-gradient(to_right,#d0d0d0_1px,transparent_1px),linear-gradient(to_bottom,#d0d0d0_1px,transparent_1px)]
-        dark:bg-[linear-gradient(to_right,#2a2a2a_1px,transparent_1px),linear-gradient(to_bottom,#2a2a2a_1px,transparent_1px)]
-        bg-[size:6rem_5rem]
-        [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"
-        style={{ zIndex: 1 }}
-      />
+        className="absolute inset-0 w-full h-full opacity-20"
+        style={{ zIndex: 0 }}
+      >
+        <FaultyTerminal
+          scale={1.5}
+          gridMul={[2, 1]}
+          digitSize={1.2}
+          timeScale={0.5}
+          scanlineIntensity={0.5}
+          glitchAmount={0.8}
+          flickerAmount={0.6}
+          noiseAmp={1}
+          chromaticAberration={0}
+          dither={0}
+          curvature={0}
+          tint="#FE5102"
+          mouseReact={false}
+          pageLoadAnimation={false}
+          brightness={1}
+        />
+      </div>
 
       {/* Title */}
       <h1
