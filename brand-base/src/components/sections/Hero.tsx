@@ -18,9 +18,9 @@ export default function Hero() {
         style={{ zIndex: 0 }}
       >
         <FaultyTerminal
-          scale={2}
-          gridMul={[1.5, 1]}
-          digitSize={1.2}
+          scale={1.2}
+          gridMul={[1, 1]}
+          digitSize={1.5}
           timeScale={0.5}
           scanlineIntensity={0.5}
           glitchAmount={0.8}

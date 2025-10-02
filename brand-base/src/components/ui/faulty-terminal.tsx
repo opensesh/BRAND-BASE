@@ -210,7 +210,12 @@ void main() {
       uv = barrel(uv);
     }
 
-    vec2 p = uv * uScale;
+    // Correct for aspect ratio to maintain square cells
+    vec2 p = uv;
+    float aspectRatio = iResolution.x / iResolution.y;
+    p.x *= aspectRatio;
+    p *= uScale;
+
     vec3 col = getColor(p);
 
     if(uChromaticAberration != 0.0){
