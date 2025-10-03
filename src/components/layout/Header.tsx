@@ -29,7 +29,7 @@ export default function Header() {
           <div className="flex items-center">
             <button onClick={() => navigate('/')} className="flex items-center cursor-pointer">
               <img
-                src="/logos/brandmark-vanilla.svg"
+                src="/assets/logos/brandmark-vanilla.svg"
                 alt="Brand Logo"
                 className="w-6 h-6"
               />
