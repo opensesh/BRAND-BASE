@@ -1,0 +1,31 @@
+# OS files
+.DS_Store
+*.DS_Store
+
+# Duplicate files (from copy operations)
+*" 2"*
+*" 3"*
+*" 2."*
+*" 3."*
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
