@@ -21,11 +21,8 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     system: false, // System CLOSED by default
   })
   const [activeSubItem, setActiveSubItem] = useState<string | null>(null)
-  const userInteractedRef = useRef<Record<string, boolean>>({
-    core: false,
-    identity: false,
-    system: false,
-  })
+  const navigationInProgressRef = useRef(false)
+  const scrollDetectionEnabledRef = useRef(true)
 
   // Calculate actual header height
   useEffect(() => {
@@ -40,49 +37,49 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     const header = document.querySelector('header')
     const headerHeight = header ? header.offsetHeight : 60
 
-    const performScroll = (targetId: string) => {
+    const performScroll = (targetId: string, offset = 20) => {
       const targetElement = document.getElementById(targetId)
-      console.log('[performScroll]', { targetId, exists: !!targetElement })
       if (targetElement) {
         const elementTop = targetElement.getBoundingClientRect().top + window.pageYOffset
-        const offsetPosition = elementTop - headerHeight - 20
+        const offsetPosition = elementTop - headerHeight - offset
 
-        console.log('[performScroll] Scrolling to', { elementTop, offsetPosition, headerHeight })
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth'
         })
-      } else {
-        console.error('[performScroll] Element not found:', targetId)
+        return true
       }
+      return false
     }
 
-    console.log('[handleScrollToSection]', { id, parentId })
+    // Disable scroll detection during navigation
+    navigationInProgressRef.current = true
+    scrollDetectionEnabledRef.current = false
 
-    // No parent ID means it's a top-level section - scroll and open it
+    // Close menu immediately
+    setMenuOpen(false)
+
+    // No parent ID means it's a top-level section
     if (!parentId) {
-      console.log('[handleScrollToSection] No parentId, scroll to section and open it')
-      setMenuOpen(false)
-      performScroll(id)
+      performScroll(id, 100)
       setTimeout(() => {
         const openEvent = new CustomEvent('open-section', {
           detail: { sectionId: id }
         })
         window.dispatchEvent(openEvent)
+        // Re-enable scroll detection after navigation completes
+        setTimeout(() => {
+          scrollDetectionEnabledRef.current = true
+          navigationInProgressRef.current = false
+        }, 1000)
       }, 800)
       return
     }
 
-    // Close menu immediately
-    setMenuOpen(false)
-
-    // Mark user interaction
-    userInteractedRef.current[parentId] = true
-
-    // Capture whether the section was already open at click time
+    // Check if section is already open
     const wasOpen = openSections[parentId]
 
-    // Reflect intended open state in the widget immediately
+    // Update UI state immediately
     setOpenSections({
       core: parentId === 'core',
       identity: parentId === 'identity',
@@ -90,109 +87,79 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     })
     setActiveSubItem(id)
 
-    const parentSection = document.getElementById(parentId)
-
-    console.log('[handleScrollToSection] State check', {
-      parentSectionExists: !!parentSection,
-      wasOpen,
-    })
-
-    // If section was already open, scroll directly
+    // If section is already open, scroll directly to target
     if (wasOpen) {
-      console.log('[handleScrollToSection] Section already open - direct scroll')
-      performScroll(id)
+      setTimeout(() => {
+        performScroll(id)
+        // Re-enable scroll detection
+        setTimeout(() => {
+          scrollDetectionEnabledRef.current = true
+          navigationInProgressRef.current = false
+        }, 800)
+      }, 100)
       return
     }
 
-    // Otherwise, choreograph: scroll to parent, open it, then poll until target is visible
+    // Section is closed - need to open it first
+    const parentSection = document.querySelector(`[data-section-dropdown]`)
     if (!parentSection) {
-      console.error('[handleScrollToSection] Parent section not found!')
-      performScroll(id)
+      // Fallback: try to scroll to the target anyway
+      setTimeout(() => {
+        performScroll(id)
+        scrollDetectionEnabledRef.current = true
+        navigationInProgressRef.current = false
+      }, 100)
       return
     }
 
-    // Utility: wait until condition is true or timeout
-    const waitUntil = (
-      condition: () => boolean,
-      onDone: () => void,
-      { intervalMs = 100, timeoutMs = 4000, label = 'condition' }: { intervalMs?: number; timeoutMs?: number; label?: string } = {}
-    ) => {
-      let waited = 0
-      const tick = () => {
-        if (condition()) {
-          onDone()
-        } else if (waited >= timeoutMs) {
-          console.warn(`[waitUntil] Timeout waiting for ${label}`)
-          onDone()
-        } else {
-          waited += intervalMs
-          setTimeout(tick, intervalMs)
+    // Step 1: Dispatch open event immediately
+    const openEvent = new CustomEvent('open-section', {
+      detail: { sectionId: parentId }
+    })
+    window.dispatchEvent(openEvent)
+
+    // Step 2: Wait for section to open and content to be available
+    let attempts = 0
+    const maxAttempts = 50 // 5 seconds max
+
+    const checkAndScroll = () => {
+      attempts++
+      const targetElement = document.getElementById(id)
+
+      if (targetElement) {
+        const rect = targetElement.getBoundingClientRect()
+        // Check if element is actually rendered (has dimensions)
+        if (rect.height > 0 && rect.width > 0) {
+          // Element is ready, scroll to it
+          performScroll(id)
+          // Double-check scroll after layout settles
+          setTimeout(() => {
+            performScroll(id)
+            // Re-enable scroll detection
+            setTimeout(() => {
+              scrollDetectionEnabledRef.current = true
+              navigationInProgressRef.current = false
+            }, 500)
+          }, 300)
+          return
         }
       }
-      tick()
-    }
 
-    // Step 1: Scroll to parent section
-    const parentTop = parentSection.getBoundingClientRect().top + window.pageYOffset
-    const parentOffset = parentTop - headerHeight - 100
-
-    console.log('[handleScrollToSection] Step 1: Scrolling to parent', { parentId, parentOffset })
-    window.scrollTo({
-      top: parentOffset,
-      behavior: 'smooth'
-    })
-
-    // Step 2: Wait for section-opened confirmation from the section component
-    const sectionOpenedHandler = (evt: Event) => {
-      const customEvt = evt as CustomEvent
-      if (customEvt.detail.sectionId === parentId) {
-        console.log('[handleScrollToSection] Section opened confirmed, waiting for target visibility')
-        window.removeEventListener('section-opened', sectionOpenedHandler)
-
-        // Step 3: Wait until target exists and is visible, then scroll precisely
-        waitUntil(
-          () => {
-            const el = document.getElementById(id)
-            if (!el) return false
-            const r = el.getBoundingClientRect()
-            return r.height > 0 && r.width > 0
-          },
-          () => {
-            console.log('[handleScrollToSection] Target ready, performing final scroll')
-            performScroll(id)
-            // Nudge once more after layout settles
-            setTimeout(() => performScroll(id), 300)
-          },
-          { intervalMs: 100, timeoutMs: 5000, label: 'target visible' }
-        )
+      // Not ready yet, try again
+      if (attempts < maxAttempts) {
+        setTimeout(checkAndScroll, 100)
+      } else {
+        // Timeout - re-enable scroll detection anyway
+        scrollDetectionEnabledRef.current = true
+        navigationInProgressRef.current = false
       }
     }
-    window.addEventListener('section-opened', sectionOpenedHandler)
 
-    // Trigger open after scrolling to parent
-    const isParentInView = () => {
-      const rect = parentSection.getBoundingClientRect()
-      const topBuffer = headerHeight + 24
-      return rect.bottom > topBuffer && rect.top < window.innerHeight - 80
-    }
-
-    waitUntil(
-      isParentInView,
-      () => {
-        console.log('[handleScrollToSection] Parent in view, dispatching open-section', parentId)
-        const openEvent = new CustomEvent('open-section', {
-          detail: { sectionId: parentId }
-        })
-        window.dispatchEvent(openEvent)
-      },
-      { intervalMs: 100, timeoutMs: 5000, label: 'parent in view' }
-    )
+    // Start checking after a brief delay for section to start opening
+    setTimeout(checkAndScroll, 200)
   }
 
   const toggleSection = (id: string) => {
-    // Mark that user has interacted with this section
-    userInteractedRef.current[id] = true
-
     setOpenSections((prev) => {
       const isCurrentlyOpen = prev[id]
       // If clicking on an already open section, close it
@@ -242,7 +209,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
 
   // Reset menu state when opening - detect current section
   useEffect(() => {
-    if (menuOpen) {
+    if (menuOpen && !navigationInProgressRef.current) {
       // Detect which section user is currently viewing
       const allSubItems: { id: string; label: string; parentId: string }[] = navItems.flatMap(item =>
         (item.subItems || []).map(sub => ({ id: sub.id, label: sub.label, parentId: item.id }))
@@ -287,19 +254,17 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
         })
         setActiveSubItem(null)
       }
-
-      // Reset user interaction tracking
-      userInteractedRef.current = {
-        core: false,
-        identity: false,
-        system: false,
-      }
     }
   }, [menuOpen])
 
   // Scroll detection to highlight active subsection and open the correct section
   useEffect(() => {
     const handleScroll = () => {
+      // Don't update state during navigation
+      if (!scrollDetectionEnabledRef.current || navigationInProgressRef.current) {
+        return
+      }
+
       const allSubItems: { id: string; label: string; parentId: string }[] = navItems.flatMap(item =>
         (item.subItems || []).map(sub => ({ id: sub.id, label: sub.label, parentId: item.id }))
       )
