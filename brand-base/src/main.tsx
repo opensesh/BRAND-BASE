@@ -26,7 +26,9 @@ const router = createBrowserRouter([
   },
   { path: '/test', element: <AppTest /> },
   { path: '/preview', element: <Suspense fallback={<div className="p-6">Loading…</div>}><Preview /></Suspense> },
-])
+], {
+  basename: import.meta.env.BASE_URL,
+})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
