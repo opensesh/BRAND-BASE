@@ -116,8 +116,8 @@ export default function SectionDropdown({
         }}
       >
         <div ref={contentRef}>
-          {/* Main Content */}
-          <div className="py-8">
+          {/* Main Content with constrained width for readability */}
+          <div className="py-12 max-w-[1040px] mx-auto px-4 md:px-8">
             {children}
           </div>
         </div>

@@ -27,18 +27,18 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
   return (
     <div className="w-full flex flex-col gap-12">
       {/* Section Title - D2 */}
-      <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla">
+      <h2 className="font-display text-d2-mobile md:text-d2-tablet xl:text-d2-desktop text-brand-vanilla max-w-3xl">
         {title}
       </h2>
 
-      {/* Dropdown Items */}
-      <div className="flex flex-col">
+      {/* Dropdown Items - Centered with max-width */}
+      <div className="flex flex-col max-w-4xl mx-auto w-full">
         {items.map((item) => (
           <div key={item.id} className="w-full border-b border-brand-vanilla group hover:border-brand-aperol transition-colors">
             {/* Dropdown Header */}
             <button
               onClick={() => toggleItem(item.id)}
-              className="w-full py-4 flex items-center gap-4 transition-colors"
+              className="w-full py-6 flex items-center gap-4 transition-colors"
               type="button"
               aria-expanded={openItems[item.id]}
             >
@@ -52,12 +52,12 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
                   />
                 </div>
               )}
-              
+
               {/* Title - H4 (22px, Display Medium, 600 weight) */}
               <h4 className="text-h4-mobile md:text-h4-tablet xl:text-h4-desktop text-brand-vanilla text-left flex-1 group-hover:text-brand-aperol transition-colors">
                 {item.title}
               </h4>
-              
+
               {/* Chevron */}
               <ChevronDown
                 className={`w-4 h-4 text-brand-vanilla transition-all duration-300 flex-shrink-0 group-hover:text-brand-aperol ${
@@ -68,8 +68,8 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
 
             {/* Dropdown Content - Body text aligns with title */}
             {openItems[item.id] && (
-              <div className={`pb-6 ${hasIllustrations ? 'pl-12' : 'pl-0'}`}>
-                <p className="text-b1 text-brand-vanilla">
+              <div className={`pb-8 ${hasIllustrations ? 'pl-12' : 'pl-0'}`}>
+                <p className="text-b1 text-brand-vanilla leading-relaxed">
                   {item.description}
                 </p>
               </div>
