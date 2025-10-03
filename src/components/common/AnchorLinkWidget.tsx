@@ -81,11 +81,21 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
       return
     }
 
-    // Check if the target element actually exists in the DOM right now
+    // Check if the target element actually exists and is VISIBLE (not hidden by CSS)
     // This is the TRUE indicator of whether the section is open
     const targetElement = document.getElementById(id)
     const targetExists = targetElement !== null
-    const targetIsVisible = targetElement ? targetElement.getBoundingClientRect().height > 0 : false
+
+    // Check both dimensions AND computed visibility/opacity
+    let targetIsVisible = false
+    if (targetElement) {
+      const rect = targetElement.getBoundingClientRect()
+      const style = window.getComputedStyle(targetElement)
+      const hasSize = rect.height > 0 && rect.width > 0
+      const isVisible = style.visibility !== 'hidden' && style.display !== 'none' && style.opacity !== '0'
+      targetIsVisible = hasSize && isVisible
+    }
+
     const wasOpen = targetExists && targetIsVisible
 
     console.log('[handleScrollToSection] Section state', {
