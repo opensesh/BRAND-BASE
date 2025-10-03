@@ -4,8 +4,8 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 import path from 'path'
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: '/BRAND-BASE/',
+export default defineConfig(({ mode }) => ({
+  base: mode === 'production' ? '/BRAND-BASE/' : '/',
   plugins: [react(), tsconfigPaths()],
   resolve: {
     alias: {
@@ -28,4 +28,4 @@ export default defineConfig({
     strictPort: false,
     open: false,
   },
-})
+}))
