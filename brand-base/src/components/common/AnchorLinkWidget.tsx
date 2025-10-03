@@ -37,26 +37,71 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
   }, [])
 
   const handleScrollToSection = (id: string, parentId?: string) => {
-    const element = document.getElementById(id)
-    if (element && parentId) {
-      // Mark that user interacted with this section
-      userInteractedRef.current[parentId] = true
+    const header = document.querySelector('header')
+    const headerHeight = header ? header.offsetHeight : 60
 
-      // Dispatch custom event to open the section
-      const openSectionEvent = new CustomEvent('open-section', {
-        detail: { sectionId: parentId }
+    const performScroll = (targetId: string) => {
+      const targetElement = document.getElementById(targetId)
+      if (targetElement) {
+        const elementTop = targetElement.getBoundingClientRect().top + window.pageYOffset
+        const offsetPosition = elementTop - headerHeight - 20
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
+      }
+    }
+
+    // No parent ID means it's a top-level section - just scroll
+    if (!parentId) {
+      setMenuOpen(false)
+      performScroll(id)
+      return
+    }
+
+    // Close menu immediately
+    setMenuOpen(false)
+
+    // Mark user interaction
+    userInteractedRef.current[parentId] = true
+
+    const isSectionOpen = openSections[parentId]
+    const parentSection = document.getElementById(parentId)
+
+    // SIMPLE STRATEGY: If section is open, scroll directly. Otherwise, use choreographed flow.
+    if (isSectionOpen) {
+      // Section is already open - just scroll to the target
+      performScroll(id)
+    } else {
+      // Section is closed - choreographed flow: scroll to parent, open, then scroll to target
+      if (!parentSection) {
+        // Fallback if parent doesn't exist
+        performScroll(id)
+        return
+      }
+
+      // Step 1: Scroll to parent section
+      const parentTop = parentSection.getBoundingClientRect().top + window.pageYOffset
+      const parentOffset = parentTop - headerHeight - 100
+
+      window.scrollTo({
+        top: parentOffset,
+        behavior: 'smooth'
       })
-      window.dispatchEvent(openSectionEvent)
 
-      // Wait for section to open, then scroll
+      // Step 2: Wait for scroll + lazy load, then open section
       setTimeout(() => {
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      }, 350)
+        const openEvent = new CustomEvent('open-section', {
+          detail: { sectionId: parentId }
+        })
+        window.dispatchEvent(openEvent)
 
-      setMenuOpen(false)
-    } else if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      setMenuOpen(false)
+        // Step 3: Wait for section to open, then scroll to target
+        setTimeout(() => {
+          performScroll(id)
+        }, 500) // Wait for 300ms animation + buffer
+      }, 800) // Wait for scroll + intersection observer
     }
   }
 

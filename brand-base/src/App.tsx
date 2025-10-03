@@ -41,28 +41,32 @@ export default function App() {
         onComplete={() => setIsLoading(false)}
         minDuration={2000}
       />
-      <div className={`min-h-screen bg-brand-charcoal text-brand-vanilla transition-opacity duration-600 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
+      <div className={`min-h-screen bg-brand-charcoal text-brand-vanilla ${isLoading ? 'opacity-0' : ''}`}>
         <Suspense fallback={fallback}>
           <Header />
         </Suspense>
-        <main>
-          <Suspense fallback={fallback}>
-            <Hero />
-          </Suspense>
-          <Suspense fallback={fallback}>
-            <MainResources />
-          </Suspense>
-          <section id="core">
+        <main className={isLoading ? '' : 'stagger-item stagger-1'}>
+          <div className={isLoading ? '' : 'stagger-item stagger-2'}>
+            <Suspense fallback={fallback}>
+              <Hero />
+            </Suspense>
+          </div>
+          <div className={isLoading ? '' : 'stagger-item stagger-3'}>
+            <Suspense fallback={fallback}>
+              <MainResources />
+            </Suspense>
+          </div>
+          <section id="core" className={isLoading ? '' : 'stagger-item stagger-4'}>
             <Suspense fallback={fallback}>
               <CoreSection defaultOpen />
             </Suspense>
           </section>
-          <section id="identity">
+          <section id="identity" className={isLoading ? '' : 'stagger-item stagger-5'}>
             <Suspense fallback={fallback}>
               <IdentitySection defaultOpen={false} lazyLoad />
             </Suspense>
           </section>
-          <section id="system">
+          <section id="system" className={isLoading ? '' : 'stagger-item stagger-6'}>
             <Suspense fallback={fallback}>
               <SystemSection defaultOpen={false} lazyLoad />
             </Suspense>

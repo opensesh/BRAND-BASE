@@ -8,6 +8,19 @@ interface LoadingScreenProps {
 
 export function LoadingScreen({ onComplete, minDuration = 2000 }: LoadingScreenProps) {
   const [isVisible, setIsVisible] = useState(true)
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      const size = Math.max(window.innerWidth, window.innerHeight)
+      setDimensions({ width: size, height: size })
+    }
+
+    updateDimensions()
+    window.addEventListener('resize', updateDimensions)
+
+    return () => window.removeEventListener('resize', updateDimensions)
+  }, [])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -22,11 +35,11 @@ export function LoadingScreen({ onComplete, minDuration = 2000 }: LoadingScreenP
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-brand-charcoal transition-opacity duration-600 ${
+      className={`fixed inset-0 z-[100] flex items-center justify-center bg-brand-charcoal transition-opacity duration-600 overflow-hidden ${
         isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
     >
-      <div className="w-full h-full max-w-[800px] max-h-[800px] aspect-square flex items-center justify-center relative">
+      <div className="absolute inset-0 flex items-center justify-center">
         <DitheringShader
           shape="ripple"
           type="2x2"
@@ -34,9 +47,14 @@ export function LoadingScreen({ onComplete, minDuration = 2000 }: LoadingScreenP
           colorFront="#FE5102"
           pxSize={2}
           speed={1.2}
-          width={800}
-          height={800}
-          className="absolute inset-0"
+          width={dimensions.width}
+          height={dimensions.height}
+          style={{
+            width: `${dimensions.width}px`,
+            height: `${dimensions.height}px`,
+            minWidth: '100vw',
+            minHeight: '100vh'
+          }}
         />
       </div>
       <span className="pointer-events-none z-10 text-center font-accent absolute text-brand-vanilla tracking-normal" style={{ fontSize: '40px', lineHeight: '1.25' }}>
