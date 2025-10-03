@@ -40,8 +40,23 @@ export default function SectionDropdown({
   // Measure content height for smooth animations
   useEffect(() => {
     if (contentRef.current) {
-      const height = contentRef.current.scrollHeight
-      setContentHeight(height)
+      const updateHeight = () => {
+        if (contentRef.current) {
+          const height = contentRef.current.scrollHeight
+          setContentHeight(height)
+        }
+      }
+
+      // Initial measurement
+      updateHeight()
+
+      // Use ResizeObserver to detect when content changes (e.g., nested dropdowns opening)
+      const resizeObserver = new ResizeObserver(updateHeight)
+      resizeObserver.observe(contentRef.current)
+
+      return () => {
+        resizeObserver.disconnect()
+      }
     }
   }, [children, isOpen])
 
