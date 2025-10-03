@@ -61,7 +61,7 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
               {/* Chevron */}
               <ChevronDown
                 className={`w-4 h-4 text-brand-vanilla transition-all duration-300 flex-shrink-0 group-hover:text-brand-aperol ${
-                  openItems[item.id] ? 'rotate-180' : 'rotate-0'
+                  openItems[item.id] ? 'rotate-0' : 'rotate-180'
                 }`}
               />
             </button>

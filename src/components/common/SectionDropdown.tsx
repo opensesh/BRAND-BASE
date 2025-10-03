@@ -64,10 +64,10 @@ export default function SectionDropdown({
     }
     
     return (
-      <ChevronDown 
+      <ChevronDown
         className={`w-5 h-5 text-brand-vanilla transition-transform duration-300 ${
-          isOpen ? 'rotate-180' : 'rotate-0'
-        }`} 
+          isOpen ? 'rotate-0' : 'rotate-180'
+        }`}
       />
     )
   }
@@ -94,10 +94,10 @@ export default function SectionDropdown({
               {title}
             </h2>
           </div>
-          <ChevronDown 
+          <ChevronDown
             className={`w-6 h-6 text-brand-vanilla transition-transform duration-300 flex-shrink-0 ${
-              isOpen ? 'rotate-180' : 'rotate-0'
-            }`} 
+              isOpen ? 'rotate-0' : 'rotate-180'
+            }`}
           />
         </button>
         

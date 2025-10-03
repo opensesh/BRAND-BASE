@@ -76,7 +76,7 @@ export default function Accordion({
       >
         <div className="text-lg md:text-xl font-medium">{title}</div>
         <svg
-          className={`size-5 transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+          className={`size-5 transition-transform duration-300 ${isOpen ? 'rotate-0' : 'rotate-180'}`}
           viewBox="0 0 20 20"
           fill="currentColor"
           aria-hidden="true"

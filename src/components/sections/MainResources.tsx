@@ -87,7 +87,7 @@ export default function MainResources() {
           >
             <span className="font-text text-label text-brand-vanilla uppercase">KEY RESOURCES</span>
             <svg
-              className={`w-4 h-2 text-brand-vanilla transition-transform duration-300 ease-in-out ${leftOpen ? 'rotate-180' : ''}`}
+              className={`w-4 h-2 text-brand-vanilla transition-transform duration-300 ease-in-out ${leftOpen ? '' : 'rotate-180'}`}
               viewBox="0 0 14 8"
               fill="none"
               stroke="currentColor"
@@ -176,7 +176,7 @@ export default function MainResources() {
           >
             <span className="font-text text-label text-brand-vanilla uppercase">DOWNLOAD ASSETS</span>
             <svg
-              className={`w-4 h-2 text-brand-vanilla transition-transform duration-300 ease-in-out ${rightOpen ? 'rotate-180' : ''}`}
+              className={`w-4 h-2 text-brand-vanilla transition-transform duration-300 ease-in-out ${rightOpen ? '' : 'rotate-180'}`}
               viewBox="0 0 14 8"
               fill="none"
               stroke="currentColor"
