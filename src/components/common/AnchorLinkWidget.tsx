@@ -81,9 +81,20 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
       return
     }
 
-    // Check if section is already open
-    const wasOpen = openSections[parentId]
-    console.log('[handleScrollToSection] Section state', { parentId, wasOpen })
+    // Check if the target element actually exists in the DOM right now
+    // This is the TRUE indicator of whether the section is open
+    const targetElement = document.getElementById(id)
+    const targetExists = targetElement !== null
+    const targetIsVisible = targetElement ? targetElement.getBoundingClientRect().height > 0 : false
+    const wasOpen = targetExists && targetIsVisible
+
+    console.log('[handleScrollToSection] Section state', {
+      parentId,
+      widgetThinksSectionOpen: openSections[parentId],
+      targetExists,
+      targetIsVisible,
+      actuallyOpen: wasOpen
+    })
 
     // Update UI state immediately
     setOpenSections({
@@ -93,9 +104,9 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     })
     setActiveSubItem(id)
 
-    // If section is already open, scroll directly to target
+    // If section is actually open (target exists and is visible), scroll directly
     if (wasOpen) {
-      console.log('[handleScrollToSection] Section already open, scrolling directly')
+      console.log('[handleScrollToSection] Section actually open, scrolling directly')
       setTimeout(() => {
         performScroll(id)
         // Re-enable scroll detection
