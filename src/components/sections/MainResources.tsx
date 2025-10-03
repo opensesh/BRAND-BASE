@@ -2,45 +2,47 @@ import { useState } from 'react'
 import { ExternalLink } from 'lucide-react'
 
 // Social icon components using SVGs from public folder
+const BASE_URL = import.meta.env.BASE_URL
+
 const OpenSessionIcon = () => (
   <div className="overflow-clip relative shrink-0 size-[16px]">
-    <img alt="" className="block max-w-none size-full" src="/assets/icons/Linkree_website_thumbnails.svg" />
+    <img alt="" className="block max-w-none size-full" src={`${BASE_URL}assets/icons/Linkree_website_thumbnails.svg`} />
   </div>
 )
 
 const SubstackIcon = () => (
   <div className="overflow-clip relative shrink-0 size-[16px]">
-    <img alt="" className="block max-w-none size-full" src="/assets/icons/Linkree_substack_thumbnails.svg" />
+    <img alt="" className="block max-w-none size-full" src={`${BASE_URL}assets/icons/Linkree_substack_thumbnails.svg`} />
   </div>
 )
 
 const MediumIcon = () => (
   <div className="overflow-clip relative shrink-0 size-[16px]">
-    <img alt="" className="block max-w-none size-full" src="/assets/icons/Linkree_medium_thumbnails.svg" />
+    <img alt="" className="block max-w-none size-full" src={`${BASE_URL}assets/icons/Linkree_medium_thumbnails.svg`} />
   </div>
 )
 
 const YouTubeIcon = () => (
   <div className="overflow-clip relative shrink-0 size-[16px]">
-    <img alt="" className="block max-w-none size-full" src="/assets/icons/Linkree_youtube_thumbnails.svg" />
+    <img alt="" className="block max-w-none size-full" src={`${BASE_URL}assets/icons/Linkree_youtube_thumbnails.svg`} />
   </div>
 )
 
 const FigmaIcon = () => (
   <div className="overflow-clip relative shrink-0 size-[16px]">
-    <img alt="" className="block max-w-none size-full" src="/assets/icons/Linkree_figma_thumbnails.svg" />
+    <img alt="" className="block max-w-none size-full" src={`${BASE_URL}assets/icons/Linkree_figma_thumbnails.svg`} />
   </div>
 )
 
 const InstagramIcon = () => (
   <div className="overflow-clip relative shrink-0 size-[16px]">
-    <img alt="" className="block max-w-none size-full" src="/assets/icons/Linkree_instagram_thumbnails.svg" />
+    <img alt="" className="block max-w-none size-full" src={`${BASE_URL}assets/icons/Linkree_instagram_thumbnails.svg`} />
   </div>
 )
 
 const LinkedInIcon = () => (
   <div className="overflow-clip relative shrink-0 size-[18px]">
-    <img alt="" className="block max-w-none size-full" src="/assets/icons/Linkree_linkedin_thumbnails.svg" />
+    <img alt="" className="block max-w-none size-full" src={`${BASE_URL}assets/icons/Linkree_linkedin_thumbnails.svg`} />
   </div>
 )
 
