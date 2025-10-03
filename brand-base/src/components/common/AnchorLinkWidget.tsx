@@ -42,21 +42,34 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
 
     const performScroll = (targetId: string) => {
       const targetElement = document.getElementById(targetId)
+      console.log('[performScroll]', { targetId, exists: !!targetElement })
       if (targetElement) {
         const elementTop = targetElement.getBoundingClientRect().top + window.pageYOffset
         const offsetPosition = elementTop - headerHeight - 20
 
+        console.log('[performScroll] Scrolling to', { elementTop, offsetPosition, headerHeight })
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth'
         })
+      } else {
+        console.error('[performScroll] Element not found:', targetId)
       }
     }
 
-    // No parent ID means it's a top-level section - just scroll
+    console.log('[handleScrollToSection]', { id, parentId })
+
+    // No parent ID means it's a top-level section - scroll and open it
     if (!parentId) {
+      console.log('[handleScrollToSection] No parentId, scroll to section and open it')
       setMenuOpen(false)
       performScroll(id)
+      setTimeout(() => {
+        const openEvent = new CustomEvent('open-section', {
+          detail: { sectionId: id }
+        })
+        window.dispatchEvent(openEvent)
+      }, 800)
       return
     }
 
@@ -66,43 +79,114 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     // Mark user interaction
     userInteractedRef.current[parentId] = true
 
-    const isSectionOpen = openSections[parentId]
+    // Capture whether the section was already open at click time
+    const wasOpen = openSections[parentId]
+
+    // Reflect intended open state in the widget immediately
+    setOpenSections({
+      core: parentId === 'core',
+      identity: parentId === 'identity',
+      system: parentId === 'system',
+    })
+    setActiveSubItem(id)
+
     const parentSection = document.getElementById(parentId)
 
-    // SIMPLE STRATEGY: If section is open, scroll directly. Otherwise, use choreographed flow.
-    if (isSectionOpen) {
-      // Section is already open - just scroll to the target
+    console.log('[handleScrollToSection] State check', {
+      parentSectionExists: !!parentSection,
+      wasOpen,
+    })
+
+    // If section was already open, scroll directly
+    if (wasOpen) {
+      console.log('[handleScrollToSection] Section already open - direct scroll')
       performScroll(id)
-    } else {
-      // Section is closed - choreographed flow: scroll to parent, open, then scroll to target
-      if (!parentSection) {
-        // Fallback if parent doesn't exist
-        performScroll(id)
-        return
+      return
+    }
+
+    // Otherwise, choreograph: scroll to parent, open it, then poll until target is visible
+    if (!parentSection) {
+      console.error('[handleScrollToSection] Parent section not found!')
+      performScroll(id)
+      return
+    }
+
+    // Utility: wait until condition is true or timeout
+    const waitUntil = (
+      condition: () => boolean,
+      onDone: () => void,
+      { intervalMs = 100, timeoutMs = 4000, label = 'condition' }: { intervalMs?: number; timeoutMs?: number; label?: string } = {}
+    ) => {
+      let waited = 0
+      const tick = () => {
+        if (condition()) {
+          onDone()
+        } else if (waited >= timeoutMs) {
+          console.warn(`[waitUntil] Timeout waiting for ${label}`)
+          onDone()
+        } else {
+          waited += intervalMs
+          setTimeout(tick, intervalMs)
+        }
       }
+      tick()
+    }
 
-      // Step 1: Scroll to parent section
-      const parentTop = parentSection.getBoundingClientRect().top + window.pageYOffset
-      const parentOffset = parentTop - headerHeight - 100
+    // Step 1: Scroll to parent section
+    const parentTop = parentSection.getBoundingClientRect().top + window.pageYOffset
+    const parentOffset = parentTop - headerHeight - 100
 
-      window.scrollTo({
-        top: parentOffset,
-        behavior: 'smooth'
-      })
+    console.log('[handleScrollToSection] Step 1: Scrolling to parent', { parentId, parentOffset })
+    window.scrollTo({
+      top: parentOffset,
+      behavior: 'smooth'
+    })
 
-      // Step 2: Wait for scroll + lazy load, then open section
-      setTimeout(() => {
+    // Step 2: Wait for section-opened confirmation from the section component
+    const sectionOpenedHandler = (evt: Event) => {
+      const customEvt = evt as CustomEvent
+      if (customEvt.detail.sectionId === parentId) {
+        console.log('[handleScrollToSection] Section opened confirmed, waiting for target visibility')
+        window.removeEventListener('section-opened', sectionOpenedHandler)
+
+        // Step 3: Wait until target exists and is visible, then scroll precisely
+        waitUntil(
+          () => {
+            const el = document.getElementById(id)
+            if (!el) return false
+            const r = el.getBoundingClientRect()
+            return r.height > 0 && r.width > 0
+          },
+          () => {
+            console.log('[handleScrollToSection] Target ready, performing final scroll')
+            performScroll(id)
+            // Nudge once more after layout settles
+            setTimeout(() => performScroll(id), 300)
+          },
+          { intervalMs: 100, timeoutMs: 5000, label: 'target visible' }
+        )
+      }
+    }
+    window.addEventListener('section-opened', sectionOpenedHandler)
+
+    // Trigger open after scrolling to parent
+    const isParentInView = () => {
+      const rect = parentSection.getBoundingClientRect()
+      const topBuffer = headerHeight + 24
+      return rect.bottom > topBuffer && rect.top < window.innerHeight - 80
+    }
+
+    waitUntil(
+      isParentInView,
+      () => {
+        console.log('[handleScrollToSection] Parent in view, dispatching open-section', parentId)
         const openEvent = new CustomEvent('open-section', {
           detail: { sectionId: parentId }
         })
         window.dispatchEvent(openEvent)
-
-        // Step 3: Wait for section to open, then scroll to target
-        setTimeout(() => {
-          performScroll(id)
-        }, 500) // Wait for 300ms animation + buffer
-      }, 800) // Wait for scroll + intersection observer
-    }
+      },
+      { intervalMs: 100, timeoutMs: 5000, label: 'parent in view' }
+    )
   }
 
   const toggleSection = (id: string) => {
@@ -160,8 +244,8 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
   useEffect(() => {
     if (menuOpen) {
       // Detect which section user is currently viewing
-      const allSubItems = navItems.flatMap(item =>
-        (item.subItems || []).map(sub => ({ ...sub, parentId: item.id }))
+      const allSubItems: { id: string; label: string; parentId: string }[] = navItems.flatMap(item =>
+        (item.subItems || []).map(sub => ({ id: sub.id, label: sub.label, parentId: item.id }))
       )
 
       const viewportCenter = window.innerHeight / 2
@@ -186,13 +270,14 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
       })
 
       if (closestElement) {
+        const selected = closestElement as { id: string; distance: number; parentId: string }
         // Open the section the user is currently viewing
         setOpenSections({
-          core: closestElement.parentId === 'core',
-          identity: closestElement.parentId === 'identity',
-          system: closestElement.parentId === 'system',
+          core: selected.parentId === 'core',
+          identity: selected.parentId === 'identity',
+          system: selected.parentId === 'system',
         })
-        setActiveSubItem(closestElement.id)
+        setActiveSubItem(selected.id)
       } else {
         // Default to all closed if nothing is detected (above core section)
         setOpenSections({
@@ -212,47 +297,49 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     }
   }, [menuOpen])
 
-  // Scroll detection to highlight active subsection
+  // Scroll detection to highlight active subsection and open the correct section
   useEffect(() => {
     const handleScroll = () => {
-      const allSubItems = navItems.flatMap(item =>
-        (item.subItems || []).map(sub => ({ ...sub, parentId: item.id }))
+      const allSubItems: { id: string; label: string; parentId: string }[] = navItems.flatMap(item =>
+        (item.subItems || []).map(sub => ({ id: sub.id, label: sub.label, parentId: item.id }))
       )
 
-      const viewportCenter = window.innerHeight / 2
-      const threshold = 300 // Only consider elements within 300px of center
+      const header = document.querySelector('header')
+      const stickyOffset = (header ? header.offsetHeight : 60) + 24
+      const viewportTop = stickyOffset
+      const viewportBottom = window.innerHeight
       let closestElement: { id: string; distance: number; parentId: string } | null = null
 
       allSubItems.forEach(({ id, parentId }) => {
-        const element = document.getElementById(id)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          // Check if element is visible in viewport
-          const isVisible = rect.top < window.innerHeight && rect.bottom > 0
+        const el = document.getElementById(id)
+        if (!el) return
+        const rect = el.getBoundingClientRect()
+        const elTop = rect.top
+        const elCenter = elTop + rect.height / 2
+        const isInView = rect.bottom > viewportTop && elTop < viewportBottom
+        if (!isInView) return
 
-          if (isVisible) {
-            const elementCenter = rect.top + rect.height / 2
-            const distance = Math.abs(elementCenter - viewportCenter)
-
-            // Only consider elements that are reasonably close to viewport center
-            if (distance < threshold && (!closestElement || distance < closestElement.distance)) {
-              closestElement = { id, distance, parentId }
-            }
-          }
+        const distance = Math.abs(elCenter - (viewportTop + (viewportBottom - viewportTop) / 3))
+        if (!closestElement || distance < closestElement.distance) {
+          closestElement = { id, distance, parentId }
         }
       })
 
       if (closestElement) {
-        setActiveSubItem(closestElement.id)
-      } else {
-        setActiveSubItem(null)
+        const selected = closestElement as { id: string; distance: number; parentId: string }
+        setActiveSubItem(selected.id)
+        setOpenSections({
+          core: selected.parentId === 'core',
+          identity: selected.parentId === 'identity',
+          system: selected.parentId === 'system',
+        })
       }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll() // Initial check
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [menuOpen])
+  }, [])
 
   const navItems: NavItem[] = [
     {
@@ -315,7 +402,10 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
             {navItems.map((item) => (
               <div key={item.id}>
                 <button
-                  onClick={() => toggleSection(item.id)}
+                  onClick={() => {
+                    // Toggle open state only (no page scroll)
+                    toggleSection(item.id)
+                  }}
                   className={`flex items-center gap-3 py-1 group w-full text-left transition-colors duration-200`}
                 >
                   <div className="flex items-center justify-center w-5 h-5">

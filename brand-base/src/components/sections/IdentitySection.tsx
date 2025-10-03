@@ -9,16 +9,23 @@ type Props = { defaultOpen?: boolean; lazyLoad?: boolean }
 export default function IdentitySection({ defaultOpen = false, lazyLoad = false }: Props) {
   const ref = useRef<HTMLDivElement | null>(null)
   const inView = useIntersectionObserver(ref as React.RefObject<Element>, { threshold: 0.2 })
-  const [copiedValue, setCopiedValue] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(defaultOpen)
+  const [forceLoad, setForceLoad] = useState(false)
 
-  const shouldLoad = !lazyLoad || inView
+  const shouldLoad = forceLoad || !lazyLoad || inView
 
   // Listen for custom open-section events
   useEffect(() => {
     const handleOpenSection = (event: CustomEvent) => {
       if (event.detail.sectionId === 'identity') {
-        setIsOpen(true)
+        // Force-load DOM immediately so anchors exist even if not intersecting
+        setForceLoad(true)
+        // Wait one frame for children to mount, then open
+        requestAnimationFrame(() => {
+          setIsOpen(true)
+          // Signal back that DOM is ready
+          window.dispatchEvent(new CustomEvent('section-opened', { detail: { sectionId: 'identity' } }))
+        })
       }
     }
 
@@ -31,8 +38,6 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
       // Try modern clipboard API first
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(text)
-        setCopiedValue(text)
-        setTimeout(() => setCopiedValue(null), 2000)
       } else {
         // Fallback for older browsers or non-secure contexts
         const textArea = document.createElement('textarea')
@@ -46,8 +51,7 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
         const successful = document.execCommand('copy')
         textArea.remove()
         if (successful) {
-          setCopiedValue(text)
-          setTimeout(() => setCopiedValue(null), 2000)
+          // no-op
         }
       }
     } catch (err) {
@@ -104,7 +108,7 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
   ]
 
   return (
-    <div id="identity" ref={ref} className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
+    <div ref={ref} className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
       <SectionDropdown
         title="Identity"
         number="02"
@@ -253,7 +257,9 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
             </div>
 
             {/* Typography Block */}
-            <TypographyBlock />
+            <div id="typography">
+              <TypographyBlock />
+            </div>
 
             {/* Guide/Iframe Block - Horizontal */}
             <div id="guide" className="flex gap-6 items-start w-full">

@@ -8,14 +8,19 @@ export default function SystemSection({ defaultOpen = false, lazyLoad = false }:
   const ref = useRef<HTMLDivElement | null>(null)
   const inView = useIntersectionObserver(ref as React.RefObject<Element>, { threshold: 0.2 })
   const [isOpen, setIsOpen] = useState(defaultOpen)
+  const [forceLoad, setForceLoad] = useState(false)
 
-  const shouldLoad = !lazyLoad || inView
+  const shouldLoad = forceLoad || !lazyLoad || inView
 
   // Listen for custom open-section events
   useEffect(() => {
     const handleOpenSection = (event: CustomEvent) => {
       if (event.detail.sectionId === 'system') {
-        setIsOpen(true)
+        setForceLoad(true)
+        requestAnimationFrame(() => {
+          setIsOpen(true)
+          window.dispatchEvent(new CustomEvent('section-opened', { detail: { sectionId: 'system' } }))
+        })
       }
     }
 
@@ -24,7 +29,7 @@ export default function SystemSection({ defaultOpen = false, lazyLoad = false }:
   }, [])
 
   return (
-    <div id="system" ref={ref} className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
+    <div ref={ref} className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
       <SectionDropdown
         title="System"
         number="03"
