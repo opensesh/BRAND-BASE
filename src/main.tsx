@@ -7,11 +7,11 @@ import './styles/globals.css'
 import App from './App.tsx'
 import AppTest from './AppTest.tsx'
 
-const Preview = lazy(() => import('./preview/Preview'))
-const HomePage = lazy(() => import('@pages/HomePage'))
-const CorePage = lazy(() => import('@pages/CorePage'))
-const IdentityPage = lazy(() => import('@pages/IdentityPage'))
-const SystemPage = lazy(() => import('@pages/SystemPage'))
+const Preview = lazy(() => import('./preview/Preview.tsx'))
+const HomePage = lazy(() => import('@pages/HomePage.tsx'))
+const CorePage = lazy(() => import('@pages/CorePage.tsx'))
+const IdentityPage = lazy(() => import('@pages/IdentityPage.tsx'))
+const SystemPage = lazy(() => import('@pages/SystemPage.tsx'))
 
 const router = createBrowserRouter([
   {

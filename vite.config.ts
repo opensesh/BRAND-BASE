@@ -5,7 +5,7 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: mode === 'production' ? '/BRAND-BASE/' : '/',
+  base: mode === 'production' ? '/BRAND-OS/' : '/',
   plugins: [react(), tsconfigPaths()],
   resolve: {
     alias: {
