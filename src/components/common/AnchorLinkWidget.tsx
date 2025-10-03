@@ -119,61 +119,78 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     }
 
     // Section is closed - need to open it first
-    console.log('[handleScrollToSection] Section closed, dispatching open event', parentId)
+    console.log('[handleScrollToSection] Section closed, need to open it', parentId)
 
-    // Step 1: Dispatch open event immediately
-    const openEvent = new CustomEvent('open-section', {
-      detail: { sectionId: parentId }
-    })
-    window.dispatchEvent(openEvent)
+    // Step 1: Scroll to the parent section first to ensure it's in viewport
+    // This is critical when user is at the bottom of the page
+    const parentSectionElement = document.getElementById(parentId)
+    if (parentSectionElement) {
+      const parentTop = parentSectionElement.getBoundingClientRect().top + window.pageYOffset
+      const parentOffset = parentTop - headerHeight - 100
 
-    // Step 2: Wait for section to open and content to be available
-    let attempts = 0
-    const maxAttempts = 50 // 5 seconds max
-
-    const checkAndScroll = () => {
-      attempts++
-      const targetElement = document.getElementById(id)
-
-      console.log('[checkAndScroll] Attempt', attempts, {
-        found: !!targetElement,
-        hasSize: targetElement ? `${targetElement.getBoundingClientRect().height}x${targetElement.getBoundingClientRect().width}` : 'N/A'
+      console.log('[handleScrollToSection] Scrolling to parent section first', { parentId, parentOffset })
+      window.scrollTo({
+        top: parentOffset,
+        behavior: 'smooth'
       })
+    }
 
-      if (targetElement) {
-        const rect = targetElement.getBoundingClientRect()
-        // Check if element is actually rendered (has dimensions)
-        if (rect.height > 0 && rect.width > 0) {
-          console.log('[checkAndScroll] Element ready, scrolling')
-          // Element is ready, scroll to it
-          performScroll(id)
-          // Double-check scroll after layout settles
-          setTimeout(() => {
+    // Step 2: Wait a moment for scroll to complete, then dispatch open event
+    setTimeout(() => {
+      console.log('[handleScrollToSection] Dispatching open event', parentId)
+      const openEvent = new CustomEvent('open-section', {
+        detail: { sectionId: parentId }
+      })
+      window.dispatchEvent(openEvent)
+
+      // Step 3: Wait for section to open and content to be available
+      let attempts = 0
+      const maxAttempts = 50 // 5 seconds max
+
+      const checkAndScroll = () => {
+        attempts++
+        const targetElement = document.getElementById(id)
+
+        console.log('[checkAndScroll] Attempt', attempts, {
+          found: !!targetElement,
+          hasSize: targetElement ? `${targetElement.getBoundingClientRect().height}x${targetElement.getBoundingClientRect().width}` : 'N/A'
+        })
+
+        if (targetElement) {
+          const rect = targetElement.getBoundingClientRect()
+          // Check if element is actually rendered (has dimensions)
+          if (rect.height > 0 && rect.width > 0) {
+            console.log('[checkAndScroll] Element ready, scrolling')
+            // Element is ready, scroll to it
             performScroll(id)
-            // Re-enable scroll detection
+            // Double-check scroll after layout settles
             setTimeout(() => {
-              scrollDetectionEnabledRef.current = true
-              navigationInProgressRef.current = false
-              console.log('[checkAndScroll] Navigation complete')
-            }, 500)
-          }, 300)
-          return
+              performScroll(id)
+              // Re-enable scroll detection
+              setTimeout(() => {
+                scrollDetectionEnabledRef.current = true
+                navigationInProgressRef.current = false
+                console.log('[checkAndScroll] Navigation complete')
+              }, 500)
+            }, 300)
+            return
+          }
+        }
+
+        // Not ready yet, try again
+        if (attempts < maxAttempts) {
+          setTimeout(checkAndScroll, 100)
+        } else {
+          console.warn('[checkAndScroll] Timeout waiting for element')
+          // Timeout - re-enable scroll detection anyway
+          scrollDetectionEnabledRef.current = true
+          navigationInProgressRef.current = false
         }
       }
 
-      // Not ready yet, try again
-      if (attempts < maxAttempts) {
-        setTimeout(checkAndScroll, 100)
-      } else {
-        console.warn('[checkAndScroll] Timeout waiting for element')
-        // Timeout - re-enable scroll detection anyway
-        scrollDetectionEnabledRef.current = true
-        navigationInProgressRef.current = false
-      }
-    }
-
-    // Start checking after a brief delay for section to start opening
-    setTimeout(checkAndScroll, 200)
+      // Start checking after a brief delay for section to start opening
+      setTimeout(checkAndScroll, 200)
+    }, 600) // Wait 600ms for scroll to parent to complete
   }
 
   const toggleSection = (id: string) => {
