@@ -1,9 +1,11 @@
 import { ChevronRight } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 import Button from "@components/common/Button"
 import FaultyTerminal from "@components/ui/faulty-terminal"
 import { Typewriter } from "@components/ui/typewriter"
 
 export default function Hero() {
+  const navigate = useNavigate()
   return (
     <section
       id="hero"
@@ -75,6 +77,31 @@ export default function Hero() {
               cursorChar="_"
             />
           </p>
+        </div>
+
+        {/* Navigation Buttons */}
+        <div
+          className="animate-fade-in flex flex-wrap gap-4 justify-center mt-12"
+          style={{ animationDelay: '0.6s', opacity: 0 }}
+        >
+          <button
+            onClick={() => navigate('/core')}
+            className="bg-brand-vanilla hover:bg-brand-aperol text-brand-charcoal hover:text-brand-vanilla transition-colors px-6 py-3 rounded-full font-text text-button min-w-[128px]"
+          >
+            Core
+          </button>
+          <button
+            onClick={() => navigate('/identity')}
+            className="bg-brand-vanilla hover:bg-brand-aperol text-brand-charcoal hover:text-brand-vanilla transition-colors px-6 py-3 rounded-full font-text text-button min-w-[128px]"
+          >
+            Identity
+          </button>
+          <button
+            onClick={() => navigate('/system')}
+            className="bg-brand-vanilla hover:bg-brand-aperol text-brand-charcoal hover:text-brand-vanilla transition-colors px-6 py-3 rounded-full font-text text-button min-w-[128px]"
+          >
+            System
+          </button>
         </div>
       </div>
 

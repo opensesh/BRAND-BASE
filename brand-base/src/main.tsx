@@ -8,9 +8,22 @@ import App from './App.tsx'
 import AppTest from './AppTest.tsx'
 
 const Preview = lazy(() => import('./preview/Preview'))
+const HomePage = lazy(() => import('@pages/HomePage'))
+const CorePage = lazy(() => import('@pages/CorePage'))
+const IdentityPage = lazy(() => import('@pages/IdentityPage'))
+const SystemPage = lazy(() => import('@pages/SystemPage'))
 
 const router = createBrowserRouter([
-  { path: '/', element: <App /> },
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: 'core', element: <CorePage /> },
+      { path: 'identity', element: <IdentityPage /> },
+      { path: 'system', element: <SystemPage /> },
+    ],
+  },
   { path: '/test', element: <AppTest /> },
   { path: '/preview', element: <Suspense fallback={<div className="p-6">Loading…</div>}><Preview /></Suspense> },
 ])

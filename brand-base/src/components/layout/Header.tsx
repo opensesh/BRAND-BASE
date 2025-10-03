@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
-import AnchorLinkWidget from '@components/common/AnchorLinkWidget'
+import { useNavigate } from 'react-router-dom'
+import NavigationWidget from '@components/common/NavigationWidget'
 
 export default function Header() {
+  const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -25,13 +27,13 @@ export default function Header() {
         <div className="w-full max-w-[1184px] mx-auto px-6 py-3 flex items-center justify-between">
           {/* Brand Logo - Small Icon */}
           <div className="flex items-center">
-            <a href="/" className="flex items-center">
+            <button onClick={() => navigate('/')} className="flex items-center cursor-pointer">
               <img
                 src="/logos/brandmark-vanilla.svg"
                 alt="Brand Logo"
                 className="w-6 h-6"
               />
-            </a>
+            </button>
           </div>
 
           {/* Hamburger/Close Menu Icon (Mobile & Desktop) */}
@@ -57,7 +59,7 @@ export default function Header() {
           </button>
         </div>
       </header>
-      <AnchorLinkWidget menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <NavigationWidget menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
     </>
   )
 }

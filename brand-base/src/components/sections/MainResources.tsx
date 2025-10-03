@@ -49,7 +49,7 @@ export default function MainResources() {
   const [rightOpen, setRightOpen] = useState(false) // Start with Download Assets closed
 
   return (
-    <section className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
+    <section className="w-full max-w-[1184px] mx-auto px-6 md:px-12">
       {/* Main Resources Heading */}
       <h2 className="font-display text-h1-mobile md:text-h1-tablet xl:text-h1-desktop text-brand-vanilla mb-6">
         Main Resources
