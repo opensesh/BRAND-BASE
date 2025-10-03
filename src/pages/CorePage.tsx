@@ -4,6 +4,8 @@ import DualHeadingText from '@components/core/DualHeadingText'
 import TextDropdown from '@components/core/TextDropdown'
 import TextColumns from '@components/core/TextColumns'
 
+const BASE_URL = import.meta.env.BASE_URL
+
 export default function CorePage() {
   const [activeSection, setActiveSection] = useState<string>('mission')
 
@@ -20,31 +22,31 @@ export default function CorePage() {
       id: 'curiosity',
       title: 'Curiousity',
       description: 'We believe curiosity is essential to staying on the cutting edge of design and innovation.',
-      illustration: '/illustrations/curiosity.svg'
+      illustration: `${BASE_URL}assets/illustrations/curiosity.svg`
     },
     {
       id: 'solutions',
       title: 'Solutions',
       description: 'Every initiative we undertake—whether for clients or our community—is driven by problem-solving and impactful outcomes.',
-      illustration: '/illustrations/solutions.svg'
+      illustration: `${BASE_URL}assets/illustrations/solutions.svg`
     },
     {
       id: 'respect',
       title: 'Respect',
       description: 'We treat everyone with respect and wield technology responsibly, understanding its potential and its limits.',
-      illustration: '/illustrations/respect.svg'
+      illustration: `${BASE_URL}assets/illustrations/respect.svg`
     },
     {
       id: 'connection',
       title: 'Connection',
       description: 'We nurture relationships within our community and brand ecosystems through meaningful engagement and collaborative design systems.',
-      illustration: '/illustrations/connection.svg'
+      illustration: `${BASE_URL}assets/illustrations/connection.svg`
     },
     {
       id: 'transparency',
       title: 'Transparency',
       description: 'Celebrate who we are, how we got here, and how we help clients and community grow',
-      illustration: '/illustrations/transparency.svg'
+      illustration: `${BASE_URL}assets/illustrations/transparency.svg`
     }
   ]
 

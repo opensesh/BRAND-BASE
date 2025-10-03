@@ -1,34 +1,36 @@
 // Logo assets from Figma Design System
+const BASE_URL = import.meta.env.BASE_URL
+
 export const LOGO_ASSETS = {
   // Main Logos
   brandmark: {
-    vanilla: '/logos/brandmark-vanilla.svg',
-    glass: '/logos/brandmark-glass.svg',
+    vanilla: `${BASE_URL}assets/logos/brandmark-vanilla.svg`,
+    glass: `${BASE_URL}assets/logos/brandmark-glass.svg`,
   },
   combo: {
-    vanilla: '/logos/logo_main_combo_vanilla.svg',
-    glass: '/logos/logo_main_combo_glass.svg',
+    vanilla: `${BASE_URL}assets/logos/logo_main_combo_vanilla.svg`,
+    glass: `${BASE_URL}assets/logos/logo_main_combo_glass.svg`,
   },
   stacked: {
-    vanilla: '/logos/stacked-vanilla.svg',
-    glass: '/logos/stacked-glass.svg',
+    vanilla: `${BASE_URL}assets/logos/stacked-vanilla.svg`,
+    glass: `${BASE_URL}assets/logos/stacked-glass.svg`,
   },
   horizontal: {
-    vanilla: '/logos/horizontal-vanilla.svg',
-    glass: '/logos/horizontal-glass.svg',
+    vanilla: `${BASE_URL}assets/logos/horizontal-vanilla.svg`,
+    glass: `${BASE_URL}assets/logos/horizontal-glass.svg`,
   },
   // Monograms
   core: {
-    vanilla: '/logos/core.svg',
-    glass: '/logos/core-glass.svg',
+    vanilla: `${BASE_URL}assets/logos/core.svg`,
+    glass: `${BASE_URL}assets/logos/core-glass.svg`,
   },
   outline: {
-    vanilla: '/logos/outline.svg',
-    glass: '/logos/outline-glass.svg',
+    vanilla: `${BASE_URL}assets/logos/outline.svg`,
+    glass: `${BASE_URL}assets/logos/outline-glass.svg`,
   },
   filled: {
-    vanilla: '/logos/filled.svg',
-    glass: '/logos/filled-glass.svg',
+    vanilla: `${BASE_URL}assets/logos/filled.svg`,
+    glass: `${BASE_URL}assets/logos/filled-glass.svg`,
   },
 } as const
 

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import NavigationWidget from '@components/common/NavigationWidget'
 
+const BASE_URL = import.meta.env.BASE_URL
+
 export default function Header() {
   const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -29,7 +31,7 @@ export default function Header() {
           <div className="flex items-center">
             <button onClick={() => navigate('/')} className="flex items-center cursor-pointer">
               <img
-                src="{`${BASE_URL}assets/logos/brandmark-vanilla.svg"
+                src={`${BASE_URL}assets/logos/brandmark-vanilla.svg`}
                 alt="Brand Logo"
                 className="w-6 h-6"
               />

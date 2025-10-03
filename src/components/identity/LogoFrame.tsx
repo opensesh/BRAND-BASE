@@ -163,7 +163,7 @@ const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
 
     // For combo, use charcoal-specific SVG if it exists
     if (logoType === 'combo' && currentColor === 'Charcoal') {
-      return '/logos/logo_main_combo_charcoal.svg'
+      return `${import.meta.env.BASE_URL}assets/logos/logo_main_combo_charcoal.svg`
     }
 
     // Use vanilla version for Vanilla and other Charcoal logos
