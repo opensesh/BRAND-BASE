@@ -39,10 +39,12 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
 
     const performScroll = (targetId: string, offset = 20) => {
       const targetElement = document.getElementById(targetId)
+      console.log('[performScroll]', { targetId, found: !!targetElement })
       if (targetElement) {
         const elementTop = targetElement.getBoundingClientRect().top + window.pageYOffset
         const offsetPosition = elementTop - headerHeight - offset
 
+        console.log('[performScroll] Scrolling', { elementTop, offsetPosition, headerHeight })
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth'
@@ -51,6 +53,8 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
       }
       return false
     }
+
+    console.log('[handleScrollToSection] Called', { id, parentId })
 
     // Disable scroll detection during navigation
     navigationInProgressRef.current = true
@@ -61,6 +65,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
 
     // No parent ID means it's a top-level section
     if (!parentId) {
+      console.log('[handleScrollToSection] Top-level section')
       performScroll(id, 100)
       setTimeout(() => {
         const openEvent = new CustomEvent('open-section', {
@@ -78,6 +83,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
 
     // Check if section is already open
     const wasOpen = openSections[parentId]
+    console.log('[handleScrollToSection] Section state', { parentId, wasOpen })
 
     // Update UI state immediately
     setOpenSections({
@@ -89,6 +95,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
 
     // If section is already open, scroll directly to target
     if (wasOpen) {
+      console.log('[handleScrollToSection] Section already open, scrolling directly')
       setTimeout(() => {
         performScroll(id)
         // Re-enable scroll detection
@@ -101,16 +108,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
     }
 
     // Section is closed - need to open it first
-    const parentSection = document.querySelector(`[data-section-dropdown]`)
-    if (!parentSection) {
-      // Fallback: try to scroll to the target anyway
-      setTimeout(() => {
-        performScroll(id)
-        scrollDetectionEnabledRef.current = true
-        navigationInProgressRef.current = false
-      }, 100)
-      return
-    }
+    console.log('[handleScrollToSection] Section closed, dispatching open event', parentId)
 
     // Step 1: Dispatch open event immediately
     const openEvent = new CustomEvent('open-section', {
@@ -126,10 +124,16 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
       attempts++
       const targetElement = document.getElementById(id)
 
+      console.log('[checkAndScroll] Attempt', attempts, {
+        found: !!targetElement,
+        hasSize: targetElement ? `${targetElement.getBoundingClientRect().height}x${targetElement.getBoundingClientRect().width}` : 'N/A'
+      })
+
       if (targetElement) {
         const rect = targetElement.getBoundingClientRect()
         // Check if element is actually rendered (has dimensions)
         if (rect.height > 0 && rect.width > 0) {
+          console.log('[checkAndScroll] Element ready, scrolling')
           // Element is ready, scroll to it
           performScroll(id)
           // Double-check scroll after layout settles
@@ -139,6 +143,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
             setTimeout(() => {
               scrollDetectionEnabledRef.current = true
               navigationInProgressRef.current = false
+              console.log('[checkAndScroll] Navigation complete')
             }, 500)
           }, 300)
           return
@@ -149,6 +154,7 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
       if (attempts < maxAttempts) {
         setTimeout(checkAndScroll, 100)
       } else {
+        console.warn('[checkAndScroll] Timeout waiting for element')
         // Timeout - re-enable scroll detection anyway
         scrollDetectionEnabledRef.current = true
         navigationInProgressRef.current = false
