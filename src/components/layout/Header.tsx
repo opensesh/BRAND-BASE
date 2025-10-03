@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import NavigationWidget from '@components/common/NavigationWidget'
+import AnchorLinkWidget from '@components/common/AnchorLinkWidget'
 
 const BASE_URL = import.meta.env.BASE_URL
 
 export default function Header() {
-  const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
 
   useEffect(() => {
     if (menuOpen) {
@@ -29,7 +34,7 @@ export default function Header() {
         <div className="w-full max-w-[1184px] mx-auto px-6 py-3 flex items-center justify-between">
           {/* Brand Logo - Small Icon */}
           <div className="flex items-center">
-            <button onClick={() => navigate('/')} className="flex items-center cursor-pointer">
+            <button onClick={handleScrollToTop} className="flex items-center cursor-pointer">
               <img
                 src={`${BASE_URL}assets/logos/brandmark-vanilla.svg`}
                 alt="Brand Logo"
@@ -46,7 +51,7 @@ export default function Header() {
             type="button"
           >
             {/* Hamburger Lines - transform to X when open */}
-            <div 
+            <div
               className={`absolute flex flex-col items-center justify-center w-6 h-6 transition-all duration-300 ease-in-out pointer-events-none ${menuOpen ? 'rotate-180' : 'rotate-0'}`}
             >
               {/* Top line - rotates to form top part of X */}
@@ -61,7 +66,7 @@ export default function Header() {
           </button>
         </div>
       </header>
-      <NavigationWidget menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <AnchorLinkWidget menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
     </>
   )
 }

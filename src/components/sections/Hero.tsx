@@ -1,11 +1,23 @@
 import { ChevronRight } from "lucide-react"
-import { useNavigate } from "react-router-dom"
 import Button from "@components/common/Button"
 import FaultyTerminal from "@components/ui/faulty-terminal"
 import { Typewriter } from "@components/ui/typewriter"
 
 export default function Hero() {
-  const navigate = useNavigate()
+  const handleScrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      const header = document.querySelector('header')
+      const headerHeight = header ? header.offsetHeight : 60
+      const elementTop = element.getBoundingClientRect().top + window.pageYOffset
+      const offsetPosition = elementTop - headerHeight - 20
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
   return (
     <section
       id="hero"
@@ -85,19 +97,19 @@ export default function Hero() {
           style={{ animationDelay: '0.6s', opacity: 0 }}
         >
           <button
-            onClick={() => navigate('/core')}
+            onClick={() => handleScrollToSection('core')}
             className="bg-brand-vanilla hover:bg-brand-aperol text-brand-charcoal hover:text-brand-vanilla transition-colors px-6 py-3 rounded-full font-text text-button min-w-[128px]"
           >
             Core
           </button>
           <button
-            onClick={() => navigate('/identity')}
+            onClick={() => handleScrollToSection('identity')}
             className="bg-brand-vanilla hover:bg-brand-aperol text-brand-charcoal hover:text-brand-vanilla transition-colors px-6 py-3 rounded-full font-text text-button min-w-[128px]"
           >
             Identity
           </button>
           <button
-            onClick={() => navigate('/system')}
+            onClick={() => handleScrollToSection('system')}
             className="bg-brand-vanilla hover:bg-brand-aperol text-brand-charcoal hover:text-brand-vanilla transition-colors px-6 py-3 rounded-full font-text text-button min-w-[128px]"
           >
             System
