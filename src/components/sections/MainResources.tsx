@@ -79,9 +79,7 @@ export default function MainResources() {
       {/* Two Accordions Side by Side */}
       <div className="flex flex-col lg:flex-row gap-6 lg:items-start">
         {/* Left Accordion: Key Resources */}
-        <div className={`transition-all duration-300 rounded-lg border border-brand-vanilla shadow-lg overflow-hidden w-full ${
-          leftOpen ? 'lg:flex-1 lg:min-w-0' : 'lg:flex-none lg:w-auto'
-        }`}>
+        <div className="rounded-lg border border-brand-vanilla shadow-lg overflow-hidden w-full lg:flex-1">
           <button
             onClick={() => setLeftOpen(!leftOpen)}
             className="w-full bg-brand-charcoal border-b border-[#595959] px-6 py-[18px] flex items-center justify-between gap-3 hover:bg-brand-charcoal/90 transition-colors"
@@ -89,7 +87,7 @@ export default function MainResources() {
           >
             <span className="font-text text-label text-brand-vanilla uppercase">KEY RESOURCES</span>
             <svg
-              className={`w-4 h-2 text-brand-vanilla transition-transform duration-300 ${leftOpen ? 'rotate-180' : ''}`}
+              className={`w-4 h-2 text-brand-vanilla transition-transform duration-300 ease-in-out ${leftOpen ? 'rotate-180' : ''}`}
               viewBox="0 0 14 8"
               fill="none"
               stroke="currentColor"
@@ -99,8 +97,12 @@ export default function MainResources() {
             </svg>
           </button>
 
-          {leftOpen && (
-            <div className="bg-brand-charcoal px-6 py-8 space-y-12">
+          <div
+            className={`bg-brand-charcoal overflow-hidden transition-all duration-300 ease-in-out ${
+              leftOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
+            }`}
+          >
+            <div className="px-6 py-8 space-y-12">
               {/* Figma File */}
               <div className="flex flex-wrap gap-3 items-end">
                 <div className="flex-1 min-w-[200px] space-y-4">
@@ -162,13 +164,11 @@ export default function MainResources() {
                 </a>
               </div>
             </div>
-          )}
+          </div>
         </div>
 
         {/* Right Accordion: Download Assets */}
-        <div className={`transition-all duration-300 rounded-lg border border-brand-vanilla shadow-lg overflow-hidden w-full ${
-          rightOpen ? 'lg:flex-1 lg:min-w-0' : 'lg:flex-none lg:w-auto'
-        }`}>
+        <div className="rounded-lg border border-brand-vanilla shadow-lg overflow-hidden w-full lg:flex-1">
           <button
             onClick={() => setRightOpen(!rightOpen)}
             className="w-full bg-brand-charcoal border-b border-[#595959] px-6 py-[18px] flex items-center justify-between gap-3 hover:bg-brand-charcoal/90 transition-colors"
@@ -176,7 +176,7 @@ export default function MainResources() {
           >
             <span className="font-text text-label text-brand-vanilla uppercase">DOWNLOAD ASSETS</span>
             <svg
-              className={`w-4 h-2 text-brand-vanilla transition-transform duration-300 ${rightOpen ? 'rotate-180' : ''}`}
+              className={`w-4 h-2 text-brand-vanilla transition-transform duration-300 ease-in-out ${rightOpen ? 'rotate-180' : ''}`}
               viewBox="0 0 14 8"
               fill="none"
               stroke="currentColor"
@@ -186,8 +186,12 @@ export default function MainResources() {
             </svg>
           </button>
 
-          {rightOpen && (
-            <div className="bg-brand-charcoal px-6 py-8 space-y-8">
+          <div
+            className={`bg-brand-charcoal overflow-hidden transition-all duration-300 ease-in-out ${
+              rightOpen ? 'max-h-[700px] opacity-100' : 'max-h-0 opacity-0'
+            }`}
+          >
+            <div className="px-6 py-8 space-y-8">
               {/* Download Links */}
               <div className="space-y-5">
                 {[
@@ -239,7 +243,7 @@ export default function MainResources() {
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </section>
