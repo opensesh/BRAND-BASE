@@ -105,7 +105,7 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
   ]
 
   return (
-    <div ref={ref} className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-12">
+    <div ref={ref} className="w-full max-w-[1184px] mx-auto px-6 md:px-12 py-20">
       <SectionDropdown
         title="Core"
         number="01"
@@ -113,7 +113,7 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
         iconType="chevron"
       >
         {shouldLoad ? (
-          <div className="flex flex-col gap-16">
+          <div className="flex flex-col gap-24">
             {/* Mission - Dual Heading Text */}
             <div id="mission">
               <DualHeadingText
