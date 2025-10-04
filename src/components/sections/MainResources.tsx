@@ -48,26 +48,35 @@ const LinkedInIcon = () => (
 )
 
 export default function MainResources() {
-  // Detect if screen is desktop (lg breakpoint = 1024px)
-  const [isDesktop, setIsDesktop] = useState(
-    typeof window !== 'undefined' ? window.innerWidth >= 1024 : false
+  // Detect if screen is desktop/tablet (md breakpoint = 768px)
+  const [isTabletOrDesktop, setIsTabletOrDesktop] = useState(
+    typeof window !== 'undefined' ? window.innerWidth >= 768 : false
   )
 
-  // Initialize state: Key Resources closed, Download Assets open by default
-  const [leftOpen, setLeftOpen] = useState(false)
-  const [rightOpen, setRightOpen] = useState(true)
+  // Initialize state: closed on mobile, open on tablet/desktop
+  const [leftOpen, setLeftOpen] = useState(isTabletOrDesktop)
+  const [rightOpen, setRightOpen] = useState(isTabletOrDesktop)
 
   useEffect(() => {
-    const checkDesktop = () => {
-      setIsDesktop(window.innerWidth >= 1024)
+    const checkTabletOrDesktop = () => {
+      const isTabletOrDesktop = window.innerWidth >= 768
+      setIsTabletOrDesktop(isTabletOrDesktop)
+      // Update accordion states when crossing breakpoint
+      if (isTabletOrDesktop) {
+        setLeftOpen(true)
+        setRightOpen(true)
+      } else {
+        setLeftOpen(false)
+        setRightOpen(false)
+      }
     }
 
     // Check on mount
-    checkDesktop()
+    checkTabletOrDesktop()
 
     // Listen for resize
-    window.addEventListener('resize', checkDesktop)
-    return () => window.removeEventListener('resize', checkDesktop)
+    window.addEventListener('resize', checkTabletOrDesktop)
+    return () => window.removeEventListener('resize', checkTabletOrDesktop)
   }, [])
 
   return (
