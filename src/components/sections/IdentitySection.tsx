@@ -289,7 +289,7 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                   </a>
                 </div>
               </div>
-              <div className="flex-1 min-w-[300px] h-[399px] rounded-xl overflow-hidden">
+              <div className="hidden lg:flex flex-1 min-w-[300px] h-[399px] rounded-xl overflow-hidden">
                 <iframe
                   style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
                   className="w-full h-full rounded-xl"

@@ -12,9 +12,9 @@ export function LoadingScreen({ onComplete, minDuration = 2000 }: LoadingScreenP
 
   useEffect(() => {
     const updateDimensions = () => {
-      // Use the smaller dimension to ensure circle fits in viewport
-      const size = Math.min(window.innerWidth, window.innerHeight)
-      setDimensions({ width: size, height: size })
+      // Use viewport diagonal to ensure circle fills entire screen
+      const diagonal = Math.sqrt(window.innerWidth ** 2 + window.innerHeight ** 2)
+      setDimensions({ width: diagonal, height: diagonal })
     }
 
     updateDimensions()

@@ -53,9 +53,9 @@ export default function MainResources() {
     typeof window !== 'undefined' ? window.innerWidth >= 1024 : false
   )
 
-  // Initialize state based on initial screen size (open on desktop, closed on mobile)
-  const [leftOpen, setLeftOpen] = useState(isDesktop)
-  const [rightOpen, setRightOpen] = useState(isDesktop)
+  // Initialize state: Key Resources closed, Download Assets open by default
+  const [leftOpen, setLeftOpen] = useState(false)
+  const [rightOpen, setRightOpen] = useState(true)
 
   useEffect(() => {
     const checkDesktop = () => {

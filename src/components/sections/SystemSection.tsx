@@ -68,7 +68,7 @@ export default function SystemSection({ defaultOpen = false, lazyLoad = false }:
                   </a>
                 </div>
               </div>
-              <div className="w-full h-[675px] rounded-xl overflow-hidden">
+              <div className="hidden lg:block w-full h-[675px] rounded-xl overflow-hidden">
                 <iframe
                   style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
                   className="w-full h-full rounded-xl"
