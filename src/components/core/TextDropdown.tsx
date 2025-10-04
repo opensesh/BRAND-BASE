@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface DropdownItem {
   id: string
@@ -67,13 +68,21 @@ export default function TextDropdown({ title, items, hasIllustrations = false }:
             </button>
 
             {/* Dropdown Content - Body text aligns with title */}
-            {openItems[item.id] && (
-              <div className={`pb-8 ${hasIllustrations ? 'pl-12' : 'pl-0'}`}>
-                <p className="text-b1 text-brand-vanilla leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            )}
+            <AnimatePresence initial={false}>
+              {openItems[item.id] && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2, ease: 'easeOut' }}
+                  className={`pb-8 ${hasIllustrations ? 'pl-12' : 'pl-0'}`}
+                >
+                  <p className="text-b1 text-brand-vanilla leading-relaxed">
+                    {item.description}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </div>

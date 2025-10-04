@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import SectionDropdown from '@components/common/SectionDropdown'
 import LogoBlock from '@components/identity/LogoBlock'
 import TypographyBlock from '@components/identity/TypographyBlock'
@@ -11,6 +12,7 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
   const inView = useIntersectionObserver(ref as React.RefObject<Element>, { threshold: 0.2 })
   const [isOpen, setIsOpen] = useState(defaultOpen)
   const [forceLoad, setForceLoad] = useState(false)
+  const [copiedItem, setCopiedItem] = useState<string | null>(null)
 
   const shouldLoad = forceLoad || !lazyLoad || inView
 
@@ -54,6 +56,10 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
           // no-op
         }
       }
+
+      // Set copied state and reset after 1 second
+      setCopiedItem(text)
+      setTimeout(() => setCopiedItem(null), 1000)
     } catch (err) {
       console.error('Failed to copy:', err)
       alert(`Failed to copy: ${text}`)
@@ -62,7 +68,7 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
 
   const brandColors = [
     {
-      name: 'Primary/Charcoal',
+      name: 'Charcoal',
       hex: '#191919',
       rgb: 'rgb(25, 25, 25)',
       bg: 'bg-[#191919]',
@@ -72,17 +78,17 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
       label: 'Primary'
     },
     {
-      name: 'Primary/Vanilla',
+      name: 'Vanilla',
       hex: '#FFFAEE',
       rgb: 'rgb(110, 98, 244)',
       bg: 'bg-[#fffaee]',
       textColor: 'text-black',
       labelBg: 'bg-[#c7c7c7]',
       labelText: 'text-[#383838]',
-      label: 'Secondary'
+      label: 'Primary'
     },
     {
-      name: 'Secondary/Aperol',
+      name: 'Aperol',
       hex: '#FE5102',
       rgb: 'rgb(254, 81, 2)',
       bg: 'bg-[#fe5102]',
@@ -144,10 +150,13 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                           <p className={`font-text text-b1 ${color.textColor}`}>
                             {color.name}
                           </p>
-                          <button
+                          <motion.button
                             onClick={() => copyToClipboard(color.name)}
                             className="hover:opacity-70 transition-opacity flex-shrink-0"
                             title="Copy color name"
+                            whileTap={{ scale: 0.9 }}
+                            animate={copiedItem === color.name ? { scale: [1, 1.2, 1], rotate: [0, 5, -5, 0] } : {}}
+                            transition={{ duration: 0.3 }}
                           >
                             <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
                               <path d="M5.33333 10L2.66667 10C1.93333 10 1.33333 9.4 1.33333 8.66667L1.33333 2.66667C1.33333 1.93333 1.93333 1.33333 2.66667 1.33333L8.66667 1.33333C9.4 1.33333 10 1.93333 10 2.66667L10 5.33333M7.33333 14.6667L13.3333 14.6667C14.0667 14.6667 14.6667 14.0667 14.6667 13.3333L14.6667 7.33333C14.6667 6.6 14.0667 6 13.3333 6L7.33333 6C6.6 6 6 6.6 6 7.33333L6 13.3333C6 14.0667 6.6 14.6667 7.33333 14.6667Z"
@@ -157,7 +166,7 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                                 strokeLinejoin="round"
                               />
                             </svg>
-                          </button>
+                          </motion.button>
                         </div>
                         <div className={`${color.labelBg} px-3 py-1.5 rounded-full`}>
                           <p className={`font-text text-[12px] font-bold leading-[1.25] ${color.labelText}`}>
@@ -174,10 +183,13 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                             <p className={`font-text text-[12px] font-bold leading-[1.25] ${color.textColor}`}>
                               {item.label}
                             </p>
-                            <button
+                            <motion.button
                               onClick={() => copyToClipboard(item.label)}
                               className="hover:opacity-70 transition-opacity flex-shrink-0"
                               title={`Copy ${item.label}`}
+                              whileTap={{ scale: 0.9 }}
+                              animate={copiedItem === item.label ? { scale: [1, 1.2, 1], rotate: [0, 5, -5, 0] } : {}}
+                              transition={{ duration: 0.3 }}
                             >
                               <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
                                 <path d="M5.33333 10L2.66667 10C1.93333 10 1.33333 9.4 1.33333 8.66667L1.33333 2.66667C1.33333 1.93333 1.93333 1.33333 2.66667 1.33333L8.66667 1.33333C9.4 1.33333 10 1.93333 10 2.66667L10 5.33333M7.33333 14.6667L13.3333 14.6667C14.0667 14.6667 14.6667 14.0667 14.6667 13.3333L14.6667 7.33333C14.6667 6.6 14.0667 6 13.3333 6L7.33333 6C6.6 6 6 6.6 6 7.33333L6 13.3333C6 14.0667 6.6 14.6667 7.33333 14.6667Z"
@@ -187,7 +199,7 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                                   strokeLinejoin="round"
                                 />
                               </svg>
-                            </button>
+                            </motion.button>
                           </div>
                         ))}
                       </div>
@@ -233,10 +245,13 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                             <p className={`font-text text-[12px] font-bold leading-[1.25] ${color.textColor}`}>
                               {item.label}
                             </p>
-                            <button
+                            <motion.button
                               onClick={() => copyToClipboard(item.label)}
                               className="hover:opacity-70 transition-opacity flex-shrink-0"
                               title={`Copy ${item.label}`}
+                              whileTap={{ scale: 0.9 }}
+                              animate={copiedItem === item.label ? { scale: [1, 1.2, 1], rotate: [0, 5, -5, 0] } : {}}
+                              transition={{ duration: 0.3 }}
                             >
                               <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
                                 <path d="M5.33333 10L2.66667 10C1.93333 10 1.33333 9.4 1.33333 8.66667L1.33333 2.66667C1.33333 1.93333 1.93333 1.33333 2.66667 1.33333L8.66667 1.33333C9.4 1.33333 10 1.93333 10 2.66667L10 5.33333M7.33333 14.6667L13.3333 14.6667C14.0667 14.6667 14.6667 14.0667 14.6667 13.3333L14.6667 7.33333C14.6667 6.6 14.0667 6 13.3333 6L7.33333 6C6.6 6 6 6.6 6 7.33333L6 13.3333C6 14.0667 6.6 14.6667 7.33333 14.6667Z"
@@ -246,7 +261,7 @@ export default function IdentitySection({ defaultOpen = false, lazyLoad = false 
                                 strokeLinejoin="round"
                               />
                             </svg>
-                          </button>
+                          </motion.button>
                         </div>
                       ))}
                       </div>
