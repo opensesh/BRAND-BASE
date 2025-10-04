@@ -1,7 +1,7 @@
 /* Neue Haas Grotesk Display Pro */
 @font-face {
   font-family: 'Neue Haas Grotesk Display Pro';
-  src: url('/fonts/NeueHaasGroteskDisplayPro-Regular.woff2') format('woff2');
+  src: url('/assets/fonts/neue-haas-grotesk display/Web/NeueHassGrotesk_Display/NeueHaasDisplayRoman.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: 'Neue Haas Grotesk Display Pro';
-  src: url('/fonts/NeueHaasGroteskDisplayPro-Medium.woff2') format('woff2');
+  src: url('/assets/fonts/neue-haas-grotesk display/Web/NeueHassGrotesk_Display/NeueHaasDisplayMedium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -17,7 +17,7 @@
 
 @font-face {
   font-family: 'Neue Haas Grotesk Display Pro';
-  src: url('/fonts/NeueHaasGroteskDisplayPro-Bold.woff2') format('woff2');
+  src: url('/assets/fonts/neue-haas-grotesk display/Web/NeueHassGrotesk_Display/NeueHaasDisplayBold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -26,7 +26,7 @@
 /* Neue Haas Grotesk Text Pro */
 @font-face {
   font-family: 'Neue Haas Grotesk Text Pro';
-  src: url('/fonts/NeueHaasGroteskTextPro-Regular.woff2') format('woff2');
+  src: url('/assets/fonts/neue-haas-grotesk text/Web/NeueHassGrotesk_Text/NHaasGroteskTXPro-55Rg.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -34,7 +34,7 @@
 
 @font-face {
   font-family: 'Neue Haas Grotesk Text Pro';
-  src: url('/fonts/NeueHaasGroteskTextPro-Medium.woff2') format('woff2');
+  src: url('/assets/fonts/neue-haas-grotesk text/Web/NeueHassGrotesk_Text/NHaasGroteskTXPro-65Md.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -42,7 +42,7 @@
 
 @font-face {
   font-family: 'Neue Haas Grotesk Text Pro';
-  src: url('/fonts/NeueHaasGroteskTextPro-Bold.woff2') format('woff2');
+  src: url('/assets/fonts/neue-haas-grotesk text/Web/NeueHassGrotesk_Text/NHaasGroteskTXPro-75Bd.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -51,7 +51,7 @@
 /* Offbit Monospace */
 @font-face {
   font-family: 'Offbit';
-  src: url('/fonts/Offbit-Regular.woff2') format('woff2');
+  src: url('/assets/fonts/offbit/offbit_Web/OffBit-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -59,7 +59,7 @@
 
 @font-face {
   font-family: 'Offbit';
-  src: url('/fonts/Offbit-Bold.woff2') format('woff2');
+  src: url('/assets/fonts/offbit/offbit_Web/OffBit-101.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;

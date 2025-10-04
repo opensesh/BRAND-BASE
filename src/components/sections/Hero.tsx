@@ -66,8 +66,8 @@ export default function Hero() {
         {/* Subtitle with Typewriter */}
         <div
           className="animate-fade-in text-center
-          text-2xl tracking-tight font-accent
-          md:text-3xl"
+          text-xl tracking-tight font-accent
+          md:text-2xl lg:text-3xl"
           style={{ animationDelay: '0.4s', opacity: 0 }}
         >
           <p className="text-brand-vanilla">

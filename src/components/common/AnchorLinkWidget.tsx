@@ -394,10 +394,11 @@ export default function AnchorLinkWidget({ menuOpen, setMenuOpen }: AnchorLinkWi
       {/* Menu Panel - z-40 to stay between backdrop and header */}
       <div
         ref={widgetRef}
-        className="fixed w-[448px] bg-brand-charcoal border border-[#787878] rounded-lg shadow-lg transition-all duration-300 ease-out z-40"
+        className="fixed w-[448px] max-w-[calc(100vw-48px)] bg-brand-charcoal border border-[#787878] rounded-lg shadow-lg transition-all duration-300 ease-out z-40"
         style={{
           top: `${headerHeight + 12}px`,
-          right: menuOpen ? 'max(24px, calc(50vw - 568px))' : '-480px', // Fully off-screen when closed (width + margin), aligned when open
+          right: menuOpen ? '24px' : '-480px',
+          left: menuOpen ? '24px' : 'auto',
         }}
       >
         <div className="px-8 py-6 flex flex-col gap-8">

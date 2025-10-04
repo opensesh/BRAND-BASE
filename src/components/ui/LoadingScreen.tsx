@@ -12,7 +12,8 @@ export function LoadingScreen({ onComplete, minDuration = 2000 }: LoadingScreenP
 
   useEffect(() => {
     const updateDimensions = () => {
-      const size = Math.max(window.innerWidth, window.innerHeight)
+      // Use the smaller dimension to ensure circle fits in viewport
+      const size = Math.min(window.innerWidth, window.innerHeight)
       setDimensions({ width: size, height: size })
     }
 
@@ -40,22 +41,30 @@ export function LoadingScreen({ onComplete, minDuration = 2000 }: LoadingScreenP
       }`}
     >
       <div className="absolute inset-0 flex items-center justify-center">
-        <DitheringShader
-          shape="ripple"
-          type="2x2"
-          colorBack="#191919"
-          colorFront="#FE5102"
-          pxSize={2}
-          speed={1.2}
-          width={dimensions.width}
-          height={dimensions.height}
-          style={{
-            width: `${dimensions.width}px`,
-            height: `${dimensions.height}px`,
-            minWidth: '100vw',
-            minHeight: '100vh'
-          }}
-        />
+        <div style={{
+          width: `${dimensions.width}px`,
+          height: `${dimensions.height}px`,
+          aspectRatio: '1 / 1',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <DitheringShader
+            shape="ripple"
+            type="2x2"
+            colorBack="#191919"
+            colorFront="#FE5102"
+            pxSize={2}
+            speed={1.2}
+            width={dimensions.width}
+            height={dimensions.height}
+            style={{
+              width: '100%',
+              height: '100%',
+              aspectRatio: '1 / 1'
+            }}
+          />
+        </div>
       </div>
       <span className="pointer-events-none z-10 text-center font-accent absolute text-brand-vanilla tracking-normal" style={{ fontSize: '40px', lineHeight: '1.25' }}>
         LOADING

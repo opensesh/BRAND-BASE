@@ -71,7 +71,7 @@ export default function MainResources() {
   }, [])
 
   return (
-    <section className="w-full max-w-[1184px] mx-auto px-12 mt-24 mb-32">
+    <section className="w-full max-w-[1184px] mx-auto px-6 sm:px-12 mt-24 mb-32">
       {/* Main Resources Heading */}
       <h2 className="font-display text-h1-mobile md:text-h1-tablet xl:text-h1-desktop text-brand-vanilla mb-6">
         Main Resources
@@ -126,7 +126,7 @@ export default function MainResources() {
               </div>
 
               {/* Brand Guidelines */}
-              <div className="flex flex-wrap gap-3 items-end">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:items-end">
                 <div className="flex-1 min-w-[200px] space-y-4">
                   <h3 className="font-accent text-h5-mobile text-brand-vanilla">Brand Guidelines</h3>
                   <p className="font-text text-b2 text-brand-vanilla">
@@ -137,7 +137,7 @@ export default function MainResources() {
                   href="https://www.figma.com/proto/t6ibLjzJFXY6HzU0bIahxw/BRAND-OS?page-id=19939%3A21956&node-id=20255-18337&viewport=465%2C-92%2C0.05&t=Fjx1co9Q53DPCGLw-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=20255%3A18337"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 min-w-[132px] bg-brand-vanilla text-brand-charcoal rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-brand-vanilla transition-colors"
+                  className="w-full sm:flex-1 sm:min-w-[132px] bg-brand-vanilla text-brand-charcoal rounded-full px-4 py-3 font-text text-button flex items-center justify-center gap-2 hover:bg-brand-aperol hover:text-brand-vanilla transition-colors"
                 >
                   View Slides
                   <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
