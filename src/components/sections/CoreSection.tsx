@@ -22,37 +22,32 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
     body: "We envision a world where anyone can access the level of design once reserved for tech giants. A future where bold branding, creative AI, and great content fuel growth and connection. We want to wake up knowing our work helps people create."
   }
 
-  // Values content with illustrations - 5 items (using actual design system assets)
+  // Values content (no illustrations)
   const valuesItems = [
     {
       id: 'curiosity',
       title: 'Curiousity',
-      description: 'We believe curiosity is essential to staying on the cutting edge of design and innovation.',
-      illustration: `${BASE_URL}assets/illustrations/curiosity.svg`
+      description: 'We believe curiosity is essential to staying on the cutting edge of design and innovation.'
     },
     {
       id: 'solutions',
       title: 'Solutions',
-      description: 'Every initiative we undertake—whether for clients or our community—is driven by problem-solving and impactful outcomes.',
-      illustration: `${BASE_URL}assets/illustrations/solutions.svg`
+      description: 'Every initiative we undertake—whether for clients or our community—is driven by problem-solving and impactful outcomes.'
     },
     {
       id: 'respect',
       title: 'Respect',
-      description: 'We treat everyone with respect and wield technology responsibly, understanding its potential and its limits.',
-      illustration: `${BASE_URL}assets/illustrations/respect.svg`
+      description: 'We treat everyone with respect and wield technology responsibly, understanding its potential and its limits.'
     },
     {
       id: 'connection',
       title: 'Connection',
-      description: 'We nurture relationships within our community and brand ecosystems through meaningful engagement and collaborative design systems.',
-      illustration: `${BASE_URL}assets/illustrations/connection.svg`
+      description: 'We nurture relationships within our community and brand ecosystems through meaningful engagement and collaborative design systems.'
     },
     {
       id: 'transparency',
       title: 'Transparency',
-      description: 'Celebrate who we are, how we got here, and how we help clients and community grow',
-      illustration: `${BASE_URL}assets/illustrations/transparency.svg`
+      description: 'Celebrate who we are, how we got here, and how we help clients and community grow'
     }
   ]
 
@@ -123,12 +118,12 @@ export default function CoreSection({ defaultOpen = true, lazyLoad = false }: Pr
               />
             </div>
 
-            {/* Values - Text Dropdown with Illustrations */}
+            {/* Values - Text Dropdown without Illustrations */}
             <div id="values">
               <TextDropdown
                 title="Values"
                 items={valuesItems}
-                hasIllustrations={true}
+                hasIllustrations={false}
               />
             </div>
 

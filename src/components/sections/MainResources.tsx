@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ExternalLink } from 'lucide-react'
+import { downloadFolderAsZip } from '@utils/downloadAssets'
 
 // Social icon components using SVGs from public folder
 const BASE_URL = import.meta.env.BASE_URL
@@ -195,15 +196,18 @@ export default function MainResources() {
               {/* Download Links */}
               <div className="space-y-5">
                 {[
-                  'Icons',
-                  'Logo Kit',
-                  'Font Files',
-                  'Illustrations',
-                  'Art Direction',
+                  { name: 'Icons', folder: 'icons' },
+                  { name: 'Logos', folder: 'logos' },
+                  { name: 'Fonts', folder: 'fonts' },
+                  { name: 'Textures', folder: 'textures' },
+                  { name: 'Art Direction', folder: 'art direction' },
                 ].map((item) => (
-                  <div key={item} className="flex items-end gap-2 border-b border-[#787878] pb-0">
-                    <h3 className="font-accent text-h5-mobile text-white flex-1">{item}</h3>
-                    <button className="flex items-center gap-2 py-1 text-white font-text text-button hover:text-brand-aperol transition-colors">
+                  <div key={item.name} className="flex items-end gap-2 border-b border-[#787878] pb-0">
+                    <h3 className="font-accent text-h5-mobile text-brand-vanilla flex-1">{item.name}</h3>
+                    <button
+                      onClick={() => item.folder === 'fonts' ? alert('Fonts download coming soon') : downloadFolderAsZip(item.folder)}
+                      className="flex items-center gap-2 py-1 text-brand-vanilla font-text text-button hover:text-brand-aperol transition-colors"
+                    >
                       Download
                       <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
                         <path d="M8 2v8m0 0l3-3m-3 3L5 7m-3 7h12" />
