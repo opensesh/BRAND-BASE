@@ -102,6 +102,31 @@ const assetFiles: Record<string, string[]> = {
   ],
 }
 
+// Fix SVG to have proper aspect ratio for downloads
+function fixSVGAspectRatio(svgContent: string): string {
+  // Replace preserveAspectRatio="none" with preserveAspectRatio="xMidYMid meet"
+  let fixed = svgContent.replace(/preserveAspectRatio="none"/gi, 'preserveAspectRatio="xMidYMid meet"')
+
+  // Extract viewBox to calculate proper dimensions
+  const viewBoxMatch = fixed.match(/viewBox="([^"]+)"/)
+  if (viewBoxMatch) {
+    // viewBox format: "minX minY width height"
+    const viewBoxValues = viewBoxMatch[1].split(/\s+/).map(Number)
+    const width = viewBoxValues[2]
+    const height = viewBoxValues[3]
+
+    // Replace width="100%" and height="100%" with actual dimensions from viewBox
+    fixed = fixed.replace(/width="100%"/gi, `width="${width}"`)
+    fixed = fixed.replace(/height="100%"/gi, `height="${height}"`)
+  }
+
+  // Remove overflow="visible" and style attributes that affect display
+  fixed = fixed.replace(/overflow="visible"/gi, '')
+  fixed = fixed.replace(/style="display: block;"/gi, '')
+
+  return fixed
+}
+
 export async function downloadFolderAsZip(folderName: string) {
   const zip = new JSZip()
   const folder = zip.folder(folderName)
@@ -128,8 +153,15 @@ export async function downloadFolderAsZip(folderName: string) {
         return
       }
 
-      const blob = await response.blob()
-      folder.file(fileName, blob)
+      // For logos folder, fix SVG aspect ratio
+      if (folderName === 'logos' && fileName.endsWith('.svg')) {
+        const svgText = await response.text()
+        const fixedSVG = fixSVGAspectRatio(svgText)
+        folder.file(fileName, fixedSVG)
+      } else {
+        const blob = await response.blob()
+        folder.file(fileName, blob)
+      }
     })
 
     await Promise.all(fetchPromises)

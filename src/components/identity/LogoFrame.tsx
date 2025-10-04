@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { PaintBucket, Download } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { LOGO_ASSETS, type LogoType, type ColorVariant } from '../../assets/logos'
 import type { LogoFrameHandle } from './LogoBlock'
 
@@ -236,108 +237,29 @@ const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
     }
   }
 
-  // Render logo with exact Figma positioning
+  // Render logo - now properly sized SVGs with correct aspect ratios
   const renderLogo = () => {
     if (!svgContent) return null
 
-    // Combo - modify SVG to match stacked properties
-    if (logoType === 'combo') {
-      // Modify SVG to have same properties as stacked: preserveAspectRatio="none" width="100%" height="100%"
-      let modifiedSvg = svgContent
-        .replace(/<svg[^>]*/, (match) => {
-          return match
-            .replace(/width="[^"]*"/gi, 'width="100%"')
-            .replace(/height="[^"]*"/gi, 'height="100%"')
-            .replace(/preserveAspectRatio="[^"]*"/gi, 'preserveAspectRatio="none"')
-        })
+    // All logos: center and scale to fit within container with proper aspect ratio
+    // SVGs now have proper dimensions and preserveAspectRatio="xMidYMid meet"
+    // Main logos: 85.5% (reduced by 5% from 90%), Accessory logos: 66.5% (reduced by 5% from 70%)
+    const sizeScale = (logoType === 'filled' || logoType === 'outline') ? '66.5%' : '85.5%'
 
-      // Add attributes if they don't exist
-      if (!modifiedSvg.includes('width=')) {
-        modifiedSvg = modifiedSvg.replace('<svg', '<svg width="100%"')
-      }
-      if (!modifiedSvg.includes('height=')) {
-        modifiedSvg = modifiedSvg.replace('<svg', '<svg height="100%"')
-      }
-      if (!modifiedSvg.includes('preserveAspectRatio')) {
-        modifiedSvg = modifiedSvg.replace('<svg', '<svg preserveAspectRatio="none"')
-      }
-      if (!modifiedSvg.includes('overflow=')) {
-        modifiedSvg = modifiedSvg.replace('<svg', '<svg overflow="visible"')
-      }
-      if (!modifiedSvg.includes('style=')) {
-        modifiedSvg = modifiedSvg.replace('<svg', '<svg style="display: block;"')
-      }
+    const responsiveSvg = svgContent.replace(
+      /<svg([^>]*)>/,
+      `<svg$1 style="width: ${sizeScale}; height: ${sizeScale}; max-width: 100%; max-height: 100%;">`
+    )
 
-      return (
-        <div className="relative shrink-0 size-[211.437px]">
-          <div
-            className="absolute aspect-[480/141] left-[5%] right-[5%] top-1/2 -translate-y-1/2"
-            dangerouslySetInnerHTML={{ __html: modifiedSvg }}
-          />
-        </div>
-      )
-    }
-
-    // Brandmark - uses aspect ratio positioning
-    if (logoType === 'brandmark') {
-      return (
-        <div className="relative shrink-0 size-[211.437px]">
-          <div
-            className="absolute aspect-[160/140] left-[0.17%] right-[-0.17%] top-1/2 -translate-y-1/2"
-            dangerouslySetInnerHTML={{ __html: svgContent }}
-          />
-        </div>
-      )
-    }
-
-    // Stacked - uses Figma structure with py-24 wrapper and fixed size container
-    if (logoType === 'stacked') {
-      return (
-        <div className="relative shrink-0 size-[211.437px]">
-          <div
-            className="absolute aspect-[368.133/140] left-[19.41%] right-[19.24%] top-1/2 -translate-y-1/2"
-            dangerouslySetInnerHTML={{ __html: svgContent }}
-          />
-        </div>
-      )
-    }
-
-    // Horizontal - fixed height with percentage positioning
-    if (logoType === 'horizontal') {
-      return (
-        <div className="w-full h-[260px] relative">
-          <div
-            className="absolute aspect-[401/63] left-[31.57%] right-[31.57%] top-1/2 -translate-y-1/2"
-            dangerouslySetInnerHTML={{ __html: svgContent }}
-          />
-        </div>
-      )
-    }
-
-    // Monograms - centered with specific positioning
-    if (logoType === 'core') {
-      return (
-        <div className="relative shrink-0 size-[211.437px]">
-          <div
-            className="absolute aspect-[176/88] left-[20.67%] right-[20.67%] top-1/2 -translate-y-1/2"
-            dangerouslySetInnerHTML={{ __html: svgContent }}
-          />
-        </div>
-      )
-    }
-
-    if (logoType === 'outline' || logoType === 'filled') {
-      return (
-        <div className="relative shrink-0 size-[211.437px]">
-          <div
-            className="absolute h-[60.612px] w-[35.24px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-            dangerouslySetInnerHTML={{ __html: svgContent }}
-          />
-        </div>
-      )
-    }
-
-    return null
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <div
+          className="flex items-center justify-center"
+          style={{ width: sizeScale, height: sizeScale }}
+          dangerouslySetInnerHTML={{ __html: responsiveSvg }}
+        />
+      </div>
+    )
   }
 
   return (
@@ -354,100 +276,179 @@ const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
         <div className="flex gap-3 items-center relative z-[20]">
           {/* Color Button */}
           <div className="relative" ref={colorMenuRef}>
-            <button
+            <motion.button
               onClick={handleColorClick}
-              className={`rounded-full p-3 transition-all ${showColorMenu ? 'bg-brand-aperol' : 'bg-brand-charcoal hover:opacity-80'}`}
+              className={`rounded-full p-3 ${showColorMenu ? 'bg-brand-aperol' : 'bg-brand-charcoal'}`}
               aria-label="Change color"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              <PaintBucket className="w-4 h-4 text-brand-vanilla" />
-            </button>
+              <motion.div
+                animate={{
+                  y: showColorMenu ? [0, -3, 0] : 0
+                }}
+                transition={{
+                  duration: 0.4,
+                  ease: "easeInOut"
+                }}
+              >
+                <PaintBucket className="w-4 h-4 text-brand-vanilla" />
+              </motion.div>
+            </motion.button>
 
             {/* Color Menu */}
-            {showColorMenu && (
-              <div className="absolute top-full right-0 mt-[20px] flex flex-col gap-2 z-[30]">
-                {colorVariants.map((color) => {
-                  const isSelected = currentColor === color
-                  const getColorButtonStyle = () => {
-                    // Selected state styling based on which color is selected
-                    if (isSelected) {
+            <AnimatePresence>
+              {showColorMenu && (
+                <motion.div
+                  className="absolute top-full right-0 mt-[24px] flex flex-col gap-2 z-[30]"
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25, delay: 0.05 }}
+                >
+                  {colorVariants.map((color, index) => {
+                    const isSelected = currentColor === color
+                    const getColorButtonStyle = () => {
+                      // Selected state styling based on which color is selected
+                      if (isSelected) {
+                        if (color === 'Charcoal') {
+                          // Charcoal selected: charcoal fill with vanilla text
+                          return 'bg-brand-charcoal border-brand-charcoal text-brand-vanilla'
+                        }
+                        if (color === 'Glass') {
+                          // Glass selected: mono 50 fill with vanilla text and border
+                          return 'bg-[#808080] border-brand-vanilla text-brand-vanilla'
+                        }
+                        if (color === 'Vanilla') {
+                          // Vanilla selected: vanilla fill with charcoal text
+                          return 'bg-brand-vanilla border-brand-vanilla text-brand-charcoal'
+                        }
+                        // Default selected state (orange)
+                        return 'bg-brand-aperol border-brand-aperol text-brand-vanilla'
+                      }
+
+                      // Unselected states - always show consistent styling
                       if (color === 'Charcoal') {
-                        // Charcoal selected: charcoal fill with vanilla text
-                        return 'bg-brand-charcoal border-brand-charcoal text-brand-vanilla'
+                        // When Vanilla or Glass selected, use vanilla border for contrast
+                        const borderColor = (currentColor === 'Vanilla' || currentColor === 'Glass')
+                          ? 'border-brand-vanilla'
+                          : 'border-brand-charcoal'
+                        return `bg-brand-charcoal ${borderColor} text-brand-vanilla`
                       }
                       if (color === 'Glass') {
-                        // Glass selected: glass effect with vanilla text
-                        return 'backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla text-brand-vanilla shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)]'
+                        // Glass button: mono 50 fill with vanilla text and border
+                        const textColor = currentColor === 'Vanilla' ? 'text-brand-vanilla' : 'text-brand-charcoal'
+                        return `bg-[#808080] border-brand-vanilla ${textColor}`
                       }
                       if (color === 'Vanilla') {
-                        // Vanilla selected: vanilla fill with charcoal text
-                        return 'bg-brand-vanilla border-brand-vanilla text-brand-charcoal'
+                        return 'bg-brand-vanilla border-black text-black'
                       }
-                      // Default selected state (orange)
-                      return 'bg-brand-aperol border-brand-aperol text-brand-vanilla'
+                      return 'bg-brand-charcoal border-white text-white'
                     }
 
-                    // Unselected states - always show consistent styling
-                    if (color === 'Charcoal') {
-                      // When Vanilla or Glass selected, use vanilla border for contrast
-                      const borderColor = (currentColor === 'Vanilla' || currentColor === 'Glass')
-                        ? 'border-brand-vanilla'
-                        : 'border-brand-charcoal'
-                      return `bg-brand-charcoal ${borderColor} text-brand-vanilla hover:opacity-80`
-                    }
-                    if (color === 'Glass') {
-                      // Glass button text: vanilla when vanilla selected (charcoal bg), charcoal otherwise
-                      const textColor = currentColor === 'Vanilla' ? 'text-brand-vanilla' : 'text-brand-charcoal'
-                      return `backdrop-blur-[51px] bg-[rgba(255,250,238,0.2)] border-brand-vanilla ${textColor} shadow-[3.4px_-3.4px_3.4px_0px_inset_rgba(214,210,200,0.6),-3.4px_3.4px_3.4px_0px_inset_rgba(255,255,255,0.6)] hover:bg-[rgba(255,250,238,0.3)]`
-                    }
-                    if (color === 'Vanilla') {
-                      return 'bg-brand-vanilla border-black text-black hover:opacity-80'
-                    }
-                    return 'bg-brand-charcoal border-white text-white hover:opacity-80'
-                  }
-
-                  return (
-                    <button
-                      key={color}
-                      onClick={() => handleColorSelect(color)}
-                      className={`rounded-full px-4 py-3 border transition-all min-w-[80px] ${getColorButtonStyle()}`}
-                    >
-                      <span className="font-text text-button whitespace-nowrap leading-[1.25]">
-                        {color}
-                      </span>
-                    </button>
-                  )
-                })}
-              </div>
-            )}
+                    return (
+                      <motion.button
+                        key={color}
+                        onClick={() => handleColorSelect(color)}
+                        className={`rounded-full px-4 py-3 border min-w-[80px] ${getColorButtonStyle()}`}
+                        initial={{
+                          opacity: 0,
+                          x: -20
+                        }}
+                        animate={{
+                          opacity: 1,
+                          x: 0
+                        }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 25,
+                          delay: 0.05 + (index * 0.05)
+                        }}
+                        whileHover={{ scale: 1.05, x: -4 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <span className="font-text text-button whitespace-nowrap leading-[1.25]">
+                          {color}
+                        </span>
+                      </motion.button>
+                    )
+                  })}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Download Button */}
           <div className="relative" ref={downloadMenuRef}>
-            <button
+            <motion.button
               onClick={handleDownloadClick}
-              className={`rounded-full p-3 transition-all ${showDownloadMenu ? 'bg-brand-aperol' : 'bg-brand-charcoal hover:opacity-80'}`}
+              className={`rounded-full p-3 ${showDownloadMenu ? 'bg-brand-aperol' : 'bg-brand-charcoal'}`}
               aria-label="Download logo"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              <Download className="w-4 h-4 text-brand-vanilla" />
-            </button>
+              <motion.div
+                animate={{
+                  y: showDownloadMenu ? [0, -3, 0] : 0
+                }}
+                transition={{
+                  duration: 0.4,
+                  ease: "easeInOut"
+                }}
+              >
+                <Download className="w-4 h-4 text-brand-vanilla" />
+              </motion.div>
+            </motion.button>
 
             {/* Download Menu */}
-            {showDownloadMenu && (
-              <div className="absolute top-full right-0 mt-[20px] flex flex-col gap-2 z-[30]">
-                <button
-                  onClick={() => handleFormatSelect('SVG')}
-                  className="bg-brand-charcoal rounded-full px-4 py-3 border border-white hover:opacity-80 transition-opacity min-w-[80px]"
+            <AnimatePresence>
+              {showDownloadMenu && (
+                <motion.div
+                  className="absolute top-full right-0 mt-[24px] flex flex-col gap-2 z-[30]"
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 >
-                  <span className="font-text text-button text-white leading-[1.25]">SVG</span>
-                </button>
-                <button
-                  onClick={() => handleFormatSelect('PNG')}
-                  className="bg-brand-charcoal rounded-full px-4 py-3 border border-white hover:opacity-80 transition-opacity min-w-[80px]"
-                >
-                  <span className="font-text text-button text-white leading-[1.25]">PNG</span>
-                </button>
-              </div>
-            )}
+                  <motion.button
+                    onClick={() => handleFormatSelect('SVG')}
+                    className="bg-brand-charcoal rounded-full px-4 py-3 border border-white min-w-[80px]"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25,
+                      delay: 0
+                    }}
+                    whileHover={{ scale: 1.05, x: -4 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className="font-text text-button text-white leading-[1.25]">SVG</span>
+                  </motion.button>
+                  <motion.button
+                    onClick={() => handleFormatSelect('PNG')}
+                    className="bg-brand-charcoal rounded-full px-4 py-3 border border-white min-w-[80px]"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25,
+                      delay: 0.05
+                    }}
+                    whileHover={{ scale: 1.05, x: -4 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className="font-text text-button text-white leading-[1.25]">PNG</span>
+                  </motion.button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
@@ -455,7 +456,7 @@ const LogoFrame = forwardRef<LogoFrameHandle, LogoFrameProps>(({
       {/* Logo Display Area - exact Figma structure */}
       <div
         ref={logoDisplayRef}
-        className={`w-full box-border flex gap-2.5 items-center justify-center px-0 py-6 relative flex-1 transition-colors overflow-visible ${getBackgroundColor()}`}
+        className={`w-full box-border flex gap-2.5 items-center justify-center px-0 py-[5%] relative flex-1 transition-colors overflow-visible ${getBackgroundColor()}`}
       >
         {renderLogo()}
       </div>
